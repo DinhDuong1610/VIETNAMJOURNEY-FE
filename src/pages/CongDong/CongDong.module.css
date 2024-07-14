@@ -112,6 +112,10 @@ body {
 @media (max-width : 1050px) {
 .sticky-search-bar input{
     width: 92%;
+}.container3 {
+    display: none;
+}.sticky {
+    display: none;
 }
 }@media (max-width : 770px) {
 .sticky-search-bar input{
