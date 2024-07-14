@@ -8,9 +8,8 @@ body {
     height: auto;
 }.containergroupuser {
     width: 100%;
-    height: 40rem;
+    height: 60rem;
     background-color: white;
-    border-radius: 10px;
     display: flex;
     flex-direction: column;
     padding-left: 0.5rem;
@@ -21,7 +20,7 @@ body {
     border-radius: 20px;
     padding: 0.2rem;
     border: 1px solid green;
-    padding-left: 0.4rem;
+    padding-left: 0.8rem;
 }.group {
     display: flex;
     flex-direction: column;

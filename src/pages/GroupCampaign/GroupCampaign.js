@@ -130,7 +130,7 @@ function GroupCampaign() {
                 <div className={`col-md-3 ${styles.mobile}`}>
                     <div className={styles.sticky}>
                         <div className={styles.containergroupuser}>
-                            <p style={{ fontWeight: 'bold', fontSize: '1.6rem', marginBottom: '0.4rem' }}>Nhóm</p>
+                            <p style={{ fontWeight: 'bold', fontSize: '1.6rem', marginBottom: '0.4rem',marginTop: '0.8rem' }}>Nhóm</p>
                             <input type='text' placeholder='Tìm kiếm nhóm' />
                             <hr className={styles['black-line']} style={{ width: '90%' }} />
                             <p style={{ fontWeight: 'bold', fontSize: '1rem', marginBottom: '0.4rem' }}>Nhóm bạn đã tham gia</p>
