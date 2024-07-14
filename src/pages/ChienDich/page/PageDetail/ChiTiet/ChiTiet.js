@@ -374,7 +374,7 @@ function ChiTiet({ campaign }) {
           <hr />
           <div className={cx("title")}>Kế hoạch chiến dịch</div>
           <pre className={cx("desc")}>
-            <div dangerouslySetInnerHTML={{ __html: campaign.description }} />
+            <div dangerouslySetInnerHTML={{ __html: campaign.plan }} />
           </pre>
         </div>
 
