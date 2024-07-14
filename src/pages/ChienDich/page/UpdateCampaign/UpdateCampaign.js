@@ -163,6 +163,8 @@ function UpdateCampaign() {
     }
   };
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (event) => {
     event.preventDefault();
   
@@ -217,6 +219,7 @@ function UpdateCampaign() {
       if (response.data.success) {
         alert("Cập nhật chiến dịch thành công!");
         // Redirect or perform other actions after successful update
+        navigate('/Manager');
       } else {
         alert("Lỗi: " + response.data.error);
       }

@@ -232,7 +232,7 @@ function ThongTinThem({ campaign }) {
                     </div>
                     <div className="col-6">
                       <label>Email</label>
-                      <div className={cx("email")}>{selectedUser.user_infomation.Email}</div>
+                      <div className={cx("email")}>{selectedUser.form_volunteer.info_form_volunteer.email}</div>
                     </div>
                     <label>Địa chỉ</label>
                     <div className={cx("address")}>{selectedUser.form_volunteer.info_form_volunteer.address}</div>
