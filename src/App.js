@@ -6,6 +6,7 @@ import TrangChu from './pages/TrangChu/TrangChu.js';
 import CoNew1 from './pages/TrangChu/News/New1/New1.jsx';
 import CoNew2 from './pages/TrangChu/News/New2/New2.jsx';
 import CoNew3 from './pages/TrangChu/News/New3/New3.jsx';
+import styles from './App.module.css'
 
 
 import CongDong from './pages/CongDong/CongDong.js';
@@ -33,7 +34,7 @@ function App() {
   return (
     <div>
       <Navbar />
-      <div style={{ height: '60px' }}></div>
+      <div className={styles.navbar}></div>
       <ScrollToTop />
 
       <Routes>
