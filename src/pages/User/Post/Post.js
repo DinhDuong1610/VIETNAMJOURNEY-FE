@@ -68,7 +68,7 @@ const Post = ({
                             avatar: data.comment.Image,
                             content: data.comment.Content,
                             imageComment: data.comment.ImageComment,
-                            time: data.comment.CreateAt,
+                            time: data.comment.created_at,
                         };
                         setCommentData(comment);
                     } else {

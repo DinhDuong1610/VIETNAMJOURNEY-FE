@@ -100,7 +100,7 @@ function User() {
                     user_id={post.user_id}
                     avatar={post.user_avatar} 
                     name={post.user_name} 
-                    time={post.createdAt}
+                    time={post.created_at}
                     content={post.content}
                     image={post.image} 
                     likes={post.likes}
