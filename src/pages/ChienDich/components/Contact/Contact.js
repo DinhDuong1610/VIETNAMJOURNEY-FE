@@ -32,14 +32,14 @@ function Contact() {
         <div className={cx('chuyengia')}>
           <img src="https://duanmasterisehomes.vn/wp-content/uploads/2022/11/do-tu-anh-chu-tich-masterise-homes.jpg"/>
           <div className={cx('name')}>Chị Đỗ Anh Thư</div>
-          <div className={cx('desc')}>Đại diện dự án VIETNAM JOURNEY tại tỉnh Quảng Trị</div>
+          <div className={cx('desc')}>Đại diện dự án VIETNAM JOURNEY tại tỉnh Thừa Thiên Huế</div>
           <div className={cx('email')}><i class="fa-solid fa-envelope"></i> anhthu.do@contact.com</div>
         </div>
         <div className={cx('chuyengia')}>
           <img src="https://media.yeah1.com/files/ngoctran/2022/07/01/289693821_582015943280803_2102006602626651935_n-205941.jpg"/>
-          <div className={cx('name')}>Anh Nguyễn Dương</div>
+          <div className={cx('name')}>Anh Nguyễn Thanh Tùng</div>
           <div className={cx('desc')}>Chuyên gia phân tích quỹ VIETNAM JOURNEY tại khu vực</div>
-          <div className={cx('email')}><i class="fa-solid fa-envelope"></i> nh.duong@contact.com</div>
+          <div className={cx('email')}><i class="fa-solid fa-envelope"></i> sontungtmp@contact.com</div>
         </div>
       </div>
     </div>

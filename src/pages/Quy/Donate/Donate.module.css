@@ -92,7 +92,7 @@ div.main div.bot {
   font-size: 18px;
   font-weight: 800;
   color: black;
-  border: 2px solid black;
+  border: 2px solid rgb(144, 144, 144);
 }
 
 .quy {

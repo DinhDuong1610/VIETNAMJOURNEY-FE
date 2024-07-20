@@ -98,7 +98,7 @@ function CongDong() {
             <div className="row">
                 <div className="col-lg-3">
                     <div className={styles.container3} style={{ marginBottom: '0', marginTop: '2.2rem' }}>
-                        <h6 style={{ marginLeft: '0.3rem', fontWeight: '', fontSize: '1.2rem' }}>Nhóm tiên phong</h6>
+                        <h6 style={{ marginLeft: '0.3rem', fontWeight: '', fontSize: '1.5rem' }}>Nhóm tiên phong</h6>
                         {topGroups.length === 0 ? (
                             <Skeleton active />
                         ) : (
@@ -106,7 +106,7 @@ function CongDong() {
                                 <div key={group.id} className={styles['container3-info']} onClick={() => handleGroupClick(group.id)}>
                                     <img alt={group.name} src={group.image_url}></img>
                                     <div className={`${styles['container3-content']} ${styles['ellipsis-text']}`} style={{ maxWidth: '100%', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                                        <h6 style={{ fontWeight: 'revert', fontSize: '1rem' }}>{group.name}</h6>
+                                        <h6 style={{ fontWeight: 'revert', fontSize: '1.2rem' }}>{group.name}</h6>
                                         <p>{group.volunteer_count} người tham gia</p>
                                     </div>
                                 </div>
@@ -116,7 +116,7 @@ function CongDong() {
                     {user_ID !== null && (
                         <div className={styles.sticky}>
                             <div className={styles.container3} style={{ marginTop: '0.5rem' }}>
-                                <h6 style={{ marginLeft: '0.3rem', fontWeight: '', fontSize: '1.2rem' }}>Nhóm của bạn</h6>
+                                <h6 style={{ marginLeft: '0.3rem', fontWeight: '', fontSize: '1.5rem' }}>Nhóm của bạn</h6>
                                 {campaignuser.length === 0 ? (
                                     <Skeleton active />
                                 ) : (
@@ -124,7 +124,7 @@ function CongDong() {
                                         <div key={campaign.id} className={styles['container3-info']} onClick={() => handleGroupClick(campaign.id)}>
                                             <img alt={campaign.name} src={campaign.image_url}></img>
                                             <div className={`${styles['container3-content']} ${styles['ellipsis-text']}`} style={{ maxWidth: '100%' }}>
-                                                <h6 style={{ fontWeight: '600', fontSize: '1rem' }}>{campaign.name}</h6>
+                                                <h6 style={{ fontWeight: 'revert', fontSize: '1.2rem' }}>{campaign.name}</h6>
                                                 <p>{campaign.province}</p>
                                             </div>
                                         </div>
@@ -175,7 +175,7 @@ function CongDong() {
                 </div>
                 <div className="col-md-3">
                     <div className={styles.container3}>
-                        <h6 style={{ marginLeft: '0.3rem', fontWeight: '', fontSize: '1.2rem' }}>Top người nổi bật</h6>
+                        <h6 style={{ marginLeft: '0.3rem', fontWeight: '', fontSize: '1.5rem' }}>Top người nổi bật</h6>
                         {topUsers.length === 0 ? (
                             <Skeleton active />
                         ) : (
@@ -183,7 +183,7 @@ function CongDong() {
                                 <div key={user.id} className={styles['container3-info']} onClick={() => handleUserClick(user.id)}>
                                     <img alt={user.username} src={user.image}></img>
                                     <div className={styles['container3-content']}>
-                                        <h6 style={{ fontWeight: 'revert-layer', fontSize: '1rem' }}>{user.username}{user.check == 1 && <i className="fa-solid fa-circle-check" style={{ color: "#258e31", fontSize: '0.8rem', marginLeft: '0.2rem' }}></i>}</h6>
+                                        <h6 style={{ fontWeight: 'revert-layer', fontSize: '1.2rem' }}>{user.username}{user.check == 1 && <i className="fa-solid fa-circle-check" style={{ color: "#258e31", fontSize: '0.8rem', marginLeft: '0.2rem' }}></i>}</h6>
                                         <p>{user.total_following} người theo dõi</p>
                                     </div>
                                 </div>
@@ -193,7 +193,7 @@ function CongDong() {
                     <div className={styles.sticky}>
                         {user_ID != null &&
                             <div className={styles.container4}>
-                                <h6 style={{ marginLeft: '1rem', fontWeight: '', fontSize: '1.2rem' }}>Gợi ý cho bạn</h6>
+                                <h6 style={{ marginLeft: '1rem', paddingTop: '1rem', fontWeight: '', fontSize: '1.5rem' }}>Gợi ý cho bạn</h6>
                                 
                                 <Friends User_ID={user_ID} />
                             </div>

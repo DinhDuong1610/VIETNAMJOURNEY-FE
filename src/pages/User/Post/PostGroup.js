@@ -178,8 +178,8 @@ const PostGroup = ({
     <img src={avatar} alt="avatar" className={styles['circle-avatar']} />
 </div>
                 <div className={styles['post-header-info']}>
-                    <h6 onClick={handleAvatarClick} style={{ cursor: 'pointer', fontWeight: 'revert' }}>{name} {check == 1 && <i class="fa-solid fa-circle-check" style={{ color: "#258e31", fontSize: "0.8rem" }}></i>} - {namegroup}</h6>
-                    <span style={{ fontSize: '0.8rem' }}>{time} · <i className="fas fa-earth-asia"></i></span>
+                    <h6 onClick={handleAvatarClick} style={{ cursor: 'pointer', fontWeight: 'revert', fontSize: '1.2rem' }}>{name} {check == 1 && <i class="fa-solid fa-circle-check" style={{ color: "#258e31", fontSize: "1rem" }}></i>} - {namegroup}</h6>
+                    <span style={{ fontSize: '1rem' }}>{time} · <i className="fas fa-earth-asia"></i></span>
                 </div>
                 {userId == user_id && (
                     <div className={styles['post-header-option']} onClick={handleDotsClick} style={{ cursor: 'pointer' }}>

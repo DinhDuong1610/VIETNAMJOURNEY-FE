@@ -154,7 +154,7 @@ function ChatBoxUser() {
                     <div className={styles.containerHeader}>
                         <img src={userInfo.image} alt="Avatar" />
                         <div className={styles.containerHeaderInfo}>
-                            <h6 style={{ fontWeight: 'revert' }}>{userInfo.name || 'Người dùng'}</h6>
+                            <h5 style={{ fontWeight: 'revert' }}>{userInfo.name || 'Người dùng'}</h5>
                             <p>Người dùng VietNamJourney</p>
                         </div>
                         <div className={styles.containerHeaderSettings}>
@@ -184,9 +184,9 @@ function ChatBoxUser() {
                                 {msg.created_at}
                             </span>}
                             {msg.content && (
-                                <h6 className={`${styles.msgContent} ${msg.user_from.toString() === user_from ? styles.msgContentFromUser : styles.msgContentFromOther}`}>
+                                <h5 className={`${styles.msgContent} ${msg.user_from.toString() === user_from ? styles.msgContentFromUser : styles.msgContentFromOther}`}>
                                     {msg.content}
-                                </h6>
+                                </h5>
                             )}
                             {msg.image && (
                                 <img

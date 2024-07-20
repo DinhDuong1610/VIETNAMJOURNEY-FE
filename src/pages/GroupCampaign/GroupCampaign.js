@@ -133,7 +133,7 @@ function GroupCampaign() {
                             <p style={{ fontWeight: 'bold', fontSize: '1.6rem', marginBottom: '0.4rem',marginTop: '0.8rem' }}>Nhóm</p>
                             <input type='text' placeholder='Tìm kiếm nhóm' />
                             <hr className={styles['black-line']} style={{ width: '90%' }} />
-                            <p style={{ fontWeight: 'bold', fontSize: '1rem', marginBottom: '0.4rem' }}>Nhóm bạn đã tham gia</p>
+                            <p style={{ fontWeight: 'bold', fontSize: '1.2rem', marginBottom: '0.4rem' }}>Nhóm bạn đã tham gia</p>
                             <div className={styles.group}>
                                 {campaignuser.length === 0 ? (
                                     <Skeleton active />
@@ -225,7 +225,7 @@ function GroupCampaign() {
                         <div className={`col-md-4 ${styles.mobile}`}>
                             <div className={styles.container3}>
                                 <div className={styles.sticky}>
-                                    <h6 style={{ marginLeft: '0.3rem', fontWeight: '', fontSize: '1.2rem' }}>Thành viên của nhóm</h6>
+                                    <h6 style={{ marginLeft: '0.3rem', fontWeight: '', fontSize: '1.5rem' }}>Thành viên của nhóm</h6>
                                     {loadingCampaignInfo ? (
                                         <Skeleton active paragraph={{ rows: 4 }} />
                                     ) : campaignInfo.volunteers && campaignInfo.volunteers.length > 0 ? (
@@ -233,7 +233,7 @@ function GroupCampaign() {
                                             <div style={{ cursor: 'pointer' }} key={index} className={styles['container3-info']} onClick={() => handleUserClick(volunteer.userID)}>
                                                 <img alt={volunteer.name} src={volunteer.image}></img>
                                                 <div className={styles['container3-content']}>
-                                                    <h6 style={{ fontWeight: '600', fontSize: '1rem' }}>{volunteer.name}</h6>
+                                                    <h6 style={{ fontWeight: '600', fontSize: '1.2rem' }}>{volunteer.name}</h6>
                                                     <p style={{fontSize :'0.9rem',fontWeight :'600'}}>Tham gia từ {new Date(volunteer.created_at).toLocaleDateString()}</p>
                                                 </div>
                                             </div>

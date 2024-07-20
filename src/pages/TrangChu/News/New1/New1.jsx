@@ -25,15 +25,17 @@ function CoNew1() {
 
       <div className={cx("TongQuan")}>
         <div className={cx("left")}>
-          <hr />
-          <div className={cx("inner")}>
-            <p className={cx("title")}>LĨNH VỰC</p>
-            <p className={cx("time")}>Chính trị</p>{" "}
-            {/* Hiển thị status từ API nếu có */}
-          </div>
-          <div className={cx("inner")}>
-            <p className={cx("title")}>NGÀY ĐĂNG</p>
-            <p className={cx("time")}>14/07/2024</p>
+          <div className={cx("inner-left")}>
+            <hr />
+            <div className={cx("inner")}>
+              <p className={cx("title")}>LĨNH VỰC</p>
+              <p className={cx("time")}>Chính trị</p>{" "}
+              {/* Hiển thị status từ API nếu có */}
+            </div>
+            <div className={cx("inner")}>
+              <p className={cx("title")}>NGÀY ĐĂNG</p>
+              <p className={cx("time")}>14/07/2024</p>
+            </div>
           </div>
         </div>
         <div className={cx("right")}>
@@ -130,10 +132,12 @@ function CoNew1() {
           </pre>
         </div>
         <div className={cx("info")}>
-          <hr />
-          <div className={cx("inner")}>
-            <p className={cx("title")}>LIÊN HỆ</p>
-            <p className={cx("time")}><i className="fa-solid fa-envelope"></i> vnjn2005@gmail.com</p>{" "}
+          <div className={cx("inner-info")}>
+            <hr />
+            <div className={cx("inner")}>
+              <p className={cx("title")}>LIÊN HỆ</p>
+              <p className={cx("time")}><i className="fa-solid fa-envelope"></i> vnjn2005@gmail.com</p>{" "}
+            </div>
           </div>
         </div>
       </div>

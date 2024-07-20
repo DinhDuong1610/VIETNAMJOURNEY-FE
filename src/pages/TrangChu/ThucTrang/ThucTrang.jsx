@@ -158,7 +158,7 @@ function CoThucTrang() {
         <div className={styles.div2_2}>
           <p>
             Lượng phát thải khí nhà kính của Việt Nam đang có xu hướng gia tăng
-            qua các năm, phản ánh sự phát triển kinh tế-xã hội và sự gia tăng
+            qua các năm, phản ánh sự phát triển kinh tế - xã hội và sự gia tăng
             phát thải từ các hoạt động công nghiệp, giao thông vận tải, nông
             nghiệp,... Việt Nam đang tích cực triển khai các chính sách và giải
             pháp nhằm giảm thiểu phát thải khí nhà kính trong các lĩnh vực then

@@ -64,6 +64,7 @@ function PageDetail() {
   const myStyle = {
     backgroundImage: `url(http://localhost:8000/${campaign.image})`, // Sử dụng dữ liệu hình ảnh từ API
     backgroundSize: 'cover',
+    backgroundPosition: 'center',
     backgroundColor: 'rgba(0, 0, 0, 0.5)', // Màu đen trong suốt với độ mờ 50%
     backgroundBlendMode: 'multiply', // Áp dụng chế độ kết hợp 'multiply' để làm cho ảnh nền bị tối đi
   };

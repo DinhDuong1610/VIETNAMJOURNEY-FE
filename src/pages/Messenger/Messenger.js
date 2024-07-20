@@ -94,18 +94,18 @@ function Messenger() {
                     </div>
                     <input type="text" placeholder="Tìm kiếm người dùng" />
                     <div className={styles.tabs}>
-                        <h6
+                        <h5
                             onClick={() => handleViewChange('user')}
-                            className={`${styles.tab} ${activeTab === 'user' ? styles.active : ''}`}
+                            className={`${styles.tab} ${currentView === 'user' ? styles.active : ''}`}
                         >
                             Cá nhân
-                        </h6>
-                        <h6
+                        </h5>
+                        <h5
                             onClick={() => handleViewChange('group')}
-                            className={`${styles.tab} ${activeTab === 'group' ? styles.active : ''}`}
+                            className={`${styles.tab} ${currentView === 'group' ? styles.active : ''}`}
                         >
                             Cộng đồng
-                        </h6>
+                        </h5>
                     </div>
                 </div>
                 <div className={styles.chatname} style={{ padding: '0' }}>

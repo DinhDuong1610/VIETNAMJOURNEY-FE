@@ -2,10 +2,11 @@
   width: calc(100% - 200px);
   margin-left: 100px;
   margin-top: 40px;
+  padding-top: 20px;
   background-color: white;
 
   hr {
-    width: 100px;
+    width: 150px;
     border: 2px solid #35973F;
     opacity: 1;
     margin-bottom: 10px;
@@ -29,21 +30,21 @@
 }
 
 .left .inner-title {
-  font-size: 22px;
+  font-size: 28px;
   font-weight: 700;
   color: #001273;
   margin-bottom: 5px;
 }
 
 .left .desc {
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 600;
   color: #737373;
   margin-bottom: 30px;  
 }
 
 .title {
-  font-size: 24px;
+  font-size: 30px;
   font-weight: 600;
   color: #35973F;
   margin-bottom: 20px;
@@ -61,14 +62,14 @@
   padding: 5px 20px;
   border: none;
   border-radius: 8px;
-  font-size: 20px;
+  font-size: 24px;
   font-weight: 600;
   color: white;
   background-color: #1A931F;
 }
 
 .right .desc {
-  font-size: 23px;
+  font-size: 28px;
   font-weight: 600;
   color: #4F4F4F;
   font-family: 'montserrat', sans-serif;
@@ -81,8 +82,8 @@
 }
 
 .plan-row .desc {
-  color: black;
-    font-size: 18px;
+    color: black;
+    font-size: 22px;
     font-weight: 500;
     text-align: justify;
     font-family: 'montserrat', sans-serif;
@@ -92,7 +93,7 @@
   padding: 5px 20px;
   border: none;
   border-radius: 8px;
-  font-size: 18px;
+  font-size: 24px;
   font-weight: 600;
   color: white;
   background-color: #1A931F;
@@ -364,7 +365,7 @@ opacity: 0.8;
 .ChiTiet {
   width: calc(100% - 200px);
   margin-left: 100px;
-  margin-top: 40px;
+  margin-top: 80px;
   background-color: white;
 
   hr {

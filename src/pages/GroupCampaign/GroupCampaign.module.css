@@ -41,7 +41,7 @@ body {
   border-radius: 30%;
   object-fit: cover;
 }.grouplineinfo {
-    max-width: 14rem;
+    width: calc(100% - 75px);
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
@@ -50,10 +50,11 @@ body {
 
 .campaignTitle, .campaignProvince {
     font-weight: 600;
-    font-size: 1rem;
+    font-size: 1.2rem;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
+    width: 100%;
 }.containerhead {
     width: 100%;
     height: auto;
@@ -153,14 +154,15 @@ body {
     height: auto;
     display: flex;
 }.container3 img{
-    width: 3.5rem;
-    height: 3.5rem;
+    width: 64px;
+    height: 64px;
     border-radius: 50%;
     object-fit: cover;
 }.container3-content {
     width: 80%;
     display: flex;
     flex-direction: column;
+    justify-content: center;
     margin-top: 0.3rem;
     margin-left: 0.7rem;
 }

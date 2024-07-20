@@ -1,5 +1,79 @@
 .TacDong {
-  padding-top: 40px;
+  padding-top: 60px;
+  padding-left: 100px;
+  padding-right: 100px;
+
+  pre {
+    white-space: pre-wrap; // Giữ nguyên ngắt dòng và cho phép ngắt dòng tự động
+    word-wrap: break-word; // Tự động ngắt dòng khi từ quá dài
+  }
+}
+
+.title {
+  font-size: 32px;
+  font-weight: 600;
+  color: #6A6A6A;
+  margin-bottom: 40px;
+  padding-top: 20px;
+  border-top: 4px solid #35973F;
+}
+
+.left {
+  margin-right: 100px;
+}
+
+.number {
+  font-size: 85px;
+  font-weight: 600;
+  color: #35973F;
+  line-height: 100%;
+  margin-bottom: 40px;
+}
+
+.desc {
+  font-size: 60px;
+  font-weight: 600;
+  color: black;
+  line-height: 100%;
+}
+
+.icon {
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0 30px;
+  }
+
+  li {
+    list-style-type: none;
+    font-size: 50px;
+    color: black;
+  }
+}
+
+.mo {
+  opacity: 0.5;
+}
+
+// Trong file CSS/SCSS của bạn
+.custom-tooltip {
+  background-color: #333;
+  color: #fff;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 14px;
+  text-align: center;
+  z-index: 999;
+}
+
+.custom-tooltip::after {
+  border-top-color: #333; // Màu của mũi tên tooltip
+}
+
+@media screen and (max-width: 1600px) {
+.TacDong {
+  padding-top: 60px;
   padding-left: 100px;
   padding-right: 100px;
 
@@ -54,6 +128,8 @@
 
 .mo {
   opacity: 0.5;
+}
+
 }
 
 @media screen and (max-width: 1500px) {
@@ -115,7 +191,6 @@
     opacity: 0.5;
   }
 }
-
 
 @media screen and (max-width: 1199.8px) {
   .number {

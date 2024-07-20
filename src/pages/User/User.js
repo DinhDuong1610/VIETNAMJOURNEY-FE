@@ -61,7 +61,7 @@ function User() {
             <Information user_ID={user_id} />
             {user_ID != null && 
               <div className={styles.container2}>
-                <p style={{ marginLeft: '1rem', fontWeight: 'revert', fontSize: '1.2rem' }}>Gợi ý cho bạn</p>
+                <p style={{ marginLeft: '1rem', paddingTop: '1rem', fontWeight: 'revert', fontSize: '1.5rem' }}>Gợi ý cho bạn</p>
                 <Friends User_ID={user_ID} />
               </div>
             }

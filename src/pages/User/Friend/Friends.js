@@ -107,7 +107,7 @@ const Friends = ({ User_ID }) => {
                         />
                         <div className={styles['friend-info']}>
                             <h6
-                                style={{ fontWeight: 'revert-layer', cursor: 'pointer' }}
+                                style={{ fontWeight: 'revert-layer', cursor: 'pointer', fontSize: '1.2rem' }}
                                 onClick={() => handleAvatarClick(follower.User_ID)}
                             >
                                 {follower.Username}

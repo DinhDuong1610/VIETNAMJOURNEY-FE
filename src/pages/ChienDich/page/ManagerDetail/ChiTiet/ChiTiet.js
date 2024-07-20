@@ -341,7 +341,7 @@ function ChiTiet({ campaign }) {
               <div className={cx("desc")}>
                 Số lượng TNV tham gia: {campaign.joined} 24 TNV
               </div>
-              {status === null && (
+              {/* {status === null && (
                 <button className={cx("button")} onClick={handleRegisterClick}>
                   Đăng ký tham gia
                 </button>
@@ -360,7 +360,7 @@ function ChiTiet({ campaign }) {
                   Đang chờ duyệt
                 </button>
               )}
-              {status === 2 && null} {/* Button is hidden when status is 2 */}
+              {status === 2 && null} Button is hidden when status is 2 */}
             </div>
             <hr />
             <div className={cx("title")}>Địa điểm cụ thể</div>

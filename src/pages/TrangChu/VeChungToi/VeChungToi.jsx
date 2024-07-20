@@ -51,25 +51,25 @@ useEffect(() => {
             <div className={styles.cards}>
                 <CoCard image={jpg1}
                         txt1="Cao Hoàng Phước Bảo"
-                        txt2="Đồng sáng lập dự án"
+                        txt2="Đồng sáng lập tổ chức"
                         txt3="“Phần còn lại của thế giới (thiên nhiên) có thể tiếp tục sống mà không có chúng ta, nhưng chúng ta không thể tồn tại nếu thiếu đi chúng”."
                 />
 
                 <CoCard image={jpg2}
                         txt1="Dương Đính"
-                        txt2="Đồng sáng lập dự án"
+                        txt2="Đồng sáng lập tổ chức"
                         txt3="“Tôi cảm thấy tức giận khi nhìn thấy người ta vứt bỏ đi những thứ có thể sử dụng được. Điều này thật lãng phí”. "
                 />
 
                 <CoCard image={jpg3}
                         txt1="Lê Hữu Anh Tú"
-                        txt2="Đồng sáng lập dự án"
+                        txt2="Đồng sáng lập tổ chức"
                         txt3="“Môi trường là nơi chúng ta gặp nhau, là nơi đem lại lợi ích cho mọi người, là điều mà tất cả chúng ta đều chia sẻ”."
                 />
 
                 <CoCard image={jpg4}
                         txt1="Lê Trung Việt"
-                        txt2="Đồng sáng lập dự án"
+                        txt2="Đồng sáng lập tổ chức"
                         txt3="“Có một sự thật không thể chối bỏ rằng một nhóm nhỏ công dân có ý thức và tận tâm có thể thay đổi cả thế giới”."
                 />                
 

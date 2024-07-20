@@ -77,8 +77,6 @@
   }
   
   .left {
-    position: sticky;
-    top: 0px;
     width: 20%;
     border-left: 1px solid #c3c3c3;
     padding-left: 10px;
@@ -90,6 +88,12 @@
       opacity: 1;
       margin-bottom: 40px;
     }
+  }
+
+  .left .inner-left {
+    position: sticky;
+    top: 80px;
+    width: 100%;
   }
   
   .left .inner .title {
@@ -128,8 +132,6 @@
   }
   
   .info {
-    position: sticky;
-    top: 0px;
     width: 20%;
     border-left: 1px solid #c3c3c3;
     padding-left: 10px;
@@ -141,6 +143,12 @@
       opacity: 1;
       margin-bottom: 40px;
     }
+  }
+
+  .info .inner-info {
+    position: sticky;
+    top: 80px;
+    width: 100%;
   }
   
   .info .inner .title {

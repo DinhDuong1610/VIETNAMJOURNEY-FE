@@ -89,6 +89,7 @@
     margin-left: 20px;
     margin-top: 1rem;
     font-weight: 500;
+    font-size: 1.2rem;
 }
 
 .post-body {
@@ -101,7 +102,7 @@
 }
 
 .post-body img {
-    width: auto;
+    width: 100%;
     height: auto;
     max-height: 500px;
     max-width: 100%;

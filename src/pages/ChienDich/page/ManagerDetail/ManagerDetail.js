@@ -7,6 +7,7 @@ import TongQuan from "./TongQuan/TongQuan";
 import TacDong from "./TacDong/TacDong";
 import ChiTiet from "./ChiTiet/ChiTiet";
 import ThongTinThem from "./ThongTinThem/ThongTinThem";
+import { Spin } from 'antd';
 
 const cx = classNames.bind(style);
 
@@ -53,12 +54,17 @@ function Professional() {
   }, [id]);
 
   if (!campaign) {
-    return <div>Loading...</div>; // Hiển thị trạng thái tải trong khi chờ dữ liệu từ API
+    return (
+      <div className={cx('centeredSpin')}>
+        <Spin size="large" />
+      </div>
+    );
   }
 
   const myStyle = {
     backgroundImage: `url(http://localhost:8000/${campaign.image})`, // Sử dụng dữ liệu hình ảnh từ API
     backgroundSize: "cover",
+    backgroundPosition: "center",
     backgroundColor: "rgba(0, 0, 0, 0.5)", // Màu đen trong suốt với độ mờ 50%
     backgroundBlendMode: "multiply", // Áp dụng chế độ kết hợp 'multiply' để làm cho ảnh nền bị tối đi
   };
@@ -94,7 +100,7 @@ function Professional() {
             onClick={() => scrollToSection(thongTinThemRef, 'thongTinThem')}
             className={cx({ 'active': activeSection === 'thongTinThem' })}
           >
-            Thông tin thêm
+            Thành viên
           </li>
         </ul>
       </div>

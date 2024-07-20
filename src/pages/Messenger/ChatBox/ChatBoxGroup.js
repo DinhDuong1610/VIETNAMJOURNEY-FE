@@ -140,7 +140,7 @@ function ChatBoxGroup() {
                     <div className={styles.containerHeader}>
                         <img src={groupInfo.image} alt="Avatar"></img>
                         <div className={styles.containerHeaderInfo}>
-                            <h6>{groupInfo.name}</h6>
+                            <h5>{groupInfo.name}</h5>
                             <p>{groupInfo.province}</p>
                         </div>
                         <div className={styles.containerHeaderSettings}>
@@ -158,13 +158,13 @@ function ChatBoxGroup() {
                             <>
                                 {messages.map((msg, index) => (
                                     <div key={index} className={styles.message}>
-                                        {msg.created_at && <small style={{ textAlign: 'center' }}>{msg.created_at}</small>}
-                                        <div style={{marginBottom :'0.1rem'}}>
-                                            <img alt="logo" src={msg.user_image} style={{ display: msg.user_from == user_from ? 'none' : 'block',width : '1rem',height : "1rem", borderRadius : '50%'}}></img>
+                                        {msg.created_at && <h6 style={{ textAlign: 'center', fontSize: '1rem', color: '#888' }}>{msg.created_at}</h6>}
+                                        <div style={{marginBottom :'0.2rem'}}>
+                                            <img alt="logo" src={msg.user_image} style={{ display: msg.user_from == user_from ? 'none' : 'block',width : '2rem',height : "2rem", borderRadius : '50%'}}></img>
                                         </div>
                                         {msg.content && <div className={msg.user_from == user_from ? styles.contentRight : styles.contentLeft}>
-                                            <span style={{ display: msg.user_from == user_from ? 'none' : 'block',fontWeight :600,fontSize : '0.8rem' }}>{msg.user_name}</span>
-                                            <span>{msg.content}</span>
+                                            <span style={{ display: msg.user_from == user_from ? 'none' : 'block',fontWeight :600,fontSize : '1rem' }}>{msg.user_name}</span>
+                                            <h5>{msg.content}</h5>
                                         </div>}
                                         {msg.image && <img src={msg.image} alt="Sent" style={{ marginLeft: msg.user_from == user_from ? 'auto' : '0' }} />}
                                         
