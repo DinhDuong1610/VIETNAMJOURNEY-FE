@@ -104,7 +104,7 @@ function Information({ user_ID }) {
                             </p>
                             {role && <p style={{ fontWeight: '500' }}><i className="fa-solid fa-building" style={{ marginRight: '0.3rem' }} ></i> {role}</p>}
                             {location && <p style={{ fontWeight: '500' }}><i className="fa-solid fa-location-dot" style={{ marginRight: '0.3rem' }}></i> Sống tại {location}</p>}
-                            {facebookLink && <p style={{ fontWeight: '500' }}><i className="fa-brands fa-square-facebook" style={{ marginRight: '0.3rem' }}></i> <a href={facebookLink} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'blue' }}>Facebook</a></p>}
+                            {facebookLink && <p style={{ fontWeight: '500' }}><i className="fa-brands fa-square-facebook" style={{ marginRight: '0.3rem' }}></i> <a href={facebookLink} target="_blank" rel="noopener noreferrer" style={{ textDecoration: 'none', color: 'green' }}>Facebook</a></p>}
                             {user_id === user_ID ? (
                                 <button onClick={setInfo}>Chỉnh sửa trang cá nhân</button>
                             ) : (

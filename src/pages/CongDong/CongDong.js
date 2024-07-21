@@ -183,7 +183,7 @@ function CongDong() {
                                 <div key={user.id} className={styles['container3-info']} onClick={() => handleUserClick(user.id)}>
                                     <img alt={user.username} src={user.image}></img>
                                     <div className={styles['container3-content']}>
-                                        <h6 style={{ fontWeight: 'revert-layer', fontSize: '1.2rem' }}>{user.username}{user.check == 1 && <i className="fa-solid fa-circle-check" style={{ color: "#258e31", fontSize: '0.8rem', marginLeft: '0.2rem' }}></i>}</h6>
+                                        <h6 style={{ fontWeight: 'revert-layer', fontSize: '1.2rem', lineHeight: '100%' }}>{user.username}{user.check == 1 && <i className="fa-solid fa-circle-check" style={{ color: "#258e31", fontSize: '0.8rem', marginLeft: '0.2rem' }}></i>}</h6>
                                         <p>{user.total_following} người theo dõi</p>
                                     </div>
                                 </div>
