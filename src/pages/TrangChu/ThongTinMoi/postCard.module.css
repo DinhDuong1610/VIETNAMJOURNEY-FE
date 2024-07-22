@@ -24,7 +24,7 @@ div.main {
 }
 
 div.main div.post_div1 {
-    width: 80%;
+    width: calc(100% - 60px);
     padding-top: 30px;
 }
 

@@ -12,7 +12,7 @@
   justify-content: space-between;
   align-items: flex-start;
   margin: 0 auto;
-  padding: 40px 10px;
+  padding: 20px 10px;
 }
 
 .footer-section {
@@ -246,8 +246,45 @@
 }
 
 @media (max-width: 480px) {
+  .footer {
+    padding: 0 10px;
+  }
+
+  .footer-section {
+    flex: 1;
+    margin: 20px;
+  }
+  
+
+  .footer-logo img {
+    width: 100%;
+    height: auto;
+    object-fit: contain;
+    display: none;
+  }
+  
+  .footer-logo p {
+    font-size: 16px;
+    font-weight: 600;
+    margin-top: 10px;
+    display: none;
+  }
+
+  .footer-section {
+    width: 100%;
+    margin: 10px 0;
+  }
+
+  .footer-links{
+    display: none;
+  }
+
+  .footer-newsletter ul{
+    display: none;
+  }
+
   .footer-logo p, .footer-contact p {
-    font-size: 12px;
+    font-size: 14px;
   }
 
   .footer-links ul li a, .footer-newsletter ul li a {

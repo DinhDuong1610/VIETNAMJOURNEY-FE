@@ -33,7 +33,7 @@ function Footer() {
         <div className={cx('footer-section', 'footer-newsletter')}>
           <h3>Theo dõi bản tin từ chúng tôi</h3>
           <form action="#" method="post" className={cx('newsletter-form')}>
-            <input type="email" name="email" placeholder="Enter your email" required />
+            <input type="email" name="email" placeholder="Nhập email của bạn" required />
             <button type="submit">Đăng ký</button>
           </form>
           <ul>
