@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { Skeleton } from 'antd';
 import styles from './MessengerUser.module.css';
+import API_BASE_URL from '../../../config/configapi.js';
 
 function MessengerUser({ user_ID, onUserClick, onlineUsers }) {
     const [users, setUsers] = useState([]);
@@ -36,7 +37,7 @@ function MessengerUser({ user_ID, onUserClick, onlineUsers }) {
     }, [user_ID]);
 
     const fetchUsersChat = () => {
-        fetch('http://localhost:8000/api/getUsersChat', {
+        fetch(`${API_BASE_URL}api/getUsersChat`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -4,7 +4,7 @@ import styles from './CongDong.module.css';
 import Friends from '../User/Friend/Friends';
 import Post from '../User/Post/Post.js';
 import { Skeleton } from 'antd';
-import API_BASE_URL from '../../config/config.js';
+import API_BASE_URL from '../../config/configapi.js';
 
 function CongDong() {
     const cookies = document.cookie;

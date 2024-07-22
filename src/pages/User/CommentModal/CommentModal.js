@@ -3,6 +3,7 @@ import styles from './CommentModal.module.css';
 import { useNavigate } from 'react-router-dom';
 import { useCheckCookie } from '../../../Cookie/getCookie';
 import { Skeleton } from 'antd';
+import API_BASE_URL from '../../../config/configapi.js';
 
 const CommentModal = ({ onClose, postId }) => {
     const user_ID = useCheckCookie('User_ID', '/TaiKhoan');
@@ -17,7 +18,7 @@ const CommentModal = ({ onClose, postId }) => {
     useEffect(() => {
         const fetchComments = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/getComments', {
+                const response = await fetch(`${API_BASE_URL}api/getComments`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -95,7 +96,7 @@ const CommentModal = ({ onClose, postId }) => {
         }
 
         try {
-            const response = await fetch('http://localhost:8000/api/addComment', {
+            const response = await fetch(`${API_BASE_URL}api/addComment`, {
                 method: 'POST',
                 body: formData,
             });

@@ -4,6 +4,7 @@ import styles from './PostGroup.module.css';
 import dots from '../../../Images/User/dots.png';
 import CommentModal from '../CommentModal/CommentModal';
 import group from '../../../Images/User/anhchiendich.png'
+import API_BASE_URL from '../../../config/configapi.js';
 
 const PostGroup = ({
     Post_ID,
@@ -36,7 +37,7 @@ const PostGroup = ({
 
     useEffect(() => {
         if (userId) {
-            fetch('http://localhost:8000/api/checkLikeStatus', {
+            fetch(`${API_BASE_URL}api/getSocialPosts`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -56,7 +57,7 @@ const PostGroup = ({
                     setIsLiked(false);
                 });
 
-            fetch('http://localhost:8000/api/getComment', {
+            fetch(`${API_BASE_URL}api/getComment`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -89,7 +90,7 @@ const PostGroup = ({
             setIsLiked(prevIsLiked => !prevIsLiked);
             setLikeCount(prevLikeCount => isLiked ? prevLikeCount - 1 : prevLikeCount + 1);
 
-            fetch('http://localhost:8000/api/toogleLike', {
+            fetch(`${API_BASE_URL}api/toogleLike`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -136,7 +137,7 @@ const PostGroup = ({
     };
 
     const handleConfirmDelete = () => {
-        fetch('http://localhost:8000/api/deletePost', {
+        fetch(`${API_BASE_URL}api/deletePost`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -4,6 +4,7 @@ import { Skeleton } from 'antd';
 import styles from './ChatBoxUser.module.css';
 import dots from '../../../Images/User/dots.png';
 import logo from '../../../Images/Message/formessage.png';
+import API_BASE_URL from '../../../config/configapi.js';
 
 function ChatBoxUser() {
     const cookies = document.cookie;
@@ -60,7 +61,7 @@ function ChatBoxUser() {
     }, [user_from, user_id]);
 
     const fetchMessages = (from, to) => {
-        fetch('http://localhost:8000/api/getChats', {
+        fetch(`${API_BASE_URL}api/getChats`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -112,7 +113,7 @@ function ChatBoxUser() {
             formData.append('image', selectedImage);
         }
 
-        fetch('http://localhost:8000/api/sendMessage', {
+        fetch(`${API_BASE_URL}api/sendMessage`, {
             method: 'POST',
             body: formData,
         })

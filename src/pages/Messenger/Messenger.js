@@ -6,6 +6,7 @@ import MessengerGroup from './MessengerGroup/MessengerGroup';
 import ChatBoxUser from './ChatBox/ChatBoxUser';
 import ChatBoxGroup from './ChatBox/ChatBoxGroup';
 import { useCheckCookie } from '../../Cookie/getCookie.js';
+import API_BASE_URL from '../../config/configapi.js';
 
 function Messenger() {
     const location = useLocation();
@@ -22,7 +23,7 @@ function Messenger() {
     useEffect(() => {
         const fetchOnlineUsers = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/getOnlineUser', {
+                const response = await fetch(`${API_BASE_URL}api/getOnlineUser`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',

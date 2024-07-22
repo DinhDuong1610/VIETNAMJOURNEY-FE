@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Skeleton } from 'antd';
 import styles from './Friends.module.css';
+import API_BASE_URL from '../../../config/configapi.js';
 
 const Friends = ({ User_ID }) => {
     const [followers, setFollowers] = useState([]);
@@ -14,7 +15,7 @@ const Friends = ({ User_ID }) => {
         const fetchFollowers = async () => {
             setLoading(true);
             try {
-                const response = await fetch('http://localhost:8000/api/getUnFollowedUsers', {
+                const response = await fetch(`${API_BASE_URL}api/getUnFollowedUsers`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
@@ -49,7 +50,7 @@ const Friends = ({ User_ID }) => {
 
     const updateFollowerStatus = async (userId, action) => {
         try {
-            const response = await fetch('http://localhost:8000/api/updateFollower', {
+            const response = await fetch(`${API_BASE_URL}api/updateFollower`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

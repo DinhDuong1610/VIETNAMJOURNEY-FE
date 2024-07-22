@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './Post.module.css';
 import dots from '../../../Images/User/dots.png';
 import CommentModal from '../CommentModal/CommentModal';
+import API_BASE_URL from '../../../config/configapi.js';
 
 const Post = ({
     Post_ID,
@@ -33,7 +34,7 @@ const Post = ({
 
     useEffect(() => {
         if (userId) {
-            fetch('http://localhost:8000/api/checkLikeStatus', {
+            fetch(`${API_BASE_URL}api/checkLikeStatus`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -53,7 +54,7 @@ const Post = ({
                     setIsLiked(false);
                 });
 
-            fetch('http://localhost:8000/api/getComment', {
+            fetch(`${API_BASE_URL}api/getComment`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -86,7 +87,7 @@ const Post = ({
             setIsLiked(prevIsLiked => !prevIsLiked);
             setLikeCount(prevLikeCount => isLiked ? prevLikeCount - 1 : prevLikeCount + 1);
 
-            fetch('http://localhost:8000/api/toogleLike', {
+            fetch(`${API_BASE_URL}api/toogleLike`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
@@ -133,7 +134,7 @@ const Post = ({
     };
 
     const handleConfirmDelete = () => {
-        fetch('http://localhost:8000/api/deletePost', {
+        fetch(`${API_BASE_URL}api/deletePost`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

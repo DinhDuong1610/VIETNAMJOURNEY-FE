@@ -5,6 +5,7 @@ import UpdateInformation from './updateInformation';
 import background from '../../../Images/User/backgrounduser.png';
 import { useNavigate } from 'react-router-dom';
 import { Skeleton } from 'antd';
+import API_BASE_URL from '../../../config/configapi.js';
 
 function Information({ user_ID }) {
     const [userData, setUserData] = useState(null);
@@ -24,7 +25,7 @@ function Information({ user_ID }) {
 
     useEffect(() => {
         setLoading(true); // Bắt đầu fetch dữ liệu, set loading là true
-        fetch('http://localhost:8000/api/user_information', {
+        fetch(`${API_BASE_URL}api/user_information`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -58,7 +59,7 @@ function Information({ user_ID }) {
 
     const handleUpdateFollow = () => {
         const followStatus = isFollowing ? 'unfollow' : 'follow';
-        fetch('http://localhost/api/updateFollowStatus', {
+        fetch(`${API_BASE_URL}api/updateFollowStatus`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

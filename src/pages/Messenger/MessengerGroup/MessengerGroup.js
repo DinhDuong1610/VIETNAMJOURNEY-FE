@@ -3,6 +3,7 @@ import axios from 'axios';
 import { Skeleton } from 'antd'; // Import Skeleton from antd
 import styles from './MessengerGroup.module.css';
 import image from '../../../Images/Icons/Viet.jpeg';
+import API_BASE_URL from '../../../config/configapi.js';
 
 function MessengerGroup({ onGroupClick }) {
     const cookies = document.cookie;
@@ -50,7 +51,7 @@ function MessengerGroup({ onGroupClick }) {
     }, [user_ID]);
 
     const fetchGroups = (userId) => {
-        axios.post('http://localhost:8000/api/getGroupUser', { user_id: userId })
+        axios.post(`${API_BASE_URL}api/getGroupUser`, { user_id: userId })
             .then(response => {
                 const { campaigns } = response.data;
                 setGroups(campaigns);
