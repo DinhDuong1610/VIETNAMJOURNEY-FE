@@ -71,7 +71,7 @@ function Navbar() {
 
   return (
     <header className={styles.header}>
-       <div className={styles.logo}>
+      <div className={styles.logo}>
         <Link to="/TrangChu">
           <img
             className={styles.logo1}
@@ -94,7 +94,9 @@ function Navbar() {
           <Link to="/CongDong">CỘNG ĐỒNG</Link>
           <Link to="/ChienDich">CHIẾN DỊCH</Link>
           <Link to="/Quy">QUỸ</Link>
-          {userInfo && <Link to="/Messenger?type=user&user_id=0">TRÒ CHUYỆN </Link>}
+          {userInfo && (
+            <Link to="/Messenger?type=user&user_id=0">TRÒ CHUYỆN </Link>
+          )}
 
           {userInfo ? (
             <div className={cx("nav-item", { open: isDropdownOpen })}>
@@ -177,7 +179,7 @@ function Navbar() {
             )}
             {userInfo && (
               <Link to="/Messenger?type=user&user_id=0" onClick={toggleSidebar}>
-                NHẮN TIN <i className="fa-solid fa-envelope"></i>
+                TRÒ CHUYỆN <i className="fa-solid fa-envelope"></i>
               </Link>
             )}
             <Link to="/TrangChu" onClick={toggleSidebar}>
@@ -215,6 +217,91 @@ function Navbar() {
             )}
           </div>
         </div>
+      </div>
+
+      <div className={styles.mobile}>
+        <nav className={styles.mobileNav}>
+          <Link to="/CongDong">
+            <i class="fa-solid fa-earth-americas"></i>
+          </Link>
+          <Link to="/ChienDich">
+            <i class="fa-solid fa-font-awesome"></i>
+          </Link>
+          <Link to="/TrangChu">
+            <i class="fa-solid fa-house"></i>
+          </Link>
+          <Link to="/Quy">
+            <i class="fa-solid fa-hand-holding-dollar"></i>
+          </Link>
+
+          <div className={styles.bar} onClick={toggleSidebar}>
+            <i className="fa-solid fa-bars"></i>
+          </div>
+
+          <div
+            className={`${styles.overlay} ${
+              isSidebarOpen ? styles.active : ""
+            }`}
+            onClick={toggleSidebar}
+          ></div>
+
+          <div
+            className={`${styles.sidebar} ${isSidebarOpen ? styles.open : ""}`}
+          >
+            <div className={styles["sidebar-content"]}>
+              <div
+                style={{
+                  color: "aliceblue",
+                  textAlign: "right",
+                  marginTop: 0,
+                  cursor: "pointer",
+                }}
+                onClick={toggleSidebar}
+              >
+                <i className="fa-solid fa-bars"></i>
+              </div>
+              <div className={styles["list-navbar"]}>
+                {userInfo && (
+                  <Link
+                    to={"/User?user_id=" + getCookie("User_ID")}
+                    onClick={toggleSidebar}
+                  >
+                    {userInfo.Name} <i className="fa-solid fa-circle-user"></i>
+                  </Link>
+                )}
+                {userInfo && (
+                  <Link
+                    to="/Messenger?type=user&user_id=0"
+                    onClick={toggleSidebar}
+                  >
+                    TRÒ CHUYỆN <i className="fa-solid fa-envelope"></i>
+                  </Link>
+                )}
+                {userInfo ? (
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <Link to={managerLink} onClick={toggleSidebar}>
+                      CHIẾN DỊCH CỦA TÔI
+                    </Link>
+                    <Link
+                      to="/TaiKhoan"
+                      onClick={() => {
+                        handleDeleteCookie();
+                        toggleSidebar();
+                      }}
+                    >
+                      ĐĂNG XUẤT{" "}
+                      <i className="fa-solid fa-arrow-right-from-bracket"></i>
+                    </Link>
+                  </div>
+                ) : (
+                  <Link to={link} onClick={toggleSidebar}>
+                    ĐĂNG NHẬP <i className="fa-solid fa-user"></i>
+                  </Link>
+                )}
+              </div>
+            </div>
+          </div>
+        </nav>
       </div>
     </header>
   );

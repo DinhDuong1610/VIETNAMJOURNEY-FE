@@ -8,15 +8,15 @@ function Contact() {
     <div className={cx('Contact')}>
       <h2 className={cx('title')}>Cơ quan phối hợp hỗ trợ</h2>
       <div className={cx('row')}>
-        <div className={cx('lg-col-4', 'col-sm-12', 'coquan')}>
+        <div className={cx('col-lg-4', 'col-sm-12', 'coquan')}>
           <img src="https://rubee.com.vn/wp-content/uploads/2021/05/logo-doan-4.png"/>
           <p>Đoàn TNCS Hồ Chí Minh Quảng Trị</p>
         </div>
-        <div className={cx('lg-col-4', 'col-sm-12', 'coquan')}>
+        <div className={cx('col-lg-4', 'col-sm-12', 'coquan')}>
           <img src="https://tnmttravinh.gov.vn/img/logo.png"/>
           <p>Sở Tài Nguyên và Môi Trường Quảng Trị</p>
         </div>
-        <div className={cx('lg-col-4', 'col-sm-12', 'coquan')}>
+        <div className={cx('col-lg-4', 'col-sm-12', 'coquan')}>
           <img src="http://huib.hueuni.edu.vn/wp-content/uploads/2020/12/logo.-khong-chu.-khong-layer.-600.png"/>
           <p>Viện Công Nghệ sinh học, ĐH Huế</p>
         </div>

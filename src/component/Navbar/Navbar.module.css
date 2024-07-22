@@ -16,9 +16,10 @@ header {
     position: fixed;
     width: 100%;
     height: 60px;
-    border-bottom: 1.5px solid rgb(62, 158, 45);
+    /* border-bottom: 1.5px solid rgb(62, 158, 45); */
     background: linear-gradient(to right, rgb(29, 96, 42), rgb(39, 154, 83));
     z-index: 999;
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 3px 5px;
 }
 
 header .logo img {
@@ -195,6 +196,10 @@ header .list-navbar a:hover {
     display: block; /* Hiển thị dropdown menu khi .nav-item có lớp .open */
   }
 
+  header .mobile{
+    display: none;
+}
+
   @media (max-width: 1380px) {
     header .links nav a, header .links nav .nav-item {
         display: none;
@@ -263,13 +268,74 @@ header .list-navbar a:hover {
 } */
 
  @media (max-width: 560px) {
-    header .logo img {
-        margin-left: 8rem;
+    header .bar {
+        display: none;
+    }
+
+    header .logo img.logo2 {
+        display: none;
+    }
+
+    header .mobile{
+        display: block;
+        width: 100%;
+    }
+
+    header .mobile .mobileNav{
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        width: 100%;
+    }
+
+    header .mobile .mobileNav i {
+        font-size: 1.5rem;
+        color: white;
+    }
+
+    header .mobile .bar {
+        display: inline-block;
     }
 
     header .sidebar {
-        width: 60%;
+        width: 65%;
     }
+
+    header .sidebar-content {
+        display: flex;
+        flex-direction: column;
+        overflow-y: auto;
+        overflow-x: hidden;
+        padding: 10px;
+        padding-left: 0px;
+        padding-top: 20px;
+        width: 100%;
+    }
+    
+    header .sidebar-content a {
+        text-align: right;
+        text-decoration: none;
+        font-size: 18px;
+        font-weight: 600;
+        color: aliceblue;
+        margin-top: 1.5rem;
+        margin-right: 0;
+    }
+    
+    header .sidebar-content a:hover {
+        color: #b8e994;
+    }
+
+    header .list-navbar {
+        display: flex;
+        flex-direction: column;
+        gap: 5px; 
+        padding: 20px;
+        padding-top: 0px;
+        float: right;
+    }
+    
+
 }
 
 
