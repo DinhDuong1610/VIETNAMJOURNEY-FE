@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import classNames from "classnames/bind";
 import styles from "./Navbar.module.css";
 import header1 from "../../Images/Logos/header1.png";
@@ -14,6 +14,8 @@ function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const userId = getCookie("User_ID");
@@ -42,6 +44,10 @@ function Navbar() {
   }, []);
 
   const toggleSidebar = () => {
+    if(!userInfo) {
+      navigate('/TaiKhoan');
+      return;
+    }
     setIsSidebarOpen(!isSidebarOpen);
   };
 

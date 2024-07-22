@@ -14,41 +14,42 @@ function ChiTiet({ campaign }) {
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null); // State to keep track of volunteer status
 
-
   const navigate = useNavigate();
   const cookies = document.cookie;
-  const cookiesArray = cookies.split('; ');
-  const userIdCookie = cookiesArray.find(cookie => cookie.startsWith('User_ID='));
-  const userId = userIdCookie ? userIdCookie.split('=')[1] : null;
-
+  const cookiesArray = cookies.split("; ");
+  const userIdCookie = cookiesArray.find((cookie) =>
+    cookie.startsWith("User_ID=")
+  );
+  const userId = userIdCookie ? userIdCookie.split("=")[1] : null;
 
   // Function to fetch the status from the API
   const fetchVolunteerStatus = async () => {
-    const payload = {
-      userId: getCookie("User_ID"), // Replace with dynamic user ID
-      campaignId: campaign.id,
-    };
+    setLoading(true); // Bắt đầu loading khi gọi API
 
     try {
-      const response = await fetch(
-        "http://localhost/bwd/VietNamJourney/Server/ChienDich/GetVolunteer.php",
+      const formData = new FormData();
+      formData.append("userId", getCookie("User_ID"));
+      formData.append("campaignId", campaign.id);
+
+      formData.forEach((value, key) => {
+        console.log(`${key}: ${value}`);
+      });
+
+      const response = await axios.post(
+        `${API_BASE_URL}api/getStatusVolunteer`,
+        formData,
         {
-          method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "multipart/form-data",
           },
-          body: JSON.stringify(payload),
         }
       );
 
-      if (response.ok) {
-        const data = await response.json();
-        setStatus(data.status); // Set the status from API response
-      } else {
-        console.error("Failed to fetch volunteer status");
-      }
+      setStatus(response.data.status); // Cập nhật trạng thái từ API
     } catch (error) {
       console.error("Error:", error);
+    } finally {
+      setLoading(false); // Kết thúc loading sau khi gọi API xong
     }
   };
 
@@ -257,9 +258,9 @@ function ChiTiet({ campaign }) {
   };
 
   const handleRegisterClick = () => {
-    if(userId){
+    if (userId) {
       setShowRegisterModal(true);
-    }else{
+    } else {
       navigate("/TaiKhoan");
     }
   };
