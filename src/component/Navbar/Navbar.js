@@ -5,6 +5,7 @@ import styles from "./Navbar.module.css";
 import header1 from "../../Images/Logos/header1.png";
 import header2 from "../../Images/Logos/header2.png";
 import { getCookie } from "../../Cookie/getCookie";
+import API_BASE_URL from "../../config/configapi.js";
 
 const cx = classNames.bind(styles);
 
@@ -19,7 +20,7 @@ function Navbar() {
     if (userId) {
       setLink("/User?user_id=" + userId);
 
-      fetch("http://localhost:8000/api/getInformationNavBar", {
+      fetch(`${API_BASE_URL}api/getInformationNavBar`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

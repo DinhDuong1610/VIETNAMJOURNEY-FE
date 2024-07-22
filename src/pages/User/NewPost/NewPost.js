@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from './NewPost.module.css';
 import { useNavigate } from 'react-router-dom';
+import API_BASE_URL from '../../../config/configapi.js';
 
 const NewPost = ({ onClose }) => {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -33,7 +34,7 @@ const NewPost = ({ onClose }) => {
         }
 
         try {
-            const response = await fetch('http://localhost:8000/api/addPost', {
+            const response = await fetch(`${API_BASE_URL}api/addPost`, {
                 method: 'POST',
                 body: formData
             });

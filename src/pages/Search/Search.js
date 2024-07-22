@@ -3,6 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import { Skeleton } from 'antd';
 import styles from './Search.module.css';
 import Post from '../User/Post/Post.js';
+import API_BASE_URL from '../../config/configapi.js';
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
@@ -30,7 +31,7 @@ function Search() {
                 bodyData.user_info = userInfo;
             }
 
-            fetch('http://localhost:8000/api/getListSearch', {
+            fetch(`${API_BASE_URL}api/getListSearch`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

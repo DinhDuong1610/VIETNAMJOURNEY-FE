@@ -7,6 +7,7 @@ import Information from './Information/Information.js';
 import { useCheckCookie } from '../../Cookie/getCookie';
 import NewPost from './NewPost/NewPost.js';
 import { Skeleton } from 'antd';
+import API_BASE_URL from '../../config/configapi.js';
 
 function User() {
   const location = useLocation();
@@ -26,7 +27,7 @@ function User() {
   useEffect(() => {
     setLoading(true); // Bắt đầu fetch dữ liệu, set loading là true
     if (user_id) {
-      fetch('http://localhost:8000/api/getPosts', {
+      fetch(`${API_BASE_URL}api/getPosts`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

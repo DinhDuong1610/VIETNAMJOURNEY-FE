@@ -281,6 +281,9 @@ body {
 @media (max-width : 770px) {
     .sticky-search-bar input {
         width: 92%;
+        
+    }.sticky-search-bar {
+        margin-top: 0.7rem;
     }
 }
 

@@ -6,6 +6,7 @@ import Post from '../User/Post/PostGroup.js';
 import NewPostGroup from './NewPostGroup/NewPostGroup.js';
 import dinh from '../../Images/Icons/Dinh.png';
 import logo from '../../Images/User/anhchiendich.png';
+import API_BASE_URL from '../../config/configapi.js';
 
 function GroupCampaign() {
     const cookies = document.cookie;
@@ -32,7 +33,7 @@ function GroupCampaign() {
 
     useEffect(() => {
         if (group_id) {
-            fetch('http://localhost:8000/api/getCampaignPosts', {
+            fetch(`${API_BASE_URL}api/getCampaignPosts`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -49,7 +50,7 @@ function GroupCampaign() {
                 setLoadingPosts(false);
             });
             
-            fetch('http://localhost:8000/api/getInformationCampaign', {
+            fetch(`${API_BASE_URL}api/getInformationCampaign`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -74,7 +75,7 @@ function GroupCampaign() {
 
     useEffect(() => {
         if (user_ID !== null) {
-            fetch('http://localhost:8000/api/getCampaignUser', {
+            fetch(`${API_BASE_URL}api/getCampaignUser`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

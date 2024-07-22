@@ -4,6 +4,7 @@ import { Skeleton } from 'antd';
 import styles from './ChatBoxGroup.module.css';
 import dots from '../../../Images/User/dots.png';
 import logo from '../../../Images/Message/formessage.png';
+import API_BASE_URL from '../../../config/configapi.js';
 
 function ChatBoxGroup() {
     const cookies = document.cookie;
@@ -32,7 +33,7 @@ function ChatBoxGroup() {
 
         const fetchGroupChats = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/getGroupChats', {
+                const response = await fetch(`${API_BASE_URL}api/getGroupChats`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -93,7 +94,7 @@ function ChatBoxGroup() {
         }
 
         try {
-            const response = await fetch('http://localhost:8000/api/sendMessageGroup', {
+            const response = await fetch(`${API_BASE_URL}api/sendMessageGroup`, {
                 method: 'POST',
                 body: formData
             });

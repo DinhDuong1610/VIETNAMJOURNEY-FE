@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './updateInformation.css';
+import API_BASE_URL from '../../../config/configapi.js';
 
 function UpdateInformation({ onCloseInfo, user_id }) {
     const [name, setName] = useState('');
@@ -12,7 +13,7 @@ function UpdateInformation({ onCloseInfo, user_id }) {
     useEffect(() => {
         const fetchUserData = async () => {
             try {
-                const response = await fetch('http://localhost:8000/api/user_information', {
+                const response = await fetch(`${API_BASE_URL}api/user_information`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -65,7 +66,7 @@ function UpdateInformation({ onCloseInfo, user_id }) {
         }
 
         try {
-            const response = await fetch('http://localhost:8000/api/updateUserInfo', {
+            const response = await fetch(`${API_BASE_URL}api/updateUserInfo`, {
                 method: 'POST',
                 body: formData
             });

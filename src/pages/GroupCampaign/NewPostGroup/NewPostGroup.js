@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styles from './NewPostGroup.module.css';
 import { useNavigate } from 'react-router-dom';
+import API_BASE_URL from '../../../config/configapi.js';
 
 const NewPostGroup = ({ onClose,campaign_id }) => {
     const [selectedImage, setSelectedImage] = useState(null);
@@ -33,7 +34,7 @@ const NewPostGroup = ({ onClose,campaign_id }) => {
         }
         formData.append('campaign_id', campaign_id);
         try {
-            const response = await fetch('http://localhost:8000/api/addPostGroup', {
+            const response = await fetch(`${API_BASE_URL}api/addPostGroup`, {
                 method: 'POST',
                 body: formData
             });

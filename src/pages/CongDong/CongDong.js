@@ -4,6 +4,7 @@ import styles from './CongDong.module.css';
 import Friends from '../User/Friend/Friends';
 import Post from '../User/Post/Post.js';
 import { Skeleton } from 'antd';
+import API_BASE_URL from '../../config/configapi.js';
 
 function CongDong() {
     const cookies = document.cookie;
@@ -19,7 +20,7 @@ function CongDong() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetch('http://localhost:8000/api/getSocialPosts', {
+        fetch(`${API_BASE_URL}api/getSocialPosts`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -33,7 +34,7 @@ function CongDong() {
     }, [user_ID]);
 
     useEffect(() => {
-        fetch('http://localhost:8000/api/getSocialOutstanding', {
+        fetch(`${API_BASE_URL}api/getSocialOutstanding`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
@@ -48,7 +49,7 @@ function CongDong() {
 
     // Fetch dữ liệu từ API getTopGroup
     useEffect(() => {
-        fetch('http://localhost:8000/api/getTopGroup', {
+        fetch(`${API_BASE_URL}api/getTopGroup`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -63,7 +64,7 @@ function CongDong() {
 
     useEffect(() => {
         if (user_ID !== null) {
-            fetch('http://localhost:8000/api/getCampaignUser', {
+            fetch(`${API_BASE_URL}api/getCampaignUser`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

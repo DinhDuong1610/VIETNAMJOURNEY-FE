@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styles from './TaiKhoanTest.module.css';
 import background1 from '../../Images/TaiKhoan/phong.jpg';
 import Cookies from 'js-cookie';
+import API_BASE_URL from '../../config/configapi.js';
 
 const TaiKhoanTest = () => {
   const [isActive, setIsActive] = useState(false);
@@ -61,7 +62,7 @@ const TaiKhoanTest = () => {
     }
 
     try {
-        const response = await fetch('http://localhost:8000/api/login', {
+        const response = await fetch(`${API_BASE_URL}api/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -128,7 +129,7 @@ const TaiKhoanTest = () => {
     }
 
     try {
-        const response = await fetch('http://localhost:8000/api/register', {
+        const response = await fetch(`${API_BASE_URL}api/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
