@@ -5,6 +5,7 @@ import { useState, useEffect } from "react"; // Import useEffect
 import { getCookie } from "../../../../../Cookie/getCookie";
 import { useNavigate } from "react-router-dom";
 import Modal from "react-modal";
+import API_BASE_URL from "../../../../../config/configapi";
 
 const cx = classNames.bind(style);
 
@@ -288,7 +289,7 @@ function ChiTiet({ campaign }) {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/registerVolunteer",
+        `${API_BASE_URL}api/registerVolunteer`,
         formData,
         {
           headers: {

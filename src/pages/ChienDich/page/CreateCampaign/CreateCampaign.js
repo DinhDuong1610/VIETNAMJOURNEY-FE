@@ -6,6 +6,7 @@ import axios from "axios";
 import Select from "react-select";
 import { getCookie } from "../../../../Cookie/getCookie";
 import {Alert, Button, Space} from 'antd';
+import API_BASE_URL from "../../../../config/configapi";
 
 const cx = classNames.bind(style);
 
@@ -157,7 +158,7 @@ function CreateCampaign() {
 
     try {
       const response = await axios.post(
-        "http://localhost:8000/api/createCampaign",
+        `${API_BASE_URL}api/createCampaign`,
         formData,
         {
           headers: {

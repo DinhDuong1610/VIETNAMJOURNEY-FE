@@ -8,6 +8,7 @@ import TacDong from "./TacDong/TacDong";
 import ChiTiet from "./ChiTiet/ChiTiet";
 import ThongTinThem from "./ThongTinThem/ThongTinThem";
 import { Spin } from 'antd';
+import API_BASE_URL from "../../../../config/configapi";
 
 const cx = classNames.bind(style);
 
@@ -42,7 +43,7 @@ function Professional() {
 
     if (id) {
       axios
-        .get(`http://localhost:8000/api/getCampaign/${id}`)
+        .get(`${API_BASE_URL}api/getCampaign/${id}`)
         .then((response) => {
           console.log(response.data); // Log dữ liệu để kiểm tra
           setCampaign(response.data); // Lưu dữ liệu vào state
@@ -62,7 +63,7 @@ function Professional() {
   }
 
   const myStyle = {
-    backgroundImage: `url(http://localhost:8000/${campaign.image})`, // Sử dụng dữ liệu hình ảnh từ API
+    backgroundImage: `url(${API_BASE_URL}${campaign.image})`, // Sử dụng dữ liệu hình ảnh từ API
     backgroundSize: "cover",
     backgroundPosition: "center",
     backgroundColor: "rgba(0, 0, 0, 0.5)", // Màu đen trong suốt với độ mờ 50%

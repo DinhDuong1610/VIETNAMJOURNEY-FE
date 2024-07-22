@@ -3,17 +3,18 @@ import style from './Campaign.module.scss';
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import { useCheckCookie } from "../../../../Cookie/getCookie";
+import API_BASE_URL from "../../../../config/configapi";
 
 const cx = classNames.bind(style);
 
 function Campaign({ className='col-12', campId, campType='TÌNH NGUYỆN', title, desc, imageUrl }) {
   const myStyle = {
-    backgroundImage: `url(http://localhost:8000/${imageUrl})`,
+    backgroundImage: `url(${API_BASE_URL}${imageUrl})`,
     backgroundSize: 'cover',
     backgroundBlendMode: 'multiply', // Áp dụng chế độ kết hợp 'multiply' để làm cho ảnh nền bị tối đi
   };
 
-  console.log("Background Image URL:", `url(http://localhost:8000/${imageUrl})`);
+  console.log("Background Image URL:", `url(${API_BASE_URL}${imageUrl})`);
 
   const navigate = useNavigate();
   const handleButtonClick = () => {
