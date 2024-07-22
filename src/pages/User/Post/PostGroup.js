@@ -22,13 +22,14 @@ const PostGroup = ({
     comment,
     check
 }) => {
-    console.log("image" , image);
+    console.log("image", image);
     const [isLiked, setIsLiked] = useState(isLike);
     const [likeCount, setLikeCount] = useState(likes);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isOptionsOpen, setIsOptionsOpen] = useState(false);
     const [isDeleteOverlayOpen, setIsDeleteOverlayOpen] = useState(false);
     const [commentData, setCommentData] = useState(comment);
+    const [loadingLikeStatus, setLoadingLikeStatus] = useState(true);
     const navigate = useNavigate();
     const cookies = document.cookie;
     const cookiesArray = cookies.split('; ');
@@ -51,10 +52,12 @@ const PostGroup = ({
                     } else {
                         setIsLiked(false);
                     }
+                    setLoadingLikeStatus(false);
                 })
                 .catch(error => {
                     console.error('Error checking like status:', error);
                     setIsLiked(false);
+                    setLoadingLikeStatus(false);
                 });
 
             fetch(`${API_BASE_URL}api/getComment`, {
@@ -160,6 +163,7 @@ const PostGroup = ({
     const handleCancelDelete = () => {
         setIsDeleteOverlayOpen(false);
     };
+
     const handleShare = () => {
         const shareLink = `${window.location.origin}/VietNamJourney#/Search/?post_info=${Post_ID}`;
         navigator.clipboard.writeText(shareLink)
@@ -175,22 +179,22 @@ const PostGroup = ({
         <div className={styles['container-post']}>
             <div className={styles['post-header']}>
                 <div className={styles['post-header-avatar']} onClick={handleAvatarClick} style={{ cursor: 'pointer', position: 'relative' }}>
-    <span className={styles['square-avatar']}><img src={avatargroup} alt="avatar" /></span>
-    <img src={avatar} alt="avatar" className={styles['circle-avatar']} />
-</div>
+                    <span className={styles['square-avatar']}><img src={avatargroup} alt="avatar" /></span>
+                    <img src={avatar} alt="avatar" className={styles['circle-avatar']} />
+                </div>
                 <div className={styles['post-header-info']}>
-                    <h6 onClick={handleAvatarClick} style={{ cursor: 'pointer', fontWeight: 'revert', fontSize: '1.2rem' }}>{name} {check == 1 && <i class="fa-solid fa-circle-check" style={{ color: "#258e31", fontSize: "1rem" }}></i>} - {namegroup}</h6>
+                    <h6 onClick={handleAvatarClick} style={{ cursor: 'pointer', fontWeight: 'revert', fontSize: '1.2rem' }}>{name} {check == 1 && <i className="fa-solid fa-circle-check" style={{ color: "#258e31", fontSize: "1rem" }}></i>} - {namegroup}</h6>
                     <span style={{ fontSize: '1rem' }}>{time} · <i className="fas fa-earth-asia"></i></span>
                 </div>
                 {userId == user_id && (
                     <div className={styles['post-header-option']} onClick={handleDotsClick} style={{ cursor: 'pointer' }}>
-                    <img alt="options" src={dots} />
-                    {isOptionsOpen && (
-                        <div className={styles['options-menu']}>
+                        <img alt="options" src={dots} />
+                        {isOptionsOpen && (
+                            <div className={styles['options-menu']}>
                                 <p onClick={handleDeleteClick}>Xóa bài viết</p>
-                        </div>
-                    )}
-                </div>
+                            </div>
+                        )}
+                    </div>
                 )}
             </div>
             <div className={styles['post-content']}>
@@ -206,21 +210,23 @@ const PostGroup = ({
                     <p><span style={{ fontWeight: 'bold' }}>{comments}</span> bình luận</p>
                 </div>
                 <hr className={styles['black-line']} />
-                <div className={styles['post-footer-middle']}>
-                    <p onClick={handleLikeClick} style={{ cursor: 'pointer' ,fontWeight :500,marginRight : '1rem'}}>
-                        <i className={isLiked ? "fa-solid fa-heart" : "fa-regular fa-heart"}></i> Thích
-                    </p>
-                    <p onClick={handleCommentClick} style={{ cursor: 'pointer',fontWeight :500 }}>
-                        <i className="fa-regular fa-comment"></i> Bình luận
-                    </p>
-                </div>
+                {!loadingLikeStatus && (
+                    <div className={styles['post-footer-middle']}>
+                        <p onClick={handleLikeClick} style={{ cursor: 'pointer', fontWeight: 500, marginRight: '1rem' }}>
+                            <i className={isLiked ? "fa-solid fa-heart" : "fa-regular fa-heart"}></i> Thích
+                        </p>
+                        <p onClick={handleCommentClick} style={{ cursor: 'pointer', fontWeight: 500 }}>
+                            <i className="fa-regular fa-comment"></i> Bình luận
+                        </p>
+                    </div>
+                )}
                 {commentData && (
                     <div onClick={handleCommentClick} style={{ cursor: 'pointer' }} className={styles['post-footer-footer']}>
                         <img style={{ objectFit: 'cover' }} src={commentData.avatar} alt="comment avatar" />
                         <div className={styles['post-footer-footer-right']}>
                             <div className={styles['post-footer-footer-content']}>
-                                <p style={{ fontWeight: '600', fontSize: '15px', marginBottom : '0' }}>{commentData.username}</p>
-                                <p style={{ marginLeft: '0.1rem', fontSize: '1rem',marginBottom : '5px' }}>{commentData.content}</p>
+                                <p style={{ fontWeight: '600', fontSize: '15px', marginBottom: '0' }}>{commentData.username}</p>
+                                <p style={{ marginLeft: '0.1rem', fontSize: '1rem', marginBottom: '5px' }}>{commentData.content}</p>
                                 {commentData.imageComment && <img src={commentData.imageComment} alt="comment content" />}
                             </div>
                             <span style={{ fontSize: '0.8rem', marginLeft: '0.2rem' }}>{commentData.time}</span>

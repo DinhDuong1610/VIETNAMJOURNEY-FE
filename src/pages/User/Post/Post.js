@@ -19,13 +19,14 @@ const Post = ({
     comment,
     check
 }) => {
-    console.log("image" , image);
+    console.log("image", image);
     const [isLiked, setIsLiked] = useState(isLike);
     const [likeCount, setLikeCount] = useState(likes);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [isOptionsOpen, setIsOptionsOpen] = useState(false);
     const [isDeleteOverlayOpen, setIsDeleteOverlayOpen] = useState(false);
     const [commentData, setCommentData] = useState(comment);
+    const [loadingLikeStatus, setLoadingLikeStatus] = useState(true);
     const navigate = useNavigate();
     const cookies = document.cookie;
     const cookiesArray = cookies.split('; ');
@@ -48,10 +49,12 @@ const Post = ({
                     } else {
                         setIsLiked(false);
                     }
+                    setLoadingLikeStatus(false);
                 })
                 .catch(error => {
                     console.error('Error checking like status:', error);
                     setIsLiked(false);
+                    setLoadingLikeStatus(false);
                 });
 
             fetch(`${API_BASE_URL}api/getComment`, {
@@ -84,9 +87,11 @@ const Post = ({
 
     const handleLikeClick = () => {
         if (userId) {
+            // Render trước khi gửi API
             setIsLiked(prevIsLiked => !prevIsLiked);
             setLikeCount(prevLikeCount => isLiked ? prevLikeCount - 1 : prevLikeCount + 1);
 
+            // Gửi yêu cầu API
             fetch(`${API_BASE_URL}api/toogleLike`, {
                 method: 'POST',
                 headers: {
@@ -98,12 +103,14 @@ const Post = ({
                 .then(data => {
                     if (!data.success) {
                         console.error('Error updating like status:', data.error);
+                        // Hoàn tác nếu API trả về lỗi
                         setIsLiked(prevIsLiked => !prevIsLiked);
                         setLikeCount(prevLikeCount => isLiked ? prevLikeCount + 1 : prevLikeCount - 1);
                     }
                 })
                 .catch(error => {
                     console.error('Error:', error);
+                    // Hoàn tác nếu có lỗi khi gửi API
                     setIsLiked(prevIsLiked => !prevIsLiked);
                     setLikeCount(prevLikeCount => isLiked ? prevLikeCount + 1 : prevLikeCount - 1);
                 });
@@ -175,7 +182,7 @@ const Post = ({
                     <img src={avatar} alt="avatar" />
                 </div>
                 <div className={styles['post-header-info']}>
-                    <h6 onClick={handleAvatarClick} style={{ cursor: 'pointer', fontWeight: 'revert', fontSize: '1.2rem' }}>{name} {check ==1 && <i class="fa-solid fa-circle-check" style={{ color: "#258e31", fontSize: "1rem" }}></i>}</h6>
+                    <h6 onClick={handleAvatarClick} style={{ cursor: 'pointer', fontWeight: 'revert', fontSize: '1.2rem' }}>{name} {check == 1 && <i className="fa-solid fa-circle-check" style={{ color: "#258e31", fontSize: "1rem" }}></i>}</h6>
                     <span style={{ fontSize: '1rem' }}>{time} · <i className="fas fa-earth-asia"></i></span>
                 </div>
                 <div className={styles['post-header-option']} onClick={handleDotsClick} style={{ cursor: 'pointer' }}>
@@ -203,21 +210,23 @@ const Post = ({
                     <p><span style={{ fontWeight: 'bold' }}>{comments}</span> bình luận</p>
                 </div>
                 <hr className={styles['black-line']} />
-                <div className={styles['post-footer-middle']}>
-                    <p onClick={handleLikeClick} style={{ cursor: 'pointer' ,fontWeight :500,marginRight : '1rem'}}>
-                        <i className={isLiked ? "fa-solid fa-heart" : "fa-regular fa-heart"}></i> Thích
-                    </p>
-                    <p onClick={handleCommentClick} style={{ cursor: 'pointer',fontWeight :500 }}>
-                        <i className="fa-regular fa-comment"></i> Bình luận
-                    </p>
-                </div>
+                {!loadingLikeStatus && (
+                    <div className={styles['post-footer-middle']}>
+                        <p onClick={handleLikeClick} style={{ cursor: 'pointer', fontWeight: 500, marginRight: '1rem' }}>
+                            <i className={isLiked ? "fa-solid fa-heart" : "fa-regular fa-heart"}></i> Thích
+                        </p>
+                        <p onClick={handleCommentClick} style={{ cursor: 'pointer', fontWeight: 500 }}>
+                            <i className="fa-regular fa-comment"></i> Bình luận
+                        </p>
+                    </div>
+                )}
                 {commentData && (
                     <div onClick={handleCommentClick} style={{ cursor: 'pointer' }} className={styles['post-footer-footer']}>
                         <img style={{ objectFit: 'cover' }} src={commentData.avatar} alt="comment avatar" />
                         <div className={styles['post-footer-footer-right']}>
                             <div className={styles['post-footer-footer-content']}>
-                                <p style={{ fontWeight: '600', fontSize: '15px', marginBottom : '0' }}>{commentData.username}</p>
-                                <p style={{ marginLeft: '0.1rem', fontSize: '1rem',marginBottom : '5px' }}>{commentData.content}</p>
+                                <p style={{ fontWeight: '600', fontSize: '15px', marginBottom: '0' }}>{commentData.username}</p>
+                                <p style={{ marginLeft: '0.1rem', fontSize: '1rem', marginBottom: '5px' }}>{commentData.content}</p>
                                 {commentData.imageComment && <img src={commentData.imageComment} alt="comment content" />}
                             </div>
                             <span style={{ fontSize: '0.8rem', marginLeft: '0.2rem' }}>{commentData.time}</span>
