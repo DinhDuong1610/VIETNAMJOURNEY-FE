@@ -4,6 +4,7 @@ import style from "./info.module.scss";
 import axios from "axios";
 import CountUp from "react-countup";
 import { Spin } from "antd";
+import API_BASE_URL from "../../../../../config/configapi";
 
 const cx = classNames.bind(style);
 
@@ -42,7 +43,7 @@ function Info({ className, province }) {
     const fetchData = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/getCampaignStatistics/${province}`
+          `${API_BASE_URL}api/getCampaignStatistics/${province}`
         );
         if (response.data) {
           setData({
