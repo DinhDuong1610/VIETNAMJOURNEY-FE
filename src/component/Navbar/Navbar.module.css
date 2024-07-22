@@ -216,7 +216,7 @@ header .list-navbar a:hover {
 
 @media (max-width: 630px) {
     header {
-        height: 3.5rem;
+        height: 60px;
     }
 
     header .logo img.logo1 {
@@ -238,7 +238,7 @@ header .list-navbar a:hover {
     }
 }
 
-@media (max-width: 560px) {
+/* @media (max-width: 560px) {
     header .logo img {
         margin-left: 8rem;
     }
@@ -260,6 +260,18 @@ header .list-navbar a:hover {
     header .sidebar {
         width: 95%;
     }
+} */
+
+ @media (max-width: 560px) {
+    header .logo img {
+        margin-left: 8rem;
+    }
+
+    header .sidebar {
+        width: 60%;
+    }
 }
+
+
 
 /* END NAVIGATION BAR */

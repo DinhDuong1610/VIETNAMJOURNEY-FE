@@ -2,7 +2,7 @@
 
 .background {
   background: url(wallpaper8.jpg) no-repeat center center/cover;
-  height: 100vh;
+  height: calc(100vh - 60px);
   width: 100%;
   display: flex;
   justify-content: center;

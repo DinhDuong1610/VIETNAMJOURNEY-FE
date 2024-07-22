@@ -72,7 +72,7 @@ function CampaignIng({ province }) {
           </>
         ) : (
           // Hiển thị các campaign sau khi dữ liệu đã được tải
-          <Slider {...settings} className={cx('row', 'pad')}>
+          <Slider {...settings} className={cx('row', 'pad')} arrows={false}>
             {campaigns.map(campaign => (
             <Campaign
               key={campaign.id}

@@ -246,6 +246,28 @@
 }
 
 @media screen and (max-width: 575.8px){
+  .info {
+    p {
+      font-size: 8px;
+    }
+
+    img {
+      height: 200px;
+    }
+  }
+
+  .title {
+    font-size: 20px;
+    margin-top: 10px;
+    margin-bottom: 5px;
+  }
   
+  .total .number {
+    font-size: 28px;
+  }
+
+  .detail .number {
+    font-size: 24px;
+  }
 }
 

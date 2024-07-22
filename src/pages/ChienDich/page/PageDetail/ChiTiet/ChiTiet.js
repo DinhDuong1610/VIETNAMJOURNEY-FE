@@ -3,6 +3,7 @@ import style from "./ChiTiet.module.scss";
 import axios from "axios";
 import { useState, useEffect } from "react"; // Import useEffect
 import { getCookie } from "../../../../../Cookie/getCookie";
+import { useNavigate } from "react-router-dom";
 import Modal from "react-modal";
 
 const cx = classNames.bind(style);
@@ -11,6 +12,14 @@ function ChiTiet({ campaign }) {
   const [isRegistered, setIsRegistered] = useState(false);
   const [loading, setLoading] = useState(false);
   const [status, setStatus] = useState(null); // State to keep track of volunteer status
+
+
+  const navigate = useNavigate();
+  const cookies = document.cookie;
+  const cookiesArray = cookies.split('; ');
+  const userIdCookie = cookiesArray.find(cookie => cookie.startsWith('User_ID='));
+  const userId = userIdCookie ? userIdCookie.split('=')[1] : null;
+
 
   // Function to fetch the status from the API
   const fetchVolunteerStatus = async () => {
@@ -247,7 +256,11 @@ function ChiTiet({ campaign }) {
   };
 
   const handleRegisterClick = () => {
-    setShowRegisterModal(true);
+    if(userId){
+      setShowRegisterModal(true);
+    }else{
+      navigate("/TaiKhoan");
+    }
   };
 
   const closeRegisterModal = () => {
