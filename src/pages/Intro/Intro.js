@@ -10,6 +10,17 @@ function Intro() {
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
 
+  useEffect(() => {
+    // Kiểm tra localStorage để xác định lần truy cập
+    const hasVisited = localStorage.getItem("hasVisitedIntro");
+
+    if (hasVisited) {
+      navigate("/TrangChu"); // Thay thế '/TrangChu' bằng route mục tiêu của bạn
+    } else {
+      localStorage.setItem("hasVisitedIntro", "true");
+    }
+  }, [navigate]);
+
   const handleSkip = () => {
     setStep(step + 1);
   };
