@@ -48,7 +48,7 @@ function CoGioiThieu() {
           ref={(el) => hiddenElementsRef.current.push(el)}
         >
           <h2>
-            <span className={styles.color1}>Thiên nhiên</span>
+            <span className={styles.color1}>Thiên Nhiên</span>
             <br></br>
             là tài sản vô giá
           </h2>
