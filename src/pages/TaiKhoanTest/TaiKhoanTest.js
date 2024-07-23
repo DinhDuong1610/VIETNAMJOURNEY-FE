@@ -157,7 +157,7 @@ const TaiKhoanTest = () => {
 };
 
   return (
-    <div className={styles.background} style={{ backgroundImage: `url(${background1})` }}>
+    <div className={styles.background}>
       <div className={styles.container}>
         <div className={styles.item}>
           <h1 className={styles.logo}>Viet<span style={{ color: '#18dc18' }}>Nam</span> J<span style={{ color: '#18dc18' }}>our</span>ney</h1>

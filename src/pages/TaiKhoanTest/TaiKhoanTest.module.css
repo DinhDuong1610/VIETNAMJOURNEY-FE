@@ -1,13 +1,13 @@
 
 
 .background {
-  background: url(wallpaper8.jpg) no-repeat center center/cover;
+  position: relative;
+  background: url(wallpaper8.jpg) no-repeat center center/cover; 
   height: calc(100vh - 60px);
   width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  position: relative;
 
   input[type="email"], input[type="password"], input[type="text"] {
     width: 100%;
@@ -26,12 +26,12 @@
 
 .background::before {
   content: '';
-  background: url(wallpaper8.jpg) no-repeat center center/cover;
-  filter: blur(10px);
+  background-color: rgba(0, 0, 0, 0.6);
+  /* filter: blur(10px); */
   position: absolute;
   height: 100%;
   width: 100%;
-  z-index: -1;
+  z-index: 1;
 }
 
 .container {
@@ -43,6 +43,7 @@
   overflow: hidden;
   position: relative;
   display: flex;
+  z-index: 999;
 }
 
 .item {
