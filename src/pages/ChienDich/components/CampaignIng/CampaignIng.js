@@ -7,6 +7,7 @@ import "slick-carousel/slick/slick-theme.css";
 import Slider from "react-slick";
 import axios from 'axios';
 import { Skeleton } from 'antd'; // Import Skeleton từ antd
+import API_BASE_URL from '../../../../config/configapi';
 
 const cx = classNames.bind(style);
 
@@ -19,7 +20,7 @@ function CampaignIng({ province }) {
     async function fetchCampaigns() {
       setLoading(true); // Đặt loading là true trước khi gửi yêu cầu API
       try {
-        const response = await axios.get(`http://localhost:8000/api/listCampaignIng/${province}`);
+        const response = await axios.get(`${API_BASE_URL}api/listCampaignIng/${province}`);
         setCampaigns(response.data);
       } catch (error) {
         console.error('Error fetching campaigns:', error);
@@ -72,7 +73,7 @@ function CampaignIng({ province }) {
           </>
         ) : (
           // Hiển thị các campaign sau khi dữ liệu đã được tải
-          <Slider {...settings} className={cx('row', 'pad')}>
+          <Slider {...settings} className={cx('row', 'pad')} arrows={false}>
             {campaigns.map(campaign => (
             <Campaign
               key={campaign.id}

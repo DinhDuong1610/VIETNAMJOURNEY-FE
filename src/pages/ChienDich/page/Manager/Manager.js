@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import axios from "axios";
 import { getCookie, useCheckCookie } from "../../../../Cookie/getCookie";
 import { Spin } from 'antd';
+import API_BASE_URL from "../../../../config/configapi";
 
 const cx = classNames.bind(style);
 
@@ -23,7 +24,7 @@ function Manager() {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await axios.post(`http://localhost:8000/api/managerCampaign/${userId}`);
+        const response = await axios.post(`${API_BASE_URL}api/managerCampaign/${userId}`);
 
         if (response.data.list) {
           setData(response.data.list);

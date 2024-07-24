@@ -24,8 +24,8 @@ div.main {
 }
 
 div.main div.post_div1 {
-    width: 80%;
-    padding-top: 30px;
+    width: calc(100% - 40px);
+    padding-top: 20px;
 }
 
 
@@ -35,11 +35,12 @@ div.main div.post_div1 img {
     aspect-ratio: 4/3;
     flex-shrink: 0;
     object-fit: cover;
+    border-radius: 5px;
 }
 
 
 div.main div.post_div2 {
-    width: 80%;
+    width: calc(100% - 40px);
     flex-shrink: 0;
     margin-top: 20px;
     margin-bottom: 20px;

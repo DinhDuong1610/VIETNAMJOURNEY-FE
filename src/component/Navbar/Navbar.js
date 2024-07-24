@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import classNames from "classnames/bind";
 import styles from "./Navbar.module.css";
 import header1 from "../../Images/Logos/header1.png";
@@ -14,6 +14,8 @@ function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
+
+  const navigate = useNavigate();
 
   useEffect(() => {
     const userId = getCookie("User_ID");
@@ -42,6 +44,10 @@ function Navbar() {
   }, []);
 
   const toggleSidebar = () => {
+    if(!userInfo) {
+      navigate('/TaiKhoan');
+      return;
+    }
     setIsSidebarOpen(!isSidebarOpen);
   };
 
@@ -72,7 +78,7 @@ function Navbar() {
   return (
     <header className={styles.header}>
       <div className={styles.logo}>
-        <Link to="/">
+        <Link to="/TrangChu">
           <img
             className={styles.logo1}
             src={header1}
@@ -94,7 +100,9 @@ function Navbar() {
           <Link to="/CongDong">CỘNG ĐỒNG</Link>
           <Link to="/ChienDich">CHIẾN DỊCH</Link>
           <Link to="/Quy">QUỸ</Link>
-          {userInfo && <Link to="/Messenger?type=user&user_id=0">TRÒ CHUYỆN </Link>}
+          {userInfo && (
+            <Link to="/Messenger?type=user&user_id=0">TRÒ CHUYỆN </Link>
+          )}
 
           {userInfo ? (
             <div className={cx("nav-item", { open: isDropdownOpen })}>
@@ -177,7 +185,7 @@ function Navbar() {
             )}
             {userInfo && (
               <Link to="/Messenger?type=user&user_id=0" onClick={toggleSidebar}>
-                NHẮN TIN <i className="fa-solid fa-envelope"></i>
+                TRÒ CHUYỆN <i className="fa-solid fa-envelope"></i>
               </Link>
             )}
             <Link to="/TrangChu" onClick={toggleSidebar}>
@@ -215,6 +223,91 @@ function Navbar() {
             )}
           </div>
         </div>
+      </div>
+
+      <div className={styles.mobile}>
+        <nav className={styles.mobileNav}>
+          <Link to="/CongDong">
+            <i class="fa-solid fa-earth-americas"></i>
+          </Link>
+          <Link to="/ChienDich">
+            <i class="fa-solid fa-font-awesome"></i>
+          </Link>
+          <Link to="/TrangChu">
+            <i class="fa-solid fa-house"></i>
+          </Link>
+          <Link to="/Quy">
+            <i class="fa-solid fa-hand-holding-dollar"></i>
+          </Link>
+
+          <div className={styles.bar} onClick={toggleSidebar}>
+            <i className="fa-solid fa-bars"></i>
+          </div>
+
+          <div
+            className={`${styles.overlay} ${
+              isSidebarOpen ? styles.active : ""
+            }`}
+            onClick={toggleSidebar}
+          ></div>
+
+          <div
+            className={`${styles.sidebar} ${isSidebarOpen ? styles.open : ""}`}
+          >
+            <div className={styles["sidebar-content"]}>
+              <div
+                style={{
+                  color: "aliceblue",
+                  textAlign: "right",
+                  marginTop: 0,
+                  cursor: "pointer",
+                }}
+                onClick={toggleSidebar}
+              >
+                <i className="fa-solid fa-bars"></i>
+              </div>
+              <div className={styles["list-navbar"]}>
+                {userInfo && (
+                  <Link
+                    to={"/User?user_id=" + getCookie("User_ID")}
+                    onClick={toggleSidebar}
+                  >
+                    {userInfo.Name} <i className="fa-solid fa-circle-user"></i>
+                  </Link>
+                )}
+                {userInfo && (
+                  <Link
+                    to="/Messenger?type=user&user_id=0"
+                    onClick={toggleSidebar}
+                  >
+                    TRÒ CHUYỆN <i className="fa-solid fa-envelope"></i>
+                  </Link>
+                )}
+                {userInfo ? (
+                  <div style={{ display: "flex", flexDirection: "column" }}>
+                    <Link to={managerLink} onClick={toggleSidebar}>
+                      CHIẾN DỊCH CỦA TÔI
+                    </Link>
+                    <Link
+                      to="/TaiKhoan"
+                      onClick={() => {
+                        handleDeleteCookie();
+                        toggleSidebar();
+                      }}
+                    >
+                      ĐĂNG XUẤT{" "}
+                      <i className="fa-solid fa-arrow-right-from-bracket"></i>
+                    </Link>
+                  </div>
+                ) : (
+                  <Link to={link} onClick={toggleSidebar}>
+                    ĐĂNG NHẬP <i className="fa-solid fa-user"></i>
+                  </Link>
+                )}
+              </div>
+            </div>
+          </div>
+        </nav>
       </div>
     </header>
   );

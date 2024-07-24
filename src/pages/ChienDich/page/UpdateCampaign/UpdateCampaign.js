@@ -6,6 +6,7 @@ import { useLocation } from "react-router-dom";
 import queryString from "query-string";
 import axios from "axios";
 import Select from "react-select";
+import API_BASE_URL from "../../../../config/configapi";
 
 const cx = classNames.bind(style);
 
@@ -46,7 +47,7 @@ function UpdateCampaign() {
     const fetchCampaign = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8000/api/getCampaign/${id}`
+          `${API_BASE_URL}api/getCampaign/${id}`
         );
         const campaignData = response.data;
 
@@ -207,7 +208,7 @@ function UpdateCampaign() {
   
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/updateCampaign`,
+        `${API_BASE_URL}api/updateCampaign`,
         formData,
         {
           headers: {
@@ -564,7 +565,7 @@ function UpdateCampaign() {
         campaignImageBase64 && (
           <div className={cx("image-preview-container")}>
             <img
-              src={`http://localhost:8000/${campaign.image}`}
+              src={`${API_BASE_URL}${campaign.image}`}
               alt="Ảnh đã chọn"
               className={cx("image-preview")}
             />

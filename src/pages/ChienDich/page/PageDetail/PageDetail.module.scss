@@ -250,23 +250,30 @@
     width: 100%;
   
     ul {
-      padding-left: 10px;
+      padding-left: 0px;
       padding-right: 10px;
     }
   
     ul li {
-      font-size: 12px;
+      font-size: 10px;
     }
   
   }
 
+  .header {
+    height: 250px;
+    padding-top: 80px;
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
   .header .title {
-    font-size: 18px;
+    font-size: 14px;
   }
   .header .camp-id {
-    font-size: 40px;
+    font-size: 30px;
   }
   .header .desc {
-    font-size: 24px;
+    font-size: 20px;
   }
 }

@@ -4,6 +4,7 @@ import axios from "axios";
 import { useState, useEffect } from "react"; // Import useEffect
 import { getCookie } from "../../../../../Cookie/getCookie";
 import Modal from "react-modal";
+import API_BASE_URL from "../../../../../config/configapi";
 
 const cx = classNames.bind(style);
 
@@ -275,7 +276,7 @@ function ChiTiet({ campaign }) {
     }
 
     try {
-      const response = await axios.post('http://localhost:8000/api/registerVolunteer', formData, {
+      const response = await axios.post(`${API_BASE_URL}api/registerVolunteer`, formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

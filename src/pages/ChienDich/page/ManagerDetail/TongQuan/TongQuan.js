@@ -3,6 +3,7 @@ import classNames from "classnames/bind";
 import style from "./TongQuan.module.scss";
 import axios from "axios";
 import { getCookie } from "../../../../../Cookie/getCookie";
+import API_BASE_URL from "../../../../../config/configapi"
 
 
 const cx = classNames.bind(style);
@@ -30,7 +31,7 @@ function TongQuan({ campaign }) {
         });
 
         const response = await axios.post(
-          'http://localhost:8000/api/getStatusVolunteer',
+          `${API_BASE_URL}api/getStatusVolunteer`,
           formData,
           {
             headers: {

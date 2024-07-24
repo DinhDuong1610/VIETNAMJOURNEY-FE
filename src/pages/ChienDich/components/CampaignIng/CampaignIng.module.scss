@@ -30,25 +30,38 @@
   justify-content: space-between;
 }
 
-// .skeleton-slide {
-//   height: 200px; // Đặt chiều cao mong muốn cho Skeleton
-//   width: 30%;
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-// }
 
-// .slickSlide {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-// }
 
-// .slickList {
-//   padding: 0;
-//   margin: 0;
-// }
+@media screen and (max-width: 1500px) {
+  
+}
 
-// .slickTrack {
-//   display: flex;
-// }
+@media screen and (max-width: 1199.8px) {
+
+}
+
+@media screen and (max-width: 991.8px) {
+  
+}
+
+@media screen and (max-width: 767.8px){
+  
+}
+
+@media screen and (max-width: 575.8px){
+  .CampaignIng {
+    margin-top: 40px;
+    padding: 0 5px;
+  
+    hr {
+      margin: 0;
+      width: 30%;
+      border: 2px solid var(--color-text);
+      opacity: 1;
+    }
+  }
+  
+  .CampaignIng .title {
+    font-size: 24px;
+  }
+}

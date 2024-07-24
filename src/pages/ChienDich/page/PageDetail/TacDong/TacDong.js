@@ -3,6 +3,7 @@ import { Tooltip } from 'react-tooltip';
 import classNames from 'classnames/bind';
 import style from './TacDong.module.scss';
 import CountUp from 'react-countup';
+import API_BASE_URL from "../../../../../config/configapi";
 
 const cx = classNames.bind(style);
 

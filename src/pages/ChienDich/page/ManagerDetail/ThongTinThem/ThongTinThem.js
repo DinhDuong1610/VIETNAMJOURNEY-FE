@@ -3,6 +3,7 @@ import style from "./ThongTinThem.module.scss";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import Modal from "react-modal";
+import API_BASE_URL from "../../../../../config/configapi";
 
 const cx = classNames.bind(style);
 
@@ -16,7 +17,7 @@ function ThongTinThem({ campaign }) {
   const fetchVolunteers = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/getJoined/${campaign.id}`
+        `${API_BASE_URL}api/getJoined/${campaign.id}`
       );
       setVolunteers(response.data.volunteers);
     } catch (error) {
@@ -27,7 +28,7 @@ function ThongTinThem({ campaign }) {
   const fetchPending = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/getPending/${campaign.id}`
+        `${API_BASE_URL}api/getPending/${campaign.id}`
       );
       setPending(response.data.pending);
     } catch (error) {
@@ -55,7 +56,7 @@ function ThongTinThem({ campaign }) {
 
   const updateStatus = async (campaignId, userId, status) => {
     try {
-      const response = await axios.post('http://localhost:8000/api/updateStatus', {
+      const response = await axios.post(`${API_BASE_URL}api/updateStatus`, {
         campaignId: campaignId,
         userId: userId,
         status: status
@@ -105,7 +106,7 @@ function ThongTinThem({ campaign }) {
                   <td>
                     <div className={cx("person")}>
                       <img
-                        src={`http://localhost:8000/${volunteer.user_infomation.Image}`}
+                        src={`${API_BASE_URL}${volunteer.user_infomation.Image}`}
                         alt="Avatar"
                       />
                       <div className={cx("info")}>
@@ -157,7 +158,7 @@ function ThongTinThem({ campaign }) {
                   <td>
                     <div className={cx("person")}>
                       <img
-                        src={`http://localhost:8000/${volunteer.user_infomation.Image}`}
+                        src={`${API_BASE_URL}${volunteer.user_infomation.Image}`}
                         alt="Avatar"
                       />
                       <div className={cx("info")}>
@@ -208,7 +209,7 @@ function ThongTinThem({ campaign }) {
             {selectedUser ? (
               <div className={cx("content")}>
                 <div className={cx("top")}>
-                  <img src={`http://localhost:8000/${selectedUser.user_infomation.Image}`} alt="Avatar" />
+                  <img src={`${API_BASE_URL}${selectedUser.user_infomation.Image}`} alt="Avatar" />
                   <div className={cx("person")}>
                     <div className={cx("name")}>{selectedUser.user_infomation.Name}</div>
                     <div className={cx("username")}>@{selectedUser.user_infomation.Username}</div>
