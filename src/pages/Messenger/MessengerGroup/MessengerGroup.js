@@ -20,7 +20,7 @@ function MessengerGroup({ onGroupClick }) {
         if (user_ID) {
             fetchGroups(user_ID);
 
-            ws.current = new WebSocket('ws://localhost:8080');
+            ws.current = new WebSocket('ws://bwdjourney.id.vn:8080');
             ws.current.onopen = () => {
                 ws.current.send(JSON.stringify({ type: 'subscribe', chat_group_from: user_ID }));
             };
