@@ -39,20 +39,24 @@ const NewPost = ({ onClose }) => {
                 body: formData
             });
 
+            const result = await response.json();
             if (!response.ok) {
-                throw new Error('Network response was not ok');
+                console.error('Failed to add post:', result.error);
+                alert(`Failed to add post: ${result.error}`);
+                return;
             }
 
-            const result = await response.json();
             if (result.success) {
                 console.log('Post added successfully');
                 onClose(); // Close the modal
                 navigate(0); // Refresh the page
             } else {
                 console.error('Failed to add post:', result.error);
+                alert(`Failed to add post: ${result.error}`);
             }
         } catch (error) {
             console.error('Failed to add post:', error);
+            alert(`Failed to add post: ${error.message}`);
         }
     };
 
