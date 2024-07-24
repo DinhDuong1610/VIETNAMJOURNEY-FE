@@ -39,7 +39,7 @@ function ChatBoxUser() {
         setLoading(true);
         fetchMessages(user_from, user_id);
 
-        ws.current = new WebSocket('ws://localhost:8080');
+        ws.current = new WebSocket('ws://bwdjourney.id.vn:8080');
         ws.current.onopen = () => {
             ws.current.send(JSON.stringify({ type: 'subscribe', user_to_chat: user_id, user_from_chat: user_from }));
         };
