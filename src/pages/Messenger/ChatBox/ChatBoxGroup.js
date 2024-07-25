@@ -55,7 +55,7 @@ function ChatBoxGroup() {
             }
         };
 
-        ws.current = new WebSocket('ws://localhost:8080');
+        ws.current = new WebSocket('wss://bwdjourney.id.vn:8080');
         ws.current.onopen = () => {
             ws.current.send(JSON.stringify({
                 type: 'subscribe',
