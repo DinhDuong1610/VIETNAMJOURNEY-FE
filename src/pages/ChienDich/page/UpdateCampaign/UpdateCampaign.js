@@ -33,7 +33,7 @@ function UpdateCampaign() {
   useEffect(() => {
     const fetchProvinces = async () => {
       try {
-        const response = await axios.get("/json_data_vn_units.json");
+        const response = await axios.get("./json_data_vn_units.json");
         setProvinces(response.data);
       } catch (error) {
         console.error("Error fetching provinces data:", error);
