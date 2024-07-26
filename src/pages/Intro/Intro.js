@@ -11,11 +11,10 @@ function Intro() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Kiểm tra localStorage để xác định lần truy cập
     const hasVisited = localStorage.getItem("hasVisitedIntro");
 
     if (hasVisited) {
-      navigate("/TrangChu"); // Thay thế '/TrangChu' bằng route mục tiêu của bạn
+      navigate("/TrangChu"); 
     } else {
       localStorage.setItem("hasVisitedIntro", "true");
     }
