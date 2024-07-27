@@ -88,7 +88,7 @@ function Messenger() {
             <div className={styles.container1}>
                 <div className={styles.container1Head}>
                     <div className={styles.title}>
-                        <h6 style={{ fontSize: '1.8rem', fontWeight: 'revert', color: 'green' }}>Chats</h6>
+                        <h6 style={{ fontWeight: 'revert', color: 'green' }}>Chats</h6>
                         <p style={{ marginTop: '0px', fontSize: '1.4rem', marginRight: '10px' }}>
                             <i className="fa-regular fa-pen-to-square"></i>
                         </p>

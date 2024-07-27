@@ -52,7 +52,9 @@ body {
     margin-top: 0.5rem;
 }.container1Head {
     position: relative; /* Để đặt vị trí cho nút tìm kiếm */
-}.title {
+}.container1Head h6 {
+        font-size: 1.8rem;
+    }.title {
     display: flex;
 }.title p{
    margin-left: auto;
@@ -133,6 +135,16 @@ margin-right: 5px;
 }.title h6{
    margin-left: 4px;
 }
+}@media (max-width: 550px) { 
+    .container1Head i {
+        display: none;
+    }.container1Head h5 {
+        font-size: smaller;
+    }.container1Head h6 {
+        font-size: 1.4rem;
+    }.container {
+        margin-top: 0.1rem;
+    }
 }
 
 
