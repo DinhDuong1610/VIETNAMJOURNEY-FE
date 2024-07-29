@@ -70,32 +70,38 @@ function Messenger() {
     }, [user_ID]);
 
     useEffect(() => {
+    const checkAndHandleResize = () => {
+        const container1 = document.querySelector(`.${styles.container1}`);
+        const container2 = document.querySelector(`.${styles.container2}`);
+        if (window.innerWidth < 560) {
+            container1.classList.add(styles.fullWidth);
+            container1.classList.remove(styles.hidden);
+            container2.classList.add(styles.hidden);
+        } else {
+            container1.classList.remove(styles.fullWidth);
+            container1.classList.remove(styles.hidden);
+            container2.classList.remove(styles.hidden);
+        }
+    };
+
     let lastWindowWidth = window.innerWidth;
 
     const handleResize = () => {
         const currentWindowWidth = window.innerWidth;
         if (lastWindowWidth !== currentWindowWidth) {
-            const container1 = document.querySelector(`.${styles.container1}`);
-            const container2 = document.querySelector(`.${styles.container2}`);
-            if (window.innerWidth < 560) {
-                container1.classList.add(styles.fullWidth);
-                container1.classList.remove(styles.hidden);
-                container2.classList.add(styles.hidden);
-            } else {
-                container1.classList.remove(styles.fullWidth);
-                container2.classList.remove(styles.hidden);
-            }
+            checkAndHandleResize();
             lastWindowWidth = currentWindowWidth; // Cập nhật lại chiều rộng cửa sổ cuối cùng
         }
     };
 
-    handleResize(); // Set initial state based on current window size
+    checkAndHandleResize(); // Kiểm tra ngay sau khi load trang
     window.addEventListener('resize', handleResize);
 
     return () => {
         window.removeEventListener('resize', handleResize);
     };
 }, []);
+
 
 
     const handleUserClick = (type, userId) => {
