@@ -120,9 +120,7 @@ body {
         width: 100%;
     
 }.title {
-    flex-direction: column;
     font-size: 1rem;
-    float: left;
 }.tabs {
     margin-left: 2px;
 }.tab {
@@ -135,16 +133,20 @@ margin-right: 5px;
 }.title h6{
    margin-left: 4px;
 }
-}@media (max-width: 550px) { 
-    .container1Head i {
+}@media (max-width: 560px) { 
+.container {
+        margin-top: 1.5rem;
+    }.container1.hidden {
         display: none;
-    }.container1Head h5 {
-        font-size: smaller;
-    }.container1Head h6 {
-        font-size: 1.4rem;
-    }.container {
-        margin-top: 0.1rem;
-    }
+    }.container2.fullWidth {
+        width: 100%;
+    }.container2.hidden {
+        display: none;
+    }.container1.fullWidth {
+        width: 100%;
+    }.container1Head {
+    margin-left: 0.3rem;
+}
 }
 
 

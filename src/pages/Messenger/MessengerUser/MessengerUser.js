@@ -3,7 +3,7 @@ import { Skeleton } from 'antd';
 import styles from './MessengerUser.module.css';
 import API_BASE_URL from '../../../config/configapi.js';
 
-function MessengerUser({ user_ID, onUserClick, onlineUsers }) {
+function MessengerUser({ user_ID, onUserClick, onlineUsers, toggleContainers }) {
     const [users, setUsers] = useState([]);
     const [selectedUser, setSelectedUser] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -21,7 +21,7 @@ function MessengerUser({ user_ID, onUserClick, onlineUsers }) {
             const receivedMessage = JSON.parse(event.data);
             if (receivedMessage.type === 'sendMessage' && receivedMessage.user_to === user_ID) {
                 updateUsersChat(receivedMessage);
-            } 
+            }
             if (receivedMessage.type === 'sendMessage' && receivedMessage.user_from === user_ID) {
                 updateUsersChatFrom(receivedMessage);
             }
@@ -57,11 +57,11 @@ function MessengerUser({ user_ID, onUserClick, onlineUsers }) {
 
     const updateUsersChat = (receivedMessage) => {
         setUsers(prevUsers => {
-            const userIndex = prevUsers.findIndex(user => user.user_to == receivedMessage.user_from);
+            const userIndex = prevUsers.findIndex(user => user.user_to === receivedMessage.user_from);
             let updatedUsers;
             if (userIndex !== -1) {
                 updatedUsers = [...prevUsers];
-                updatedUsers.splice(userIndex, 1); 
+                updatedUsers.splice(userIndex, 1);
             } else {
                 updatedUsers = prevUsers;
             }
@@ -74,9 +74,9 @@ function MessengerUser({ user_ID, onUserClick, onlineUsers }) {
             }
 
             const updatedUser = {
-               user_to: prevUsers[userIndex].user_to,
-                user_image: prevUsers[userIndex].user_image,
-                user_name: prevUsers[userIndex].user_name,
+                user_to: receivedMessage.user_from,
+                user_image: updatedUsers[userIndex]?.user_image || '',
+                user_name: updatedUsers[userIndex]?.user_name || '',
                 latest_content: lastcontent,
             };
 
@@ -86,11 +86,11 @@ function MessengerUser({ user_ID, onUserClick, onlineUsers }) {
 
     const updateUsersChatFrom = (receivedMessage) => {
         setUsers(prevUsers => {
-            const userIndex = prevUsers.findIndex(user => user.user_to == receivedMessage.user_to);
+            const userIndex = prevUsers.findIndex(user => user.user_to === receivedMessage.user_to);
             let updatedUsers;
             if (userIndex !== -1) {
                 updatedUsers = [...prevUsers];
-                updatedUsers.splice(userIndex, 1); 
+                updatedUsers.splice(userIndex, 1);
             } else {
                 updatedUsers = prevUsers;
             }
@@ -103,9 +103,9 @@ function MessengerUser({ user_ID, onUserClick, onlineUsers }) {
             }
 
             const updatedUser = {
-                user_to: prevUsers[userIndex].user_to,
-                user_image: prevUsers[userIndex].user_image,
-                user_name: prevUsers[userIndex].user_name,
+                user_to: receivedMessage.user_to,
+                user_image: updatedUsers[userIndex]?.user_image || '',
+                user_name: updatedUsers[userIndex]?.user_name || '',
                 latest_content: lastcontent,
             };
 
@@ -116,6 +116,7 @@ function MessengerUser({ user_ID, onUserClick, onlineUsers }) {
     const handleUserClick = (type, userId) => {
         onUserClick(type, userId);
         setSelectedUser(userId);
+        toggleContainers(); // Gọi hàm toggleContainers khi người dùng được chọn
     };
 
     const isUserOnline = (userTo) => {

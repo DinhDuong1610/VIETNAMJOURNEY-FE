@@ -79,9 +79,4 @@
     margin-bottom: 0;
     font-size: 18px;
 }@media (max-width: 450px) {
-.userinfo {
-    display: none;
-}.useravatar {
-    margin-left: 15%;
-}
 }

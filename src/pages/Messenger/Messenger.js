@@ -69,6 +69,28 @@ function Messenger() {
         };
     }, [user_ID]);
 
+    useEffect(() => {
+        const handleResize = () => {
+            const container1 = document.querySelector(`.${styles.container1}`);
+            const container2 = document.querySelector(`.${styles.container2}`);
+            if (window.innerWidth < 560) {
+                container1.classList.add(styles.fullWidth);
+                container1.classList.remove(styles.hidden);
+                container2.classList.add(styles.hidden);
+            } else {
+                container1.classList.remove(styles.fullWidth);
+                container2.classList.remove(styles.hidden);
+            }
+        };
+
+        handleResize(); // Set initial state based on current window size
+        window.addEventListener('resize', handleResize);
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+        };
+    }, []);
+
     const handleUserClick = (type, userId) => {
         navigate(`/Messenger?type=${type}&user_id=${userId}`);
     };
@@ -81,6 +103,26 @@ function Messenger() {
 
     const handleGroupClick = (groupId) => {
         navigate(`/Messenger?type=group&group_id=${groupId}`);
+    };
+
+    const toggleContainers = () => {
+        const container1 = document.querySelector(`.${styles.container1}`);
+        const container2 = document.querySelector(`.${styles.container2}`);
+        if (window.innerWidth < 560) {
+            container2.classList.add(styles.fullWidth);
+            container2.classList.remove(styles.hidden);
+            container1.classList.add(styles.hidden);
+        }
+    };
+    
+    const closeChatBox = () => {
+        const container1 = document.querySelector(`.${styles.container1}`);
+        const container2 = document.querySelector(`.${styles.container2}`);
+        if (window.innerWidth < 560) {
+            container2.classList.add(styles.hidden);
+            container1.classList.add(styles.fullWidth);
+            container1.classList.remove(styles.hidden);
+        }
     };
 
     return (
@@ -111,15 +153,16 @@ function Messenger() {
                 </div>
                 <div className={styles.chatname} style={{ padding: '0' }}>
                     {currentView === 'user' ? (
-                        <MessengerUser user_ID={user_ID} onUserClick={handleUserClick} onlineUsers={array} />
+                        <MessengerUser user_ID={user_ID} onUserClick={handleUserClick} onlineUsers={array} toggleContainers={toggleContainers} />
                     ) : (
-                        <MessengerGroup user_ID={user_ID} onGroupClick={handleGroupClick} />
+                        <MessengerGroup user_ID={user_ID} onGroupClick={handleGroupClick} toggleContainers={toggleContainers} />
+
                     )}
                 </div>
             </div>
             <div className={styles.container2}>
                 <Routes>
-                    <Route path="/" element={currentView === 'user' ? <ChatBoxUser /> : <ChatBoxGroup />} />
+                    <Route path="/" element={currentView === 'user' ? <ChatBoxUser closeChatBox={closeChatBox} /> : <ChatBoxGroup closeChatBox={closeChatBox} />} />
                 </Routes>
             </div>
         </div>
