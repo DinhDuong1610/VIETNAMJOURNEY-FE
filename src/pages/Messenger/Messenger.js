@@ -70,7 +70,11 @@ function Messenger() {
     }, [user_ID]);
 
     useEffect(() => {
-        const handleResize = () => {
+    let lastWindowWidth = window.innerWidth;
+
+    const handleResize = () => {
+        const currentWindowWidth = window.innerWidth;
+        if (lastWindowWidth !== currentWindowWidth) {
             const container1 = document.querySelector(`.${styles.container1}`);
             const container2 = document.querySelector(`.${styles.container2}`);
             if (window.innerWidth < 560) {
@@ -81,15 +85,18 @@ function Messenger() {
                 container1.classList.remove(styles.fullWidth);
                 container2.classList.remove(styles.hidden);
             }
-        };
+            lastWindowWidth = currentWindowWidth; // Cập nhật lại chiều rộng cửa sổ cuối cùng
+        }
+    };
 
-        handleResize(); // Set initial state based on current window size
-        window.addEventListener('resize', handleResize);
+    handleResize(); // Set initial state based on current window size
+    window.addEventListener('resize', handleResize);
 
-        return () => {
-            window.removeEventListener('resize', handleResize);
-        };
-    }, []);
+    return () => {
+        window.removeEventListener('resize', handleResize);
+    };
+}, []);
+
 
     const handleUserClick = (type, userId) => {
         navigate(`/Messenger?type=${type}&user_id=${userId}`);
