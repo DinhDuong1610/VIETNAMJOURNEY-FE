@@ -277,8 +277,12 @@ div.main div.bot div.eclipse {
 
 
     div.main div.top div.txt h2 {
-        font-size: 40px;
+        font-size: 36px;
         text-align: center;
+    }
+    
+    div.main div.top div.txt h2 span {
+        font-size: 46px;
     }
 
 
