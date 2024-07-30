@@ -69,6 +69,41 @@ function Messenger() {
         };
     }, [user_ID]);
 
+    useEffect(() => {
+    const checkAndHandleResize = () => {
+        const container1 = document.querySelector(`.${styles.container1}`);
+        const container2 = document.querySelector(`.${styles.container2}`);
+        if (window.innerWidth < 560) {
+            container1.classList.add(styles.fullWidth);
+            container1.classList.remove(styles.hidden);
+            container2.classList.add(styles.hidden);
+        } else {
+            container1.classList.remove(styles.fullWidth);
+            container1.classList.remove(styles.hidden);
+            container2.classList.remove(styles.hidden);
+        }
+    };
+
+    let lastWindowWidth = window.innerWidth;
+
+    const handleResize = () => {
+        const currentWindowWidth = window.innerWidth;
+        if (lastWindowWidth !== currentWindowWidth) {
+            checkAndHandleResize();
+            lastWindowWidth = currentWindowWidth; // Cập nhật lại chiều rộng cửa sổ cuối cùng
+        }
+    };
+
+    checkAndHandleResize(); // Kiểm tra ngay sau khi load trang
+    window.addEventListener('resize', handleResize);
+
+    return () => {
+        window.removeEventListener('resize', handleResize);
+    };
+}, []);
+
+
+
     const handleUserClick = (type, userId) => {
         navigate(`/Messenger?type=${type}&user_id=${userId}`);
     };
@@ -83,12 +118,32 @@ function Messenger() {
         navigate(`/Messenger?type=group&group_id=${groupId}`);
     };
 
+    const toggleContainers = () => {
+        const container1 = document.querySelector(`.${styles.container1}`);
+        const container2 = document.querySelector(`.${styles.container2}`);
+        if (window.innerWidth < 560) {
+            container2.classList.add(styles.fullWidth);
+            container2.classList.remove(styles.hidden);
+            container1.classList.add(styles.hidden);
+        }
+    };
+    
+    const closeChatBox = () => {
+        const container1 = document.querySelector(`.${styles.container1}`);
+        const container2 = document.querySelector(`.${styles.container2}`);
+        if (window.innerWidth < 560) {
+            container2.classList.add(styles.hidden);
+            container1.classList.add(styles.fullWidth);
+            container1.classList.remove(styles.hidden);
+        }
+    };
+
     return (
         <div className={styles.container}>
             <div className={styles.container1}>
                 <div className={styles.container1Head}>
                     <div className={styles.title}>
-                        <h6 style={{ fontSize: '1.8rem', fontWeight: 'revert', color: 'green' }}>Chats</h6>
+                        <h6 style={{ fontWeight: 'revert', color: 'green' }}>Chats</h6>
                         <p style={{ marginTop: '0px', fontSize: '1.4rem', marginRight: '10px' }}>
                             <i className="fa-regular fa-pen-to-square"></i>
                         </p>
@@ -111,15 +166,16 @@ function Messenger() {
                 </div>
                 <div className={styles.chatname} style={{ padding: '0' }}>
                     {currentView === 'user' ? (
-                        <MessengerUser user_ID={user_ID} onUserClick={handleUserClick} onlineUsers={array} />
+                        <MessengerUser user_ID={user_ID} onUserClick={handleUserClick} onlineUsers={array} toggleContainers={toggleContainers} />
                     ) : (
-                        <MessengerGroup user_ID={user_ID} onGroupClick={handleGroupClick} />
+                        <MessengerGroup user_ID={user_ID} onGroupClick={handleGroupClick} toggleContainers={toggleContainers} />
+
                     )}
                 </div>
             </div>
             <div className={styles.container2}>
                 <Routes>
-                    <Route path="/" element={currentView === 'user' ? <ChatBoxUser /> : <ChatBoxGroup />} />
+                    <Route path="/" element={currentView === 'user' ? <ChatBoxUser closeChatBox={closeChatBox} /> : <ChatBoxGroup closeChatBox={closeChatBox} />} />
                 </Routes>
             </div>
         </div>

@@ -56,8 +56,34 @@ function Search() {
     };
 
     return (
-        <div className="container">
+        <div className={styles.container}>
             <div className="row">
+                 <div className="col-md-4">
+                    {userInfo && user_ID != null && (
+                        <div className={styles.container3}>
+                            {loading ? (
+                                <Skeleton active />
+                            ) : users.length > 0 ? (
+                                <>
+                                    <h6 style={{ marginLeft: '0.3rem', fontWeight: '', fontSize: '1.2rem' }}>Danh sách người dùng</h6>
+                                    {users.map(user => (
+                                        <div style={{ cursor: 'pointer' }} key={user.User_ID} className={styles['container3-info']} onClick={() => handleUserClick(user.User_ID)}>
+                                            <img alt={user.username} src={user.Image}></img>
+                                            <div className={styles['container3-content']}>
+                                                <h6>{user.Username}</h6>
+                                                <p>{user.total_following} người theo dõi</p>
+                                            </div>
+                                        </div>
+                                    ))}
+                                    <h6 style={{ textAlign : 'right', marginRight: '1rem', color: 'green' }}>
+                                    </h6>
+                                </>
+                            ) : (
+                                <p>Không tìm thấy người dùng.</p>
+                            )}
+                        </div>
+                    )}
+                </div>
                 <div className="col-md-8">
                     <div className={styles.container2}>
                         {loading ? (
@@ -83,32 +109,6 @@ function Search() {
                             ))
                         )}
                     </div>
-                </div>
-                <div className="col-md-4">
-                    {userInfo && user_ID != null && (
-                        <div className={styles.container3}>
-                            {loading ? (
-                                <Skeleton active />
-                            ) : users.length > 0 ? (
-                                <>
-                                    <h6 style={{ marginLeft: '0.3rem', fontWeight: '', fontSize: '1.2rem' }}>Danh sách người dùng</h6>
-                                    {users.map(user => (
-                                        <div style={{ cursor: 'pointer' }} key={user.id} className={styles['container3-info']} onClick={() => handleUserClick(user.id)}>
-                                            <img alt={user.username} src={user.Image}></img>
-                                            <div className={styles['container3-content']}>
-                                                <h6>{user.Username}</h6>
-                                                <p>{user.total_following} người theo dõi</p>
-                                            </div>
-                                        </div>
-                                    ))}
-                                    <h6 style={{ textAlign : 'right', marginRight: '1rem', color: 'green' }}>
-                                    </h6>
-                                </>
-                            ) : (
-                                <p>Không tìm thấy người dùng.</p>
-                            )}
-                        </div>
-                    )}
                 </div>
             </div>
         </div>

@@ -6,7 +6,7 @@ import dots from '../../../Images/User/dots.png';
 import logo from '../../../Images/Message/formessage.png';
 import API_BASE_URL from '../../../config/configapi.js';
 
-function ChatBoxGroup() {
+function ChatBoxGroup({ closeChatBox }) {
     const cookies = document.cookie;
     const cookiesArray = cookies.split('; ');
     const userIdCookie = cookiesArray.find(cookie => cookie.startsWith('User_ID='));
@@ -126,6 +126,10 @@ function ChatBoxGroup() {
             contentRef.current.scrollTop = contentRef.current.scrollHeight;
         }
     };
+    const handleGoBack = () => {
+        closeChatBox();
+        console.log("back")
+    };
 
     return (
         <div className={styles.container}>
@@ -139,6 +143,7 @@ function ChatBoxGroup() {
                 <>
                     {isMember && 
                     <div className={styles.containerHeader}>
+                        <i onClick={handleGoBack} class="fa-solid fa-arrow-left"></i>
                         <img src={groupInfo.image} alt="Avatar"></img>
                         <div className={styles.containerHeaderInfo}>
                             <h5>{groupInfo.name}</h5>

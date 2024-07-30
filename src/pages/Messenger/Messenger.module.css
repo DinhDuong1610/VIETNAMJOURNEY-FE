@@ -52,6 +52,8 @@ body {
     margin-top: 0.5rem;
 }.container1Head {
     position: relative; /* Để đặt vị trí cho nút tìm kiếm */
+}.container1Head h6 {
+    font-size: 1.8rem;
 }.title {
     display: flex;
 }.title p{
@@ -114,13 +116,8 @@ body {
 .tab.active::after {
     transform: scaleX(1);
 }@media (max-width: 500px) {
-    .container {
-        width: 100%;
-    
-}.title {
-    flex-direction: column;
-    font-size: 1rem;
-    float: left;
+.container {
+width: 100%;
 }.tabs {
     margin-left: 2px;
 }.tab {
@@ -129,9 +126,23 @@ margin-right: 5px;
     width: 90%;
     margin-left: 3px;
 }.title p{
-   margin-left: 8px;
+   margin-left: auto;
 }.title h6{
    margin-left: 4px;
+}
+}@media (max-width: 560px) { 
+.container {
+        margin-top: 1.5rem;
+    }.container1.hidden {
+        display: none;
+    }.container2.fullWidth {
+        width: 100%;
+    }.container2.hidden {
+        display: none;
+    }.container1.fullWidth {
+        width: 100%;
+    }.container1Head {
+    margin-left: 0.3rem;
 }
 }
 

@@ -161,4 +161,24 @@
     background-color: #d8d8d8; /* Màu xám */
     color: #000000;
     border-radius: 4px 18px 18px 18px;
-} 
+}
+.containerHeader i {
+   display: none;
+}@media (max-width : 560px) {
+    .containerHeader img{
+    margin-left: 0.4rem;
+    width: 2.7rem;
+    height: 2.7rem;
+    margin-top: 0.4rem;
+}.containerHeaderInfo p {
+    font-size: 0.8rem;
+    margin-top: 0;
+}.containerHeaderInfo h5 {
+    font-size: 1rem;
+}.containerHeaderSettings img {
+    width: 1.5rem;
+    height: 1.5rem;
+}.containerHeader i {
+   display: block;
+}
+}

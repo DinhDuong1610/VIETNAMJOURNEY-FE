@@ -114,7 +114,7 @@ function CongDong() {
                             ))
                         )}
                     </div>
-                    {user_ID !== null && (
+                    {user_ID !== null && campaignuser.length > 0 && (
                         <div className={styles.sticky}>
                             <div className={styles.container3} style={{ marginTop: '0.5rem' }}>
                                 <h6 style={{ marginLeft: '0.3rem', fontWeight: '', fontSize: '1.5rem' }}>Nhóm của bạn</h6>

@@ -6,7 +6,7 @@ import dots from '../../../Images/User/dots.png';
 import logo from '../../../Images/Message/formessage.png';
 import API_BASE_URL from '../../../config/configapi.js';
 
-function ChatBoxUser() {
+function ChatBoxUser({ closeChatBox }) {
     const cookies = document.cookie;
     const cookiesArray = cookies.split('; ');
     const userIdCookie = cookiesArray.find(cookie => cookie.startsWith('User_ID='));
@@ -145,6 +145,10 @@ function ChatBoxUser() {
             setSelectedImage(file);
         }
     };
+    const handleGoBack = () => {
+        closeChatBox();
+        console.log("back")
+    };
 
     return (
         <div className={styles.container}>
@@ -152,11 +156,13 @@ function ChatBoxUser() {
                 <Skeleton avatar paragraph={{ rows: 1 }} />
             ) : (
                 userInfo && userInfo.image && allowInputMessage ? (
-                    <div className={styles.containerHeader}>
+                        <div className={styles.containerHeader}>
+                            <i onClick={handleGoBack} class="fa-solid fa-arrow-left"></i>
                         <img src={userInfo.image} alt="Avatar" />
                         <div className={styles.containerHeaderInfo}>
                             <h5 style={{ fontWeight: 'revert' }}>{userInfo.name || 'Người dùng'}</h5>
-                            <p>Người dùng VietNamJourney</p>
+                                <p>Người dùng VietNamJourney</p>
+                            
                         </div>
                         <div className={styles.containerHeaderSettings}>
                             <img src={dots} alt="Settings" />

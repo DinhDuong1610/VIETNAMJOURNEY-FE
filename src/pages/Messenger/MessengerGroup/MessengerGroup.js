@@ -5,7 +5,7 @@ import styles from './MessengerGroup.module.css';
 import image from '../../../Images/Icons/Viet.jpeg';
 import API_BASE_URL from '../../../config/configapi.js';
 
-function MessengerGroup({ onGroupClick }) {
+function MessengerGroup({ onGroupClick, toggleContainers }) {
     const cookies = document.cookie;
     const cookiesArray = cookies.split('; ');
     const userIdCookie = cookiesArray.find(cookie => cookie.startsWith('User_ID='));
@@ -110,9 +110,11 @@ function MessengerGroup({ onGroupClick }) {
     };
 
     const handleGroupClick = (groupId) => {
-        onGroupClick(groupId);
-        setSelectedGroupId(groupId);
-    };
+    onGroupClick(groupId);
+    setSelectedGroupId(groupId);
+    console.log("toggleContainers được gọi");
+    toggleContainers();
+};
 
     return (
         <div className={styles.container}>
