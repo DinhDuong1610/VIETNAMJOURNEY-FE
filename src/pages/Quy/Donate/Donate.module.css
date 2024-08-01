@@ -144,15 +144,48 @@ div.main div.bot {
     }
   }
 
-  button {
-    padding: 5px 20px;
-    border: none;
-    border-radius: 8px;
-    font-size: 18px;
-    font-weight: 600;
-    color: white;
-    background-color: #1B9F56;
-    margin-top: 30px;
+  .btn-donate {
+    padding: 10px 20px;
+    border: 2px solid #1B9F56;
+    color: #1B9F56;
+    border-radius: 5px;
+    font-size: 24px;
+    font-weight: 700;
+    margin-right: 0;
+    margin-bottom: 20px;
+    width: 100%;
+    background-color: white;
+
+    &:hover {
+      background-color: #1B9F56;
+      color: white;
+    }
+  }
+
+  .input-donate {
+    padding: 10px 20px !important;
+    border: 2px solid #1B9F56 !important;
+    color: #1B9F56 !important;
+    border-radius: 5px !important;
+    font-size: 24px !important;
+    font-weight: 700 !important;
+    margin-right: 0 !important;
+    margin-bottom: 20px !important;
+    width: 100% !important;
+    text-align: center !important;
+  }
+
+  .money-donate {
+    padding: 10px 20px !important;
+    border: 2px solid #1B9F56 !important;
+    color: #1B9F56 !important;
+    border-radius: 5px !important;
+    font-size: 36px !important;
+    font-weight: 700 !important;
+    margin-right: 0 !important;
+    margin-bottom: 20px !important;
+    width: 100% !important;
+    text-align: center !important;
   }
 }
 
@@ -160,16 +193,26 @@ div.main div.bot {
   text-align: center;
 }
 
-
-.quy-row {
-  padding: 0 50px;
+.quy .qr-code {
+  width: 50%;
+  height: 600px;
+  /* background-image:linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.6)), url("../../../Images/Quy/Donate/background_intro.webp"); */
+  background-image:url("../../../Images/Quy/Donate/background_intro.webp");
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 12px;
+  border-top-left-radius: 0;
+  border-bottom-left-radius: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .quy .img-qr {
-  width: 40%;
-  height: 400px;
+  height: 80%;
+  width: auto;
   text-align: center;
-  margin-right: 50px;
 
   img {
     height: 100%;
@@ -243,6 +286,127 @@ div.main div.bot {
 
 .transaction-history h3 {
   margin-bottom: 10px;
+}
+
+
+#signUpForm {
+  background-color: #ffffff;
+  padding: 40px;
+  border-radius: 12px;
+  border-top-right-radius: 0;
+  border-bottom-right-radius: 0;
+  width: 50%;
+  position: relative;
+}
+#signUpForm .form-header {
+  gap: 5px;
+  text-align: center;
+  font-size: 1.2em;
+}
+#signUpForm .form-header .stepIndicator {
+  position: relative;
+  flex: 1;
+  padding-bottom: 30px;
+}
+#signUpForm .form-header .stepIndicator.active {
+  font-weight: 600;
+}
+#signUpForm .form-header .stepIndicator.finish {
+  font-weight: 600;
+  color: #1B9F56;
+}
+#signUpForm .form-header .stepIndicator::before {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  z-index: 9;
+  width: 20px;
+  height: 20px;
+  background-color: #d5efed;
+  border-radius: 50%;
+  border: 3px solid #ecf5f4;
+}
+#signUpForm .form-header .stepIndicator.active::before {
+  background-color: #1B9F56;
+  border: 3px solid #d5f9f6;
+}
+#signUpForm .form-header .stepIndicator.finish::before {
+  background-color: #1B9F56;
+  border: 3px solid #e3e3e3;
+}
+#signUpForm .form-header .stepIndicator::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  bottom: 8px;
+  width: 100%;
+  height: 3px;
+  background-color: #f3f3f3;
+}
+#signUpForm .form-header .stepIndicator.active::after {
+  background-color: #e3e3e3;
+}
+#signUpForm .form-header .stepIndicator.finish::after {
+  background-color: #1B9F56;
+}
+#signUpForm .form-header .stepIndicator:last-child:after {
+  display: none;
+}
+#signUpForm input {
+  padding: 15px 20px;
+  width: 100%;
+  font-size: 1.4em;
+  border: 1px solid #e3e3e3;
+  border-radius: 5px;
+}
+#signUpForm input, #signUpForm textarea:focus {
+  border: 1px solid #1B9F56;
+  outline: 0;
+}
+#signUpForm input.invalid, #signUpForm textarea.invalid {
+  border: 1px solid #ffaba5;
+}
+#signUpForm .step {
+display: none;
+}
+
+#signUpForm .title {
+  font-size: 24px;
+}
+
+#signUpForm .content {
+  font-size: 22px;
+}
+
+#signUpForm .form-footer{
+  width: calc(100% - 80px);
+  overflow:auto;
+  gap: 20px;
+  position: absolute;
+  bottom: 30px;
+}
+#signUpForm .form-footer button{
+  background-color: #1B9F56;
+  border: 1px solid #1B9F56 !important;
+  color: #ffffff;
+  border: none;
+  padding: 13px 30px;
+  font-size: 1.5em;
+  cursor: pointer;
+  border-radius: 5px;
+  flex: 1;
+  margin-top: 5px;
+}
+#signUpForm .form-footer button:hover {
+opacity: 0.8;
+}
+
+#signUpForm .form-footer #prevBtn {
+  background-color: #fff;
+  color: #1B9F56;
+
 }
 
 
