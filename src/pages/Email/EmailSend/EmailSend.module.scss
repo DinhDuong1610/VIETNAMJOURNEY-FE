@@ -1,0 +1,93 @@
+.EmailSend {
+    padding: 0 100px;
+}
+
+.card-header-email {
+    background-color: #28a745;
+    padding: 10px 20px;
+    color: white;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+}
+
+.btn-compose {
+    background-color: #28a745;
+    border: #28a745;
+}
+
+.badge-green {
+    background-color: #28a745;
+    border: #28a745;
+}
+
+.nav-link-gray {
+    color: #606060;
+
+    &:hover {
+        color: #28a745;
+    }
+}
+
+
+.table-email tr {
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 1px solid #f1f1f1;
+
+    &:hover {
+        background-color: #f1f1f1;
+    }
+
+    &:hover td{
+        background-color: #f1f1f1;
+    }
+}
+
+.table-email tr td {
+    border: none;
+    padding: 25px 0;
+}
+
+.table-email tr .mailbox-check {
+    display: flex;
+    align-items: center;
+    line-height: 100%;
+}
+
+.table-email tr .mailbox-check input{
+    width: 50px;
+    height: 20px;
+}
+
+.table-email tr .mailbox-name {
+    font-size: 18px;
+    font-weight: 500;
+    line-height: 100%;
+    width: 200px;
+    display: flex;
+    align-items: center;
+    color: #28a745;
+}
+
+.table-email tr .mailbox-subject {
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 100%;
+    max-width: 950px;
+    flex: 1;
+    display: flex;
+    align-items: center;
+}
+
+.table-email tr .mailbox-date {
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 100%;
+    width: 200px;
+    color: #606060;
+    display: flex;
+    align-items: center;
+}
+

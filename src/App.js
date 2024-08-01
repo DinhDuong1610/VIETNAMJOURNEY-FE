@@ -25,6 +25,10 @@ import Footer from './component/Footer/Footer.js'
 import Messenger from './pages/Messenger/Messenger.js';
 import Search from './pages/Search/Search.js';
 import GroupCampaign from './pages/GroupCampaign/GroupCampaign.js';
+import Email from './pages/Email/Email.js';
+import EmailSend from './pages/Email/EmailSend/EmailSend';
+import Read from './pages/Email/Read/Read';
+import Compose from './pages/Email/Compose/Compose';
 
 import ScrollToTop from './component/Utilities/ScrollToTop.jsx';
 
@@ -62,6 +66,12 @@ function App() {
 
         <Route path="/Search" element={<Search />} />
         <Route path="/Messenger/*" element={<Messenger />} />
+
+        <Route path="/Email" element={<Email />} />
+        <Route path="/EmailSend" element={<EmailSend />} />
+        <Route path="/Email/Read/:emailId" element={<Read />} />
+        <Route path="/Email/Compose" element={<Compose />} />
+
       </Routes>
     </div>
   );

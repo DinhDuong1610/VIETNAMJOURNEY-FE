@@ -1,0 +1,42 @@
+.Read {
+    padding: 0 100px;
+}
+
+.btn-compose {
+    background-color: #28a745;
+    border: #28a745;
+}
+
+.badge-green {
+    background-color: #28a745;
+    border: #28a745;
+}
+
+.nav-link-gray {
+    color: #606060;
+
+    &:hover {
+        color: #28a745;
+    }
+}
+
+.card-header-mailbox {
+    background-color: #28a745;
+    padding: 2px 0;
+}
+
+.mailbox-read-info {
+    border-bottom: 1px solid #dee2e6;
+    padding:15px;
+}
+
+.mailbox-read-time {
+    color: #868e96;
+    font-size: 14px;
+}
+
+.mailbox-read-message {
+    padding: 15px;
+    font-size: 18px;
+    min-height: 75vh;
+}
