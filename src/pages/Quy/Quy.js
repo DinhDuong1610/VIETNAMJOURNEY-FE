@@ -6,25 +6,22 @@ import CoCauChuyen from "./CauChuyen/CauChuyen";
 import CoDonate from "./Donate/Donate";
 import Footer from "../../component/Footer/Footer";
 
-
-
-
+import { useEffect } from "react";
 
 function Quy() {
-    return (
-        <div>
-            
-            <CoTop />
-            <CoSoLuoc />
-            <CoSuMenh1 />
-            <CoSuMenh2 />
-            <CoCauChuyen />
-            <CoDonate />
 
+  return (
+    <div>
+      <CoTop />
+      <CoSoLuoc />
+      <CoSuMenh1 />
+      <CoSuMenh2 />
+      <CoCauChuyen />
+      <CoDonate />
 
-            <Footer />
-        </div>
-    );
+      <Footer />
+    </div>
+  );
 }
 
 export default Quy;
