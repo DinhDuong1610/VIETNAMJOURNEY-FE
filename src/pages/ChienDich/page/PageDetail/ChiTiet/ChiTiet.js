@@ -68,6 +68,9 @@ function ChiTiet({ campaign }) {
   // State quản lý thông tin form
   const [formData, setFormData] = useState({
     senderName: "",
+    birthdate: "",
+    phone: "",
+    email: "",
     amount: "",
   });
 
@@ -433,6 +436,48 @@ function ChiTiet({ campaign }) {
                     />
                   </div>
                   <div className={cx("form-group")}>
+                    <label htmlFor="birthdate" className="form-label">
+                      Ngày sinh
+                    </label>
+                    <input
+                      type="date"
+                      id="birthdate"
+                      name="birthdate"
+                      className="form-control"
+                      value={formData.birthdate}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  <div className={cx("form-group")}>
+                    <label htmlFor="phone" className="form-label">
+                      Số điện thoại
+                    </label>
+                    <input
+                      type="tel"
+                      id="phone"
+                      name="phone"
+                      className="form-control"
+                      value={formData.phone}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  <div className={cx("form-group")}>
+                    <label htmlFor="email" className="form-label">
+                      Email
+                    </label>
+                    <input
+                      type="email"
+                      id="email"
+                      name="email"
+                      className="form-control"
+                      value={formData.email}
+                      onChange={handleInputChange}
+                      required
+                    />
+                  </div>
+                  <div className={cx("form-group")}>
                     <label htmlFor="amount" className="form-label">
                       Số tiền quyên góp
                     </label>
@@ -451,14 +496,16 @@ function ChiTiet({ campaign }) {
                   </div>
                 </form>
 
-                {showQR && (
+                <div className={cx("qr-code")}>
                   <div className={cx("img-qr")}>
-                    <img
-                      src={`https://img.vietqr.io/image/${MY_BANK.BANK_ID}-${MY_BANK.ACCOUNT_NO}-compact2.png?amount=${formData.amount}&addInfo=${formData.senderName} quyên góp vao quỹ FP${campaign.id}&accountName=QUY VIETNAM JOURNEY`}
-                      alt="QR Code"
-                    />
+                    {showQR && (
+                      <img
+                        src={`https://img.vietqr.io/image/${MY_BANK.BANK_ID}-${MY_BANK.ACCOUNT_NO}-compact2.png?amount=${formData.amount}&addInfo=${formData.senderName} quyên góp vao quỹ FP${campaign.id}&accountName=QUY VIETNAM JOURNEY`}
+                        alt="QR Code"
+                      />
+                    )}
                   </div>
-                )}
+                </div>
               </div>
             </div>
           )}

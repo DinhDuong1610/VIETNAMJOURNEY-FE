@@ -106,15 +106,15 @@ function ThongTinThem({ campaign }) {
                   <td>
                     <div className={cx("person")}>
                       <img
-                        src={`${API_BASE_URL}${volunteer.user_infomation.Image}`}
+                        src={`${API_BASE_URL}${volunteer.user.user_infomation.Image}`}
                         alt="Avatar"
                       />
                       <div className={cx("info")}>
                         <div className={cx("fullname")}>
-                          {volunteer.user_infomation.Name}
+                          {volunteer.user.user_infomation.Name}
                         </div>
                         <div className={cx("username")}>
-                          {volunteer.user_infomation.Username}
+                          {volunteer.user.user_infomation.Username}
                         </div>
                       </div>
                     </div>
@@ -158,15 +158,15 @@ function ThongTinThem({ campaign }) {
                   <td>
                     <div className={cx("person")}>
                       <img
-                        src={`${API_BASE_URL}${volunteer.user_infomation.Image}`}
+                        src={`${API_BASE_URL}${volunteer.user.user_infomation.Image}`}
                         alt="Avatar"
                       />
                       <div className={cx("info")}>
                         <div className={cx("fullname")}>
-                          {volunteer.user_infomation.Name}
+                          {volunteer.user.user_infomation.Name}
                         </div>
                         <div className={cx("username")}>
-                          {volunteer.user_infomation.Username}
+                          {volunteer.user.user_infomation.Username}
                         </div>
                       </div>
                     </div>
@@ -209,10 +209,10 @@ function ThongTinThem({ campaign }) {
             {selectedUser ? (
               <div className={cx("content")}>
                 <div className={cx("top")}>
-                  <img src={`${API_BASE_URL}${selectedUser.user_infomation.Image}`} alt="Avatar" />
+                  <img src={`${API_BASE_URL}${selectedUser.user.user_infomation.Image}`} alt="Avatar" />
                   <div className={cx("person")}>
-                    <div className={cx("name")}>{selectedUser.user_infomation.Name}</div>
-                    <div className={cx("username")}>@{selectedUser.user_infomation.Username}</div>
+                    <div className={cx("name")}>{selectedUser.user.user_infomation.Name}</div>
+                    <div className={cx("username")}>@{selectedUser.user.user_infomation.Username}</div>
                   </div>
                 </div>
                 <div className={cx("info")}>
