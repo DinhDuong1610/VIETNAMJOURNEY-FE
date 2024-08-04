@@ -1,9 +1,9 @@
-// ThucTrang.js
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function ThucTrang() {
   const navigate = useNavigate();
+  const [iframeSrc, setIframeSrc] = useState(null);
 
   useEffect(() => {
     const handleButtonClick = (event) => {
@@ -24,15 +24,37 @@ function ThucTrang() {
     };
   }, [navigate]);
 
+  useEffect(() => {
+    const checkIframeSrc = async () => {
+      try {
+        const response = await fetch(`${process.env.PUBLIC_URL}/Merge.html`);
+        if (response.ok) {
+          setIframeSrc(`${process.env.PUBLIC_URL}/Merge.html`);
+        } else {
+          console.error('Failed to load iframe source. Please check the file path.');
+        }
+      } catch (error) {
+        console.error('Error fetching iframe source:', error);
+      }
+    };
+
+    checkIframeSrc();
+  }, []);
+
   return (
     <div style={{ height: '100vh', overflow: 'hidden' }}>
-      <iframe
-        src="/Merge.html"
-        title="External Page"
-        width="100%"
-        height="100%"
-        style={{ border: 'none' }}
-      />
+      {iframeSrc ? (
+        <iframe
+          src={iframeSrc}
+          title="External Page"
+          width="100%"
+          height="100%"
+          style={{ border: 'none' }}
+          onLoad={() => console.log('Iframe loaded successfully.')}
+        />
+      ) : (
+        <p>Loading iframe...</p>
+      )}
     </div>
   );
 }
