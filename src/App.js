@@ -24,6 +24,7 @@ import Professional from './pages/ChienDich/page/Professional/Professional.js';
 import Footer from './component/Footer/Footer.js'
 import Messenger from './pages/Messenger/Messenger.js';
 import Search from './pages/Search/Search.js';
+import ThucTrang from './pages/ThucTrang/ThucTrang.js';
 import GroupCampaign from './pages/GroupCampaign/GroupCampaign.js';
 import Email from './pages/Email/Email.js';
 import EmailSend from './pages/Email/EmailSend/EmailSend';
@@ -56,6 +57,8 @@ function App() {
         <Route path="/TaiKhoan" element={<TaiKhoanTest />} />
         <Route path="/User" element={<User />} />
         <Route path="/GroupCampaign" element={<GroupCampaign />} />
+
+        <Route path="/ThucTrang" element={<ThucTrang />} />
 
         <Route path="/campaign-detail" element={<PageDetail />} />
         <Route path="/CreateCampaign" element={<CreateCampaign />} />
