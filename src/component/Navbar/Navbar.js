@@ -100,10 +100,6 @@ function Navbar() {
           <Link to="/CongDong">CỘNG ĐỒNG</Link>
           <Link to="/ChienDich">CHIẾN DỊCH</Link>
           <Link to="/Quy">QUỸ</Link>
-          {userInfo && (
-            <Link to="/Messenger?type=user&user_id=0">TRÒ CHUYỆN </Link>
-          )}
-
           {userInfo ? (
             <div className={cx("nav-item", { open: isDropdownOpen })}>
               <span className={cx("dropdown-toggle")} onClick={toggleDropdown}>
@@ -181,11 +177,6 @@ function Navbar() {
                 onClick={toggleSidebar}
               >
                 {userInfo.Name} <i className="fa-solid fa-circle-user"></i>
-              </Link>
-            )}
-            {userInfo && (
-              <Link to="/Messenger?type=user&user_id=0" onClick={toggleSidebar}>
-                TRÒ CHUYỆN <i className="fa-solid fa-envelope"></i>
               </Link>
             )}
             <Link to="/TrangChu" onClick={toggleSidebar}>
@@ -273,14 +264,6 @@ function Navbar() {
                     onClick={toggleSidebar}
                   >
                     {userInfo.Name} <i className="fa-solid fa-circle-user"></i>
-                  </Link>
-                )}
-                {userInfo && (
-                  <Link
-                    to="/Messenger?type=user&user_id=0"
-                    onClick={toggleSidebar}
-                  >
-                    TRÒ CHUYỆN <i className="fa-solid fa-envelope"></i>
                   </Link>
                 )}
                 {userInfo ? (
