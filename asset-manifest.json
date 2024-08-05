@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/VIETNAMJOURNEY-FE/static/css/main.f4f95e60.css",
-    "main.js": "/VIETNAMJOURNEY-FE/static/js/main.42085a96.js",
+    "main.css": "/VIETNAMJOURNEY-FE/static/css/main.8928baa6.css",
+    "main.js": "/VIETNAMJOURNEY-FE/static/js/main.3d7d050a.js",
     "static/js/453.ce0d7464.chunk.js": "/VIETNAMJOURNEY-FE/static/js/453.ce0d7464.chunk.js",
     "static/media/backgroun_thuctrang.mp4": "/VIETNAMJOURNEY-FE/static/media/backgroun_thuctrang.d7d8665258faff251e34.mp4",
     "static/media/backgound_trangchu.mp4": "/VIETNAMJOURNEY-FE/static/media/backgound_trangchu.cef8509e93a2edd04a78.mp4",
@@ -34,12 +34,12 @@
     "static/media/slick.ttf": "/VIETNAMJOURNEY-FE/static/media/slick.c94f7671dcc99dce43e2.ttf",
     "static/media/slick.woff": "/VIETNAMJOURNEY-FE/static/media/slick.295183786cd8a1389865.woff",
     "index.html": "/VIETNAMJOURNEY-FE/index.html",
-    "main.f4f95e60.css.map": "/VIETNAMJOURNEY-FE/static/css/main.f4f95e60.css.map",
-    "main.42085a96.js.map": "/VIETNAMJOURNEY-FE/static/js/main.42085a96.js.map",
+    "main.8928baa6.css.map": "/VIETNAMJOURNEY-FE/static/css/main.8928baa6.css.map",
+    "main.3d7d050a.js.map": "/VIETNAMJOURNEY-FE/static/js/main.3d7d050a.js.map",
     "453.ce0d7464.chunk.js.map": "/VIETNAMJOURNEY-FE/static/js/453.ce0d7464.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.f4f95e60.css",
-    "static/js/main.42085a96.js"
+    "static/css/main.8928baa6.css",
+    "static/js/main.3d7d050a.js"
   ]
 }
