@@ -68,9 +68,15 @@ body {
 }
 
 .container3-info {
+    padding-bottom:0;
     width: 100%;
     height: auto;
     display: flex;
+    cursor : pointer;
+}.container3-info:hover {
+    background-color: #dedede;
+    border-top-left-radius: 20px;
+    border-bottom-left-radius: 20px;
 }
 
 .container3 img {
