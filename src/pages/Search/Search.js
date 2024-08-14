@@ -70,8 +70,8 @@ function Search() {
                                         <div style={{ cursor: 'pointer' }} key={user.User_ID} className={styles['container3-info']} onClick={() => handleUserClick(user.User_ID)}>
                                             <img alt={user.username} src={user.Image}></img>
                                             <div className={styles['container3-content']}>
-                                                <h6>{user.Username}</h6>
-                                                <p>{user.total_following} người theo dõi</p>
+                                                <h6>@{user.Username}</h6>
+                                                <p>Người dùng VietNamJourNey</p>
                                             </div>
                                         </div>
                                     ))}
@@ -87,7 +87,9 @@ function Search() {
                 <div className="col-md-8">
                     <div className={styles.container2}>
                         {loading ? (
-                            <Skeleton active />
+                            <div className={styles.container3}>
+                                <Skeleton active />
+                                </div>
                         ) : posts.length === 0 ? (
                             <div style={{ textAlign: 'center', marginTop: '2rem', backgroundColor: 'white', borderRadius: '10px', padding: '2rem', fontWeight: 'revert' }}>
                                 Không tìm thấy bài viết nào.
