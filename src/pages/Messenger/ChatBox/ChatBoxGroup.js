@@ -5,6 +5,7 @@ import styles from './ChatBoxGroup.module.css';
 import dots from '../../../Images/User/dots.png';
 import logo from '../../../Images/Message/formessage.png';
 import API_BASE_URL from '../../../config/configapi.js';
+import URL_SOCKET from '../Config/ConfigURL.js'
 
 function ChatBoxGroup({ closeChatBox }) {
     const cookies = document.cookie;
@@ -55,7 +56,7 @@ function ChatBoxGroup({ closeChatBox }) {
             }
         };
 
-        ws.current = new WebSocket('wss://bwdjourney.id.vn:8080');
+        ws.current = new WebSocket(`${URL_SOCKET}`);
         ws.current.onopen = () => {
             ws.current.send(JSON.stringify({
                 type: 'subscribe',

@@ -4,6 +4,7 @@ import { Skeleton } from 'antd'; // Import Skeleton from antd
 import styles from './MessengerGroup.module.css';
 import image from '../../../Images/Icons/Viet.jpeg';
 import API_BASE_URL from '../../../config/configapi.js';
+import URL_SOCKET from '../Config/ConfigURL.js'
 
 function MessengerGroup({ onGroupClick, toggleContainers }) {
     const cookies = document.cookie;
@@ -20,7 +21,7 @@ function MessengerGroup({ onGroupClick, toggleContainers }) {
         if (user_ID) {
             fetchGroups(user_ID);
 
-            ws.current = new WebSocket('wss://bwdjourney.id.vn:8080');
+            ws.current = new WebSocket(`${URL_SOCKET}`);
             ws.current.onopen = () => {
                 ws.current.send(JSON.stringify({ type: 'subscribe', chat_group_from: user_ID }));
             };

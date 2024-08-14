@@ -5,6 +5,7 @@ import styles from './ChatBoxUser.module.css';
 import dots from '../../../Images/User/dots.png';
 import logo from '../../../Images/Message/formessage.png';
 import API_BASE_URL from '../../../config/configapi.js';
+import URL_SOCKET from '../Config/ConfigURL.js'
 
 function ChatBoxUser({ closeChatBox }) {
     const cookies = document.cookie;
@@ -39,7 +40,7 @@ function ChatBoxUser({ closeChatBox }) {
         setLoading(true);
         fetchMessages(user_from, user_id);
 
-        ws.current = new WebSocket('wss://bwdjourney.id.vn:8080');
+        ws.current = new WebSocket(`${URL_SOCKET}`);
         ws.current.onopen = () => {
             ws.current.send(JSON.stringify({ type: 'subscribe', user_to_chat: user_id, user_from_chat: user_from }));
         };
