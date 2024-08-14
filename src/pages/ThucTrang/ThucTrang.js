@@ -42,7 +42,7 @@ function ThucTrang() {
   }, []);
 
   return (
-    <div style={{ height: '100vh', overflow: 'hidden' }}>
+    <div style={{ height: 'calc(100vh - 60px)', overflow: 'hidden' }}>
       {iframeSrc ? (
         <iframe
           src={iframeSrc}

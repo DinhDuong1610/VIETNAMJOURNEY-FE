@@ -20,7 +20,7 @@ function CoDonate() {
   // State quản lý thông tin form
   const [formData, setFormData] = useState({
     senderName: "",
-    amount: "",
+    amount: "0",
   });
 
   const [formValues, setFormValues] = useState({
@@ -232,6 +232,14 @@ function CoDonate() {
 
   fetchTransactionHistory();
 
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat('vi-VN', {
+      style: 'currency',
+      currency: 'VND',
+    }).format(value);
+  };
+  
+
   return (
     <div className={cx("main")}>
       <div className={cx("top")}>
@@ -335,7 +343,8 @@ function CoDonate() {
                     type="text"
                     className={cx("money-donate")}
                     onChange={handleDonateInputChange}
-                    value={formData.amount}
+                    //format money
+                    value={`${formatCurrency(formData.amount)}`} 
                     readOnly
                   />
                 </div>
