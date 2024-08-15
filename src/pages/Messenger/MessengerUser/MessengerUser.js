@@ -56,63 +56,73 @@ function MessengerUser({ user_ID, onUserClick, onlineUsers, toggleContainers }) 
             });
     };
 
-    const updateUsersChat = (receivedMessage) => {
-        setUsers(prevUsers => {
-            const userIndex = prevUsers.findIndex(user => user.user_to === receivedMessage.user_from);
-            let updatedUsers;
-            if (userIndex !== -1) {
-                updatedUsers = [...prevUsers];
-                updatedUsers.splice(userIndex, 1);
-            } else {
-                updatedUsers = prevUsers;
-            }
+   const updateUsersChat = (receivedMessage) => {
+    setUsers(prevUsers => {
+        const userIndex = prevUsers.findIndex(user => user.user_to == receivedMessage.user_from);
+        
+        let updatedUsers;
+        let updatedUser;
 
-            let lastcontent;
-            if (receivedMessage.image != null) {
-                lastcontent = 'Hình ảnh';
-            } else {
-                lastcontent = receivedMessage.content;
-            }
+        // Check if user exists in the previous list
+        if (userIndex !== -1) {
+            // If user exists, update the existing user
+            updatedUsers = [...prevUsers];
+            const existingUser = updatedUsers[userIndex];
 
-            const updatedUser = {
-                user_to: receivedMessage.user_from,
-                user_image: updatedUsers[userIndex]?.user_image || '',
-                user_name: updatedUsers[userIndex]?.user_name || '',
-                latest_content: lastcontent,
+            updatedUser = {
+                ...existingUser, // Keep existing user's data
+                latest_content: receivedMessage.image ? 'Hình ảnh' : receivedMessage.content,
             };
 
-            return [updatedUser, ...updatedUsers];
-        });
-    };
+            // Remove old user data
+            updatedUsers.splice(userIndex, 1);
+        } else {
+            // If user does not exist, add a new user
+            updatedUsers = prevUsers;
+            updatedUser = {
+                user_to: receivedMessage.user_from,
+                user_image: '', // Set default image if none exists
+                user_name: '',  // Set default name if none exists
+                latest_content: receivedMessage.image ? 'Hình ảnh' : receivedMessage.content,
+            };
+        }
+
+        // Add the updated user to the top of the list
+        return [updatedUser, ...updatedUsers];
+    });
+};
 
     const updateUsersChatFrom = (receivedMessage) => {
-        setUsers(prevUsers => {
-            const userIndex = prevUsers.findIndex(user => user.user_to === receivedMessage.user_to);
-            let updatedUsers;
-            if (userIndex !== -1) {
-                updatedUsers = [...prevUsers];
-                updatedUsers.splice(userIndex, 1);
-            } else {
-                updatedUsers = prevUsers;
-            }
+    setUsers(prevUsers => {
+        const userIndex = prevUsers.findIndex(user => user.user_to == receivedMessage.user_to);
+        let updatedUsers = [...prevUsers];
+        let updatedUser;
 
-            let lastcontent;
-            if (receivedMessage.image != null) {
-                lastcontent = 'Hình ảnh';
-            } else {
-                lastcontent = receivedMessage.content;
-            }
+        if (userIndex !== -1) {
+            // Cập nhật người dùng đã tồn tại
+            const existingUser = updatedUsers[userIndex];
 
-            const updatedUser = {
-                user_to: receivedMessage.user_to,
-                user_image: updatedUsers[userIndex]?.user_image || '',
-                user_name: updatedUsers[userIndex]?.user_name || '',
-                latest_content: lastcontent,
+            updatedUser = {
+                ...existingUser, // Giữ lại dữ liệu người dùng cũ
+                latest_content: receivedMessage.image ? 'Hình ảnh' : receivedMessage.content,
             };
 
-            return [updatedUser, ...updatedUsers];
-        });
-    };
+            // Loại bỏ dữ liệu người dùng cũ
+            updatedUsers.splice(userIndex, 1);
+        } else {
+            // Thêm người dùng mới nếu không tồn tại
+            updatedUser = {
+                user_to: receivedMessage.user_to,
+                user_image: '', // Đặt ảnh mặc định nếu không có
+                user_name: '',  // Đặt tên mặc định nếu không có
+                latest_content: receivedMessage.image ? 'Hình ảnh' : receivedMessage.content,
+            };
+        }
+
+        // Thêm người dùng đã cập nhật vào đầu danh sách
+        return [updatedUser, ...updatedUsers];
+    });
+};
 
     const handleUserClick = (type, userId) => {
         onUserClick(type, userId);
@@ -145,7 +155,7 @@ function MessengerUser({ user_ID, onUserClick, onlineUsers, toggleContainers }) 
                         </div>
                         <div className={styles.userinfo}>
                             <h6>{user.user_name}</h6>
-                            <p>{user.latest_content ? user.latest_content : "Hình Ảnh"}</p>
+                            <p>{user.latest_content ? user.latest_content : "Hình ảnh"}</p>
                         </div>
                     </div>
                 ))
