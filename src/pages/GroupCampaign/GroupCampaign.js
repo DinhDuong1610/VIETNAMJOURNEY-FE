@@ -4,8 +4,6 @@ import { Skeleton } from 'antd';
 import styles from './GroupCampaign.module.css';
 import Post from '../User/Post/PostGroup.js';
 import NewPostGroup from './NewPostGroup/NewPostGroup.js';
-import dinh from '../../Images/Icons/Dinh.png';
-import logo from '../../Images/User/anhchiendich.png';
 import API_BASE_URL from '../../config/configapi.js';
 
 function GroupCampaign() {
@@ -24,6 +22,7 @@ function GroupCampaign() {
     const [isMember, setIsMember] = useState(false);
     const [isPostOpen, setIsPostOpen] = useState(false);
     const [loadingPosts, setLoadingPosts] = useState(true);
+     const [loading, setLoading] = useState(true);
     const [loadingCampaignInfo, setLoadingCampaignInfo] = useState(true);
     const navigate = useNavigate();
 
@@ -73,7 +72,7 @@ function GroupCampaign() {
         }
     }, [group_id, user_ID]);
 
-    useEffect(() => {
+     useEffect(() => {
         if (user_ID !== null) {
             fetch(`${API_BASE_URL}api/getCampaignUser`, {
                 method: 'POST',
@@ -85,8 +84,12 @@ function GroupCampaign() {
             .then(response => response.json())
             .then(data => {
                 setCampaignuser(data.campaigns || []);
+                setLoading(false); // Tắt trạng thái tải sau khi nhận dữ liệu
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => {
+                console.error('Error:', error);
+                setLoading(false); // Tắt trạng thái tải trong trường hợp lỗi
+            });
         }
     }, [user_ID]);
 
@@ -136,20 +139,32 @@ function GroupCampaign() {
                             <hr className={styles['black-line']} style={{ width: '90%' }} />
                             <p style={{ fontWeight: 'bold', fontSize: '1.2rem', marginBottom: '0.4rem' }}>Nhóm bạn đã tham gia</p>
                             <div className={styles.group}>
-                                {campaignuser.length === 0 ? (
-                                    <Skeleton active />
-                                ) : (
-                                    campaignuser.map(campaign => (
-                                        <div style={{ cursor: 'pointer' }} key={campaign.id} className={styles.groupline} onClick={() => handleGroupClick(campaign.id)}>
-                                            <img alt={campaign.name} src={campaign.image_url}></img>
-                                            <div className={styles.grouplineinfo}>
-                                                <h6 className={styles.campaignTitle}>{campaign.name}</h6>
-                                                <p className={styles.campaignProvince}>{campaign.province}</p>
-                                            </div>
-                                        </div>
-                                    ))
-                                )}
-                            </div>
+    {campaignuser.length === 0 ? (
+        <>
+            {loading ? (
+                <Skeleton active />
+            ) : (
+                <p>Bạn chưa tham gia nhóm nào</p>
+            )}
+        </>
+    ) : (
+        campaignuser.map(campaign => (
+            <div
+                style={{ cursor: 'pointer' }}
+                key={campaign.id}
+                className={styles.groupline}
+                onClick={() => handleGroupClick(campaign.id)}
+            >
+                <img alt={campaign.name} src={campaign.image_url}></img>
+                <div className={styles.grouplineinfo}>
+                    <h6 className={styles.campaignTitle}>{campaign.name}</h6>
+                    <p className={styles.campaignProvince}>{campaign.province}</p>
+                </div>
+            </div>
+        ))
+    )}
+</div>
+
                         </div>
                     </div>
                 </div>
