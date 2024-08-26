@@ -26,6 +26,8 @@ import Messenger from './pages/Messenger/Messenger.js';
 import Search from './pages/Search/Search.js';
 import ThucTrang from './pages/ThucTrang/ThucTrang.js';
 import GroupCampaign from './pages/GroupCampaign/GroupCampaign.js';
+import VideoChat from './pages/VideoChat/VideoChat.js';
+import AdminGroup from './pages/GroupCampaign/AdminGroup/AdminGroup.js';
 import Email from './pages/Email/Email.js';
 import EmailSend from './pages/Email/EmailSend/EmailSend';
 import Read from './pages/Email/Read/Read';
@@ -50,15 +52,16 @@ function App() {
         <Route path="/TrangChu/New2" element={<CoNew2 />} />
         <Route path="/TrangChu/New3" element={<CoNew3 />} />
 
-
         <Route path="/CongDong" element={<CongDong />} />
         <Route path="/ChienDich" element={<ChienDich />} />
         <Route path="/Quy" element={<Quy />} />
         <Route path="/TaiKhoan" element={<TaiKhoanTest />} />
         <Route path="/User" element={<User />} />
         <Route path="/GroupCampaign" element={<GroupCampaign />} />
+        <Route path="/AdminGroup" element={<AdminGroup />} />
 
         <Route path="/ThucTrang" element={<ThucTrang />} />
+        <Route path="/VideoChat" element={<VideoChat />} />
 
         <Route path="/campaign-detail" element={<PageDetail />} />
         <Route path="/CreateCampaign" element={<CreateCampaign />} />
