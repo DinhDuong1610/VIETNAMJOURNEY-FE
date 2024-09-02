@@ -40,7 +40,7 @@
     display: flex;
     flex-wrap: wrap;
     padding-left: 200px;
-    background-color: #1F8E2B ;
+    background-color: #35973F ;
   }
 
   ul li {
@@ -54,7 +54,7 @@
     cursor: pointer;
 
     &:hover {
-      background-color: #006322;
+      background-color: #35973F;
     }
   }
 
@@ -100,7 +100,7 @@
     display: flex;
     flex-wrap: wrap;
     padding-left: 200px;
-    background-color: #1F8E2B ;
+    background-color: #35973F ;
   }
 
   ul li {
@@ -163,7 +163,7 @@
     display: flex;
     flex-wrap: wrap;
     padding-left: 200px;
-    background-color: #1F8E2B ;
+    background-color: #35973F ;
   }
 
   ul li {
@@ -193,7 +193,7 @@
   .ant-spin-dot {
     font-size: 40px; // Tăng kích thước Spin nếu cần
     .ant-spin-dot-item {
-      background-color: #1cef09; // Đổi màu cho Spin
+      background-color: #35973F; // Đổi màu cho Spin
     }
   }
 }

@@ -5,7 +5,7 @@
         font-size: 18px;
 
         &:focus {
-            border: 1px solid #28a745;
+            border: 1px solid #35973F;
             outline: none;
             box-shadow: none;
         }
@@ -13,7 +13,7 @@
 }
 
 .card-header-email {
-    background-color: #28a745;
+    background-color: #35973F;
     padding: 10px 20px;
     color: white;
     border-top-left-radius: 5px;
@@ -21,20 +21,20 @@
 }
 
 .btn-compose {
-    background-color: #28a745;
-    border: #28a745;
+    background-color: #35973F;
+    border: #35973F;
 }
 
 .badge-green {
-    background-color: #28a745;
-    border: #28a745;
+    background-color: #35973F;
+    border: #35973F;
 }
 
 .nav-link-gray {
     color: #606060;
 
     &:hover {
-        color: #28a745;
+        color: #35973F;
     }
 }
 

@@ -240,7 +240,7 @@ div.main div.bot {
 
 .modal {
   h2 {
-    color: #02a308;
+    color: #35973F;
   }
 }
 
@@ -280,7 +280,7 @@ div.main div.bot {
 
 .transaction-history li span {
   font-weight: 600;
-  color: #02a308;
+  color: #35973F;
 }
 
 .transaction-history h3 {
@@ -458,7 +458,7 @@ opacity: 0.8;
 
 .table-fun-history .money {
   font-weight: bold;
-  color: #02a308;
+  color: #35973F;
 }
 
 
@@ -850,7 +850,7 @@ opacity: 0.8;
   
   .transaction-history li span {
     font-weight: 600;
-    color: #02a308;
+    color: #35973F;
   }
   
   .transaction-history h3 {

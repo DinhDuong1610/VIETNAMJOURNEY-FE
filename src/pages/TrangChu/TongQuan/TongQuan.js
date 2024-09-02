@@ -15,7 +15,8 @@ function TongQuan() {
       <div className={cx("row")}>
         <div className={cx("left")}>
           <div className={cx("image")}>
-            <img src="https://s3-alpha-sig.figma.com/img/be11/6881/5ac44640651f24b18bd98c4323cb8bed?Expires=1725840000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=JcD4DsCcQVBXmfjc0EhzkrLcVV8LiOgt65wF749UXfK4U0SCjkVk7HuaII7fZ3ceLjNwM~s39l2AidSNBHtaJyJ5eGqE48aSrovwQzOWRRlyW2L9n4dfKd1HG3pOSVdwetTKMCCtTtg5x0SS32BKQRZZLHEJPPjLIbOyP8SFsGU0vf~okgX~nouZRdZDe0krbEf6egi-P~pw8ljbHwpXReOXHQ9hGNGd~MNbo5XZ1nzjID80BNIFNxP8fNoWvO3tIrOYA6298Rfzi00lqJ8po1Sz1WBioW-ZtGBgKyxMI1lYZd8U3Awu6roKCSswIwKDrGKhtk4FLy4Vu61bC79EEA__"></img>
+            {/* <img src="https://s3-alpha-sig.figma.com/img/be11/6881/5ac44640651f24b18bd98c4323cb8bed?Expires=1725840000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=JcD4DsCcQVBXmfjc0EhzkrLcVV8LiOgt65wF749UXfK4U0SCjkVk7HuaII7fZ3ceLjNwM~s39l2AidSNBHtaJyJ5eGqE48aSrovwQzOWRRlyW2L9n4dfKd1HG3pOSVdwetTKMCCtTtg5x0SS32BKQRZZLHEJPPjLIbOyP8SFsGU0vf~okgX~nouZRdZDe0krbEf6egi-P~pw8ljbHwpXReOXHQ9hGNGd~MNbo5XZ1nzjID80BNIFNxP8fNoWvO3tIrOYA6298Rfzi00lqJ8po1Sz1WBioW-ZtGBgKyxMI1lYZd8U3Awu6roKCSswIwKDrGKhtk4FLy4Vu61bC79EEA__"></img> */}
+            <img src="https://bcp.cdnchinhphu.vn/Uploaded/hoangtrongdien/2019_07_18/IMG-6376-copy-1427769072_660x0.jpg"></img>
           </div>
         </div>
 

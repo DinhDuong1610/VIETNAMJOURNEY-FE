@@ -177,7 +177,7 @@ function TrangChu() {
         }}
         icon={
           <i
-            class="fa-solid fa-earth-americas"
+            class="fa-solid fa-earth-americas fa-beat"
             style={{ color: "#00ae2e" }}
           ></i>
         }

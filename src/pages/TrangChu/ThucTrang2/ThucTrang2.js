@@ -57,7 +57,7 @@ function ThucTrang2() {
                 width: 180,
                 type: 'donut',
             },
-            colors: ['#009245', '#CACACA'],
+            colors: ['#35973F', '#CACACA'],
             plotOptions: {
                 pie: {
                     startAngle: 0,

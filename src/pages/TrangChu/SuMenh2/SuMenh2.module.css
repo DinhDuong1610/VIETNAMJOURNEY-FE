@@ -52,7 +52,6 @@ div.main div.div2 p.p1 {
     text-align: center;
     font-feature-settings: 'clig' off, 'liga' off;
     text-shadow: 0px 4px 22px rgba(255, 255, 255, 0.25);
-    font-family: Raleway;
     font-size: 34px;
     font-style: normal;
     font-weight: 800;
@@ -99,7 +98,6 @@ div.main div.div2 div.signs div.sign p {
 
     color: #FFF;
     font-feature-settings: 'clig' off, 'liga' off;
-    font-family: Raleway;
     font-size: 23px;
     font-style: normal;
     font-weight: 700;
@@ -116,14 +114,13 @@ div.main div.div2 div.bt1 button {
     padding-right: 30px;
 
     border-radius: 20px;
-    background: #3AB137;
+    background: #35973F;
 
     border: 0px solid white;
 
     color: #FFF;
     text-align: center;
     font-feature-settings: 'clig' off, 'liga' off;
-    font-family: Raleway;
     font-size: 27px;
     font-style: normal;
     font-weight: 700;

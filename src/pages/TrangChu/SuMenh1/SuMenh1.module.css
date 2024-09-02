@@ -34,7 +34,6 @@ div.main div.div1 h2 {
     color: #000;
     text-align: center;
     font-feature-settings: 'clig' off, 'liga' off;
-    font-family: Raleway;
     font-size: 48px;
     font-style: normal;
     font-weight: 800;
@@ -47,7 +46,6 @@ div.main div.div1 p {
     color: #403E3E;
     text-align: center;
     font-feature-settings: 'clig' off, 'liga' off;
-    font-family: Raleway;
     font-size: 26px;
     font-style: normal;
     font-weight: 800;
@@ -82,7 +80,6 @@ div.main div.div2 div.txt p {
     text-align: center;
     font-feature-settings: 'clig' off, 'liga' off;
     text-shadow: 0px 4px 22px rgba(255, 255, 255, 0.25);
-    font-family: Raleway;
     font-size: 34px;
     font-style: normal;
     font-weight: 800;

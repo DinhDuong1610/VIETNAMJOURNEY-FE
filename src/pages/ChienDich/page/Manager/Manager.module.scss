@@ -7,7 +7,7 @@
 
   hr {
     width: 100px;
-    border: 2px solid #196E36;
+    border: 2px solid #35973F;
     opacity: 1;
     margin-bottom: 10px;
     margin-top: 40px;
@@ -35,7 +35,7 @@
 .title {
   font-size: 36px;
   font-weight: 700;
-  color: #196E36;
+  color: #35973F;
   display: inline-block;
   // margin-bottom: 20px;
 }
@@ -56,7 +56,7 @@
 }
 
 .table th {
-  background-color: #196E36;
+  background-color: #35973F;
   color: white;
   font-weight: bold;
   font-size: 18px;
@@ -167,16 +167,16 @@ button.edit {
 
 .custom-pagination {
   .ant-pagination-item {
-    border-color: #28a745; // Đổi màu viền các nút
+    border-color: #35973F; // Đổi màu viền các nút
   }
 
   .ant-pagination-item a {
-    color: #28a745; // Đổi màu chữ của các số trang
+    color: #35973F; // Đổi màu chữ của các số trang
   }
 
   .ant-pagination-item-active {
-    border-color: #28a745; // Đổi màu viền của trang hiện tại
-    background-color: #28a745; // Đổi màu nền của trang hiện tại
+    border-color: #35973F; // Đổi màu viền của trang hiện tại
+    background-color: #35973F; // Đổi màu nền của trang hiện tại
 
     a {
       color: #fff; // Đổi màu chữ của trang hiện tại
@@ -184,12 +184,12 @@ button.edit {
   }
 
   .ant-pagination-item-link {
-    color: #28a745; // Đổi màu các nút điều hướng (prev, next)
-    border-color: #28a745;
+    color: #35973F; // Đổi màu các nút điều hướng (prev, next)
+    border-color: #35973F;
   }
 
   .ant-pagination-item-link:hover {
-    border-color: #28a745; // Màu viền khi hover vào các nút điều hướng
-    color: #28a745; // Màu chữ khi hover vào các nút điều hướng
+    border-color: #35973F; // Màu viền khi hover vào các nút điều hướng
+    color: #35973F; // Màu chữ khi hover vào các nút điều hướng
   }
 }

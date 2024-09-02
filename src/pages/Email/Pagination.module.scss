@@ -13,10 +13,10 @@
     padding: 0.5rem 0.75rem;
     border: 1px solid #dee2e6;
     border-radius: 0.25rem;
-    color: #28a745;
+    color: #35973F;
     cursor: pointer;
     &:hover {
-      color: #218838;
+      color: #35973F;
     }
     &:focus {
       box-shadow: 0 0 0 0.2rem rgba(40, 167, 69, 0.25);
@@ -24,8 +24,8 @@
   }
   
   .page-item.active .page-link {
-    background-color: #28a745;
-    border-color: #28a745;
+    background-color: #35973F;
+    border-color: #35973F;
     color: white;
   }
   
