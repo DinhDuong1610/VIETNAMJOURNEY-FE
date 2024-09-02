@@ -31,8 +31,31 @@ function AdminGroup() {
     };
 
     useEffect(() => {
+        if (group_id && user_ID) {
+            fetch(`${API_BASE_URL}api/checkAdminGroup`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ group_id: group_id, user_id: user_ID })
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.result == 'yes') {
+                    console.log('Là admin');
+                } else {
+                    navigate(`/GroupCampaign?group_id=${group_id}`);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    }, [group_id, user_ID]);
+
+    useEffect(() => {
         if (group_id) {
-            fetch(`${API_BASE_URL}api/getCampaignPosts`, {
+            fetch(`${API_BASE_URL}api/getCampaignPostsConfirm`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -198,7 +221,7 @@ function AdminGroup() {
                     <div className="row">
                         <div className="col-md-8">
                             <div className={styles.container2}>
-                                <div style={{ textAlign: 'left', marginTop: '1rem',marginBottom: '1rem', backgroundColor: 'white', borderRadius: '10px', padding: '1rem', fontWeight: 600 }}>
+                                <div style={{ textAlign: 'left', marginTop: '1rem',marginBottom: '1rem', backgroundColor: 'white', borderRadius: '10px', padding: '1rem', fontWeight: 600,paddingLeft : '2rem' }}>
                                         Bài viết đang chờ duyệt
                                     </div>
                                 {loadingPosts ? (
@@ -231,7 +254,7 @@ function AdminGroup() {
                         <div className={`col-md-4 ${styles.mobile}`}>
                             <div className={styles.container3}>
                                 <div className={styles.sticky}>
-                                    <h6 style={{ marginLeft: '0.3rem', fontWeight: '', fontSize: '1.5rem' }}>Thành viên(68)</h6>
+                                    <h6 style={{ marginLeft: '0.3rem', fontWeight: '', fontSize: '1.5rem' }}>Thành viên({campaignInfo.quantity})</h6>
                                     {loadingCampaignInfo ? (
                                         <Skeleton active paragraph={{ rows: 4 }} />
                                     ) : campaignInfo.volunteers && campaignInfo.volunteers.length > 0 ? (

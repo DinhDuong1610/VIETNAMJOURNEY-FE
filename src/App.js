@@ -32,6 +32,7 @@ import Email from './pages/Email/Email.js';
 import EmailSend from './pages/Email/EmailSend/EmailSend';
 import Read from './pages/Email/Read/Read';
 import Compose from './pages/Email/Compose/Compose';
+import VideoScreen from './pages/VideoChat/Client/VideoScreen.js';
 
 import ScrollToTop from './component/Utilities/ScrollToTop.jsx';
 
@@ -62,6 +63,7 @@ function App() {
 
         <Route path="/ThucTrang" element={<ThucTrang />} />
         <Route path="/VideoChat" element={<VideoChat />} />
+        <Route path="/VideoScreen" element={<VideoScreen />} />
 
         <Route path="/campaign-detail" element={<PageDetail />} />
         <Route path="/CreateCampaign" element={<CreateCampaign />} />

@@ -21,7 +21,6 @@ const Post = ({
     comment,
     check
 }) => {
-    console.log("image", image);
     const [isLiked, setIsLiked] = useState(isLike);
     const [likeCount, setLikeCount] = useState(likes);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -163,6 +162,27 @@ const Post = ({
         setIsDeleteOverlayOpen(false);
     };
 
+    const handleApproveClick = () => {
+        fetch(`${API_BASE_URL}api/confirmCampaignPost`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ post_id: Post_ID, status: 'yes' }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    window.location.reload();
+                } else {
+                    console.error('Error approving post:', data.error);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    };
+
     const handleShare = () => {
         const shareLink = `${window.location.origin}/VietNamJourney#/Search/?post_info=${Post_ID}`;
         navigator.clipboard.writeText(shareLink)
@@ -185,16 +205,6 @@ const Post = ({
                     <h6 onClick={handleAvatarClick} style={{ cursor: 'pointer', fontWeight: 'revert', fontSize: '1.2rem' }}>{name} {check == 1 && <i className="fa-solid fa-circle-check" style={{ color: "#258e31", fontSize: "1rem" }}></i>} - {namegroup}</h6>
                     <span style={{ fontSize: '1rem' }}>{time} · <i className="fas fa-earth-asia"></i></span>
                 </div>
-                {userId == user_id && (
-                    <div className={styles['post-header-option']} onClick={handleDotsClick} style={{ cursor: 'pointer' }}>
-                        <img alt="options" src={dots} />
-                        {isOptionsOpen && (
-                            <div className={styles['options-menu']}>
-                                <p onClick={handleDeleteClick}>Xóa bài viết</p>
-                            </div>
-                        )}
-                    </div>
-                )}
             </div>
             <div className={styles['post-content']}>
                 <p>{content}</p>
@@ -203,46 +213,11 @@ const Post = ({
                 <img src={image} alt="post content" />
             </div>}
             <div className={styles['post-footer']}>
-                <div className={styles['post-footer-top']}>
-                    <p><span style={{ fontWeight: 'bold' }}>{likeCount}</span> lượt thích </p>
-                    <p style={{ marginLeft: '0.2rem', marginRight: '0.2rem', fontWeight: 'bold' }}> · </p>
-                    <p><span style={{ fontWeight: 'bold' }}>{comments}</span> bình luận</p>
+                <div style={{ display: 'flex', marginLeft: 'auto' }}>
+                    <button className={styles.yes} onClick={handleApproveClick}>Duyệt</button>
+                    <button className={styles.no} onClick={handleConfirmDelete} >Xóa</button>
                 </div>
-                <hr className={styles['black-line']} />
-                {!loadingLikeStatus && (
-                    <div className={styles['post-footer-middle']}>
-                        <p onClick={handleLikeClick} style={{ cursor: 'pointer', fontWeight: 500, marginRight: '1rem' }}>
-                            <i className={isLiked ? "fa-solid fa-heart" : "fa-regular fa-heart"}></i> Thích
-                        </p>
-                        <p onClick={handleCommentClick} style={{ cursor: 'pointer', fontWeight: 500 }}>
-                            <i className="fa-regular fa-comment"></i> Bình luận
-                        </p>
-                    </div>
-                )}
-                {commentData && (
-                    <div onClick={handleCommentClick} style={{ cursor: 'pointer' }} className={styles['post-footer-footer']}>
-                        <img style={{ objectFit: 'cover' }} src={commentData.avatar} alt="comment avatar" />
-                        <div className={styles['post-footer-footer-right']}>
-                            <div className={styles['post-footer-footer-content']}>
-                                <p style={{ fontWeight: '600', fontSize: '15px', marginBottom: '0' }}>{commentData.username}</p>
-                                <p style={{ marginLeft: '0.1rem', fontSize: '1rem', marginBottom: '5px' }}>{commentData.content}</p>
-                                {commentData.imageComment && <img src={commentData.imageComment} alt="comment content" />}
-                            </div>
-                            <span style={{ fontSize: '0.8rem', marginLeft: '0.2rem' }}>{commentData.time}</span>
-                        </div>
-                    </div>
-                )}
             </div>
-            {isModalOpen && <CommentModal onClose={handleCloseModal} postId={Post_ID} />}
-            {isDeleteOverlayOpen && (
-                <div className={styles['overlay']}>
-                    <div className={styles['overlay-content']}>
-                        <p>Bạn có chắc muốn xóa bài viết này không?</p>
-                        <button onClick={handleConfirmDelete}>Đồng ý</button>
-                        <button onClick={handleCancelDelete}>Hủy</button>
-                    </div>
-                </div>
-            )}
         </div>
     );
 };

@@ -1,0 +1,53 @@
+.meetingContainer {
+    text-align: center;
+    color: #333;
+    background-color: #f9f9f9;
+    padding: 40px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.meetingContainer h2 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #222;
+}
+
+.meetingButton {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    max-width: 300px;
+}
+
+.meetingButton:hover {
+    background-color: #45a049;
+}
+
+.meetingButton + .meetingButton {
+    background-color: #008CBA;
+}
+
+.meetingButton + .meetingButton:hover {
+    background-color: #007bb5;
+}.subContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}.subContainer input{
+    margin-bottom : 0.5rem;
+    border : 1px solid green;
+}

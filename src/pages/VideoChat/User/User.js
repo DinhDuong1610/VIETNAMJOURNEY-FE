@@ -1,78 +1,151 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom"; // Giả sử bạn đang dùng react-router để điều hướng
+import React, { useEffect, useState, useRef } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import anh from '../../../Images/User/anhchiendich.png';
 import styles from './User.module.css';
+import { Skeleton } from 'antd';
+import { useCheckCookie } from '../../../Cookie/getCookie.js';
 
 function User() {
     const location = useLocation();
     const params = new URLSearchParams(location.search);
-    const thread = params.get('thread'); // Lấy thread từ params
-    const [adminUsers, setAdminUsers] = useState([]);
-    const [regularUsers, setRegularUsers] = useState([]);
-    const [loading, setLoading] = useState(false);
+    const thread = params.get('thread');
+    const [loading, setLoading] = useState(true);
+    const [userInfo, setUserInfo] = useState([]);
+    const [adminInfo, setAdminInfo] = useState(null);
+    const [error, setError] = useState(null);
+    const [exitingUsers, setExitingUsers] = useState([]); // Track users who are exiting
+
+    const group_id = params.get('group_id');
+    const user_id = useCheckCookie('User_ID', '/TaiKhoan');
+    const navigate = useNavigate();
+    const ws = useRef(null);
 
     useEffect(() => {
-        setLoading(true); // Bắt đầu fetch dữ liệu, set loading là true
-        if (thread) {
-            fetch(`http://localhost:8000/api/getMemberMeeting`, {
+        if (group_id && user_id) {
+            fetch(`http://localhost:8000/api/checkMemberMeeting`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ thread }) 
+                body: JSON.stringify({ campaign_id: group_id, user_id: user_id })
             })
             .then(response => response.json())
             .then(data => {
-                setLoading(false); // Kết thúc fetch dữ liệu, set loading là false
-                if (data.status === "success") {
-                    const fetchedAdminUsers = data.admin || []; // Lấy dữ liệu admin
-                    const fetchedRegularUsers = data.data || []; // Lấy dữ liệu user thường
-                    setAdminUsers(fetchedAdminUsers); // Đưa admin lên đầu
-                    setRegularUsers(fetchedRegularUsers); // Đưa user thường xuống dưới
+                if (data.result === 'yes') {
+                    setUserInfo([{ userId: user_id, name: data.name, image: data.image }]);
+
+                    // Kết nối đến WebSocket
+                    ws.current = new WebSocket(`ws://localhost:8080`);
+                    ws.current.onopen = () => {
+                        ws.current.send(JSON.stringify({
+                            type: 'subscribe',
+                            thread_meeting: thread,
+                            thread_user: user_id,
+                            userInfo: { userId: user_id, name: data.name, image: data.image }
+                        }));
+                    };
+
+                    ws.current.onmessage = (event) => {
+                        const message = JSON.parse(event.data);
+                        if (message.type === 'userListUpdate' && Array.isArray(message.users)) {
+                            // Handle user list updates with slide animations
+                            setUserInfo(prevInfo => {
+                                const updatedInfo = [...message.users];
+
+                                // Handle exiting users
+                                const currentUserIds = prevInfo.map(user => user.userId);
+                                const newUserIds = updatedInfo.map(user => user.userId);
+
+                                // Identify users who are no longer in the room
+                                const usersToExit = prevInfo.filter(user => !newUserIds.includes(user.userId));
+
+                                // Add exit class to users who are leaving
+                                usersToExit.forEach(user => {
+                                    setExitingUsers(prevExiting => [...prevExiting, user.userId]);
+                                    setTimeout(() => {
+                                        setUserInfo(prevState => prevState.filter(u => u.userId !== user.userId));
+                                        setExitingUsers(prevExiting => prevExiting.filter(id => id !== user.userId));
+                                    }, 500); // Match the duration of the slideOut animation
+                                });
+
+                                // Add new users who joined the room
+                                message.users.forEach(newUser => {
+                                    const userExists = prevInfo.some(user => user.userId === newUser.userId);
+                                    if (!userExists) {
+                                        updatedInfo.push(newUser);
+                                    }
+                                });
+
+                                return updatedInfo;
+                            });
+                        }
+                    };
+
+                    ws.current.onerror = (error) => {
+                        console.error('WebSocket error:', error);
+                    };
+
+                    ws.current.onclose = () => {
+                        console.log('WebSocket connection closed');
+                    };
                 } else {
-                    setAdminUsers([]); // Đảm bảo rằng adminUsers luôn là mảng
-                    setRegularUsers([]); // Đảm bảo rằng regularUsers luôn là mảng
+                    navigate(`/GroupCampaign?group_id=${group_id}`);
                 }
             })
             .catch(error => {
                 console.error('Error:', error);
-                setLoading(false); // Kết thúc fetch dữ liệu, set loading là false
-                setAdminUsers([]); // Đảm bảo rằng adminUsers luôn là mảng khi có lỗi
-                setRegularUsers([]); // Đảm bảo rằng regularUsers luôn là mảng khi có lỗi
             });
+        }
+    }, [group_id, user_id, thread, navigate]);
+
+    useEffect(() => {
+        if (thread) {
+            fetch(`http://localhost:8000/api/getInformationMeeting`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ thread })
+            })
+            .then(response => response.json())
+            .then(data => {
+                setLoading(false);
+                if (data.status === 'success') {
+                    setAdminInfo(data.data.admin);
+                } else {
+                    setError(data.message || 'Failed to retrieve information.');
+                }
+            })
+            .catch(error => {
+                setLoading(false);
+                setError('An error occurred while fetching data.');
+                console.error('Error:', error);
+            });
+        } else {
+            setLoading(false);
+            setError('Thread parameter is missing.');
         }
     }, [thread]);
 
     return (
         <div className={styles.container}>
             {loading ? (
-                <p>Loading...</p> // Hoặc một spinner
-            ) : (
                 <>
-                    {adminUsers.length > 0 && adminUsers.map((user, index) => (
-                        <div key={`admin-${index}`} className={styles.userInfo}>
-                            <img alt="avatar" src={user.Image || anh} className={styles.avatar} />
+                    <Skeleton avatar paragraph={{ rows: 1 }} active />
+                    <Skeleton avatar paragraph={{ rows: 1 }} active />
+                    <Skeleton avatar paragraph={{ rows: 1 }} active />
+                </>
+            ) : adminInfo ? (
+                <>
+                    {userInfo.map((user, index) => (
+                        <div 
+                            key={index} 
+                            className={`${styles.userInfo} ${exitingUsers.includes(user.userId) ? styles.exit : ''}`}
+                        >
+                            <img alt="avatar" src={user.image || anh} className={styles.avatar} />
                             <div className={styles.details}>
-                                <p style={{ fontWeight: 600 }}>
-                                    {user.Name} <i className="fa-solid fa-user-tie" style={{ color: 'green',fontSize : '0.7rem' }}></i>
-                                </p>
-                                <span style={{ lineHeight : '0px',fontWeight : 500 }}>Quản trị viên</span>
-                            </div>
-                            <div className={styles.iconContainer}>
-                                <i className="fa-solid fa-microphone"></i>
-                                <i className={`fa-solid fa-ellipsis-vertical ${styles.icon}`}></i>
-                            </div>
-                        </div>
-                    ))}
-                    
-                    {regularUsers.length > 0 && regularUsers.map((user, index) => (
-                        <div key={`user-${index}`} className={styles.userInfo}>
-                            <img alt="avatar" src={user.Image || anh} className={styles.avatar} />
-                            <div className={styles.details}>
-                                <p style={{ fontWeight: 600 }}>
-                                    {user.Name}
-                                </p>
-                                <span>Tham gia lúc {user.date_join}</span>
+                                <p style={{ fontWeight: 600 }}>{user.name} {user.userId === adminInfo.userId.toString() && <i className="fa-solid fa-user-tie" style={{ color: 'green', fontSize: '0.8rem', textAlign: 'center' }}></i> }</p>
+                                <span style={{ lineHeight: '0px', fontWeight: 500 }}>{user.userId === adminInfo.userId.toString() ? 'Quản trị viên' : 'Thành viên'}</span>
                             </div>
                             <div className={styles.iconContainer}>
                                 <i className="fa-solid fa-microphone"></i>
@@ -81,6 +154,8 @@ function User() {
                         </div>
                     ))}
                 </>
+            ) : (
+                <p>{error || "No admin information available."}</p>
             )}
         </div>
     );

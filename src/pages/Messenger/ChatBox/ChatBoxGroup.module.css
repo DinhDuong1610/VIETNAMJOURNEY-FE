@@ -6,6 +6,7 @@
     textArea:focus {
         outline: none;
     }
+    overflow: hidden;
 }
 
 .containerHeader {
@@ -52,11 +53,21 @@
 .containerHeaderSettings {
     margin-left: auto;
     margin-right: 1rem;
+    display:  flex;
 }
 
 .containerHeaderSettings img {
     width: 1.7rem;
     height: 1.7rem;
+    cursor: pointer;
+}.containerHeaderSettings i {
+    font-size : 1.3rem;
+    margin-right : 1rem;
+    margin-top:  0.5rem;
+    display: block;
+    cursor: pointer;
+}.containerHeaderSettingsvideo {
+    display: block;
 }
 
 .content {
@@ -185,13 +196,17 @@
     margin-left: auto;
     border-radius: 18px 4px 18px 18px;
     padding: 8px;
+    padding-bottom: 2px;
     color: #ffffff;
+    max-width: 70%;
 }.contentLeft {
     background-color: #d2d2d2;
     border-radius: 4px 18px 18px 18px;
     padding: 8px;
     margin-right: auto;
     padding-top: 3px;
+    padding-bottom: 2px;
+    max-width: 70%;
 }
 
 .messageTime {
@@ -210,6 +225,17 @@
     align-items: flex-end;
 }.containerHeader i {
    display: none;
+}.meetingOverlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }@media (max-width : 560px) {
     .containerHeader img{
     margin-left: 0.4rem;
@@ -226,5 +252,9 @@
     height: 1.5rem;
 }.containerHeader i {
    display: block;
+}.containerHeaderSettings i {
+    font-size : 1.3rem;
+    margin-right : 0;
+    margin-top:  0.5rem;
 }
 }
