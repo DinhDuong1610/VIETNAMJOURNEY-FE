@@ -229,6 +229,56 @@ const VideoChat = () => {
         setUnderlinePosition(leftPosition);
     };
 
+    const endMeeting = async () => {
+    if (isAdmin) {
+        // Close the peer connection if it exists
+        if (peerConnectionRef.current) {
+            peerConnectionRef.current.close();
+        }
+
+        // Stop local video tracks
+        if (localVideoRef.current && localVideoRef.current.srcObject) {
+            localVideoRef.current.srcObject.getTracks().forEach(track => track.stop());
+        }
+
+        // Stop screen sharing tracks
+        if (screenShareRef.current && screenShareRef.current.srcObject) {
+            screenShareRef.current.srcObject.getTracks().forEach(track => track.stop());
+        }
+
+        // Send 'endMeeting' message via WebSocket
+        if (ws.current && ws.current.readyState === WebSocket.OPEN) {
+            ws.current.send(JSON.stringify({ type: 'endMeeting', thread }));
+            ws.current.close();
+        }
+
+        // Make API call to closeMeeting
+        try {
+            await fetch('/api/closeMeeting', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ thread }),
+            });
+        } catch (error) {
+            console.error('Failed to close the meeting:', error);
+        }
+
+        // Navigate back to the home page
+        navigate('/Messenger?type=user&user_id=0');
+    } else {
+        // Send 'endMeeting' message via WebSocket for non-admins
+        if (ws.current && ws.current.readyState === WebSocket.OPEN) {
+            ws.current.send(JSON.stringify({ type: 'endMeeting', thread }));
+            ws.current.close();
+        }
+
+        // Navigate back to the home page
+        navigate('/Messenger?type=user&user_id=0');
+    }
+};
+
     return (
         <div className={styles.container}>
             <div className={styles.flexContainer}>
@@ -251,14 +301,14 @@ const VideoChat = () => {
 
 <div className={`${styles.chatBox} ${isDivVisible ? styles.visible : ''}`}>
     <div style={{ display: 'flex' }}>
-        <h4 style={{ marginLeft: '17px' }}>In-Meeting</h4>
+        <h4 style={{ marginLeft: '17px' }}>Đang trong cuộc họp</h4>
         <i 
             style={{ marginLeft: 'auto', marginRight: '0.8rem', fontSize: '1.2rem', marginBottom: 'auto', marginTop: '0.3rem' }} 
             className="fa-solid fa-x"
             onClick={toggleDivVisibility}
         ></i>
     </div>
-    <div style={{ marginBottom: '0.3rem', textAlign: 'center' }}>
+    <div className={styles.options}>
         <span 
             id="member-tab" 
             className={`${styles.tab} ${currentView === 'user' ? styles.activeTab : ''}`}
@@ -307,7 +357,7 @@ const VideoChat = () => {
                     {isDivVisible ? <i className="fa-solid fa-comment"></i> : <i className="fa-solid fa-comment"></i>}
                 </button>
                 <button onClick={toggleDivVisibility}><i className="fa-solid fa-user-group"></i></button>
-                <button><i className="fa-solid fa-phone" style={{ color: 'red' }}></i></button>
+                <button onClick={endMeeting}><i className="fa-solid fa-phone" style={{ color: 'red' }}></i></button>
             </div>
             {isVideoOn && isAdmin && (
                 <Draggable>

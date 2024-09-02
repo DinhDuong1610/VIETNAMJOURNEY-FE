@@ -19,7 +19,7 @@ body {
     background-color: white;
     border-radius: 20px;
     padding: 0.2rem;
-    border: 1px solid green;
+    border: 1px solid #35973F;
     padding-left: 0.8rem;
 }.group {
     display: flex;
@@ -95,7 +95,7 @@ body {
     width: auto;
     height: 2.5rem;
     padding: 0.5rem;
-    background-color: rgb(7, 157, 7);
+    background-color: #35973F;
     color: #ffffff;
     margin-left: 0.5rem;
     border-radius: 10px;

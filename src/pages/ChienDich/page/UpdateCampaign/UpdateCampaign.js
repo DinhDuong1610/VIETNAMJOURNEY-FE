@@ -1,12 +1,17 @@
 import classNames from "classnames/bind";
 import style from "./UpdateCampaign.module.scss";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { useLocation } from "react-router-dom";
 import queryString from "query-string";
 import axios from "axios";
 import Select from "react-select";
 import API_BASE_URL from "../../../../config/configapi";
+import { Modal } from "antd";
+import mapboxgl from "mapbox-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
+import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
+import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css"; // Import CSS cho Geocoder
 
 const cx = classNames.bind(style);
 
@@ -27,6 +32,7 @@ function UpdateCampaign() {
   const [imageFile, setImageFile] = useState(null);
   const [description, setDescription] = useState("");
   const [plan, setPlan] = useState("");
+  const [locations, setLocations] = useState([]);
 
   const [campaignImageBase64, setCampaignImageBase64] = useState(null);
 
@@ -86,6 +92,8 @@ function UpdateCampaign() {
         setPlan(decodeHtmlEntities(campaignData.plan));
         setContacts(campaignData.infoContact || []);
         setOrganizationContacts(campaignData.infoOrganization || []);
+        setLocations(campaignData.location || []);
+      
         // setSelectedImage(campaignData.image);
 
         setCampaignImageBase64(campaignData.image);
@@ -166,6 +174,120 @@ function UpdateCampaign() {
 
   const navigate = useNavigate();
 
+  const mapContainerRef = useRef(null);
+
+  const [open, setOpen] = useState(false);
+  const showModal = () => {
+    setOpen(true);
+  };
+  const handleOk = () => {
+    setOpen(false);
+  };
+  const handleCancel = () => {
+    setOpen(false);
+  };
+
+  // State để quản lý danh sách các địa điểm
+
+  // Hàm xử lý khi nhấn button "Thêm thông tin liên hệ"
+  const handleAddLocations = (nameLo, xLo, yLo) => {
+    // Sử dụng prevState để cập nhật state
+    setLocations((prevLocations) => [
+      ...prevLocations,
+      { name: nameLo, x: xLo, y: yLo },
+    ]);
+  };
+  const handleLocationNameChange = (index, e) => {
+    const newLocation = [...locations];
+    newLocation[index].name = e.target.value;
+    setLocations(newLocation);
+  };
+  const handleLocationXChange = (index, e) => {
+    const newLocation = [...locations];
+    newLocation[index].x = e.target.value;
+    setLocations(newLocation);
+  };
+  const handleLocationYChange = (index, e) => {
+    const newLocation = [...locations];
+    newLocation[index].y = e.target.value;
+    setLocations(newLocation);
+  };
+  const handleDeleteLocation = (index) => {
+    const newLocation = [...locations];
+    newLocation.splice(index, 1);
+    setLocations(newLocation);
+  };
+
+  useEffect(() => {
+    if (open && mapContainerRef.current) {
+      const map = new mapboxgl.Map({
+        container: mapContainerRef.current,
+        style: "mapbox://styles/dinh1610/cm0jeiqxm005b01qydqacanqd",
+        center: [108.2506521, 15.9752654],
+        zoom: 16,
+      });
+
+      map.addControl(new mapboxgl.NavigationControl(), "top-right");
+      map.addControl(new mapboxgl.FullscreenControl(), "top-right");
+
+      const geocoder = new MapboxGeocoder({
+        accessToken: mapboxgl.accessToken,
+        mapboxgl: mapboxgl,
+        placeholder: "Tìm kiếm địa điểm...",
+      });
+
+      map.addControl(geocoder, "top-left");
+
+      geocoder.on("result", (e) => {
+        const placeName = e.result.place_name;
+        const coordinates = e.result.geometry.coordinates;
+        console.log("Selected place:", placeName);
+        console.log("Coordinates:", coordinates);
+
+        handleAddLocations(placeName, coordinates[0], coordinates[1]);
+        console.log(locations);
+      });
+
+      const popup = new mapboxgl.Popup({ offset: 25 }).setHTML(
+        "<h3>Đây là một popup</h3><p>Thông tin bổ sung ở đây.</p>"
+      );
+
+      new mapboxgl.Marker()
+        .setLngLat([105.7938072, 21.0244246])
+        .setPopup(popup)
+        .addTo(map);
+
+      map.on("click", (e) => {
+        new mapboxgl.Marker()
+          .setLngLat([e.lngLat.lng, e.lngLat.lat])
+          .addTo(map);
+        new mapboxgl.Popup({ offset: 25 })
+          .setLngLat([e.lngLat.lng, e.lngLat.lat])
+          .setHTML(
+            `<p>Vị trí bạn vừa nhấp: ${e.lngLat.lng.toFixed(
+              4
+            )}, ${e.lngLat.lat.toFixed(4)}</p>`
+          )
+          .addTo(map);
+      });
+
+      const Draw = require("@mapbox/mapbox-gl-draw");
+      const draw = new Draw();
+      map.addControl(draw);
+
+      // map.resize();
+
+      map.on("load", () => {
+        map.resize();
+      });
+
+      return () => map.remove();
+    }
+  }, [open]);
+
+
+
+
   const handleSubmit = async (event) => {
     event.preventDefault();
   
@@ -182,7 +304,8 @@ function UpdateCampaign() {
     formData.append("moneyByVNJN", event.target.elements.moneyByVNJN.value);
     formData.append("province", selectedProvince ? selectedProvince.label : "");
     formData.append("district", selectedDistrict ? selectedDistrict.label : "");
-    formData.append("location", event.target.elements.location.value);
+    // formData.append("location", event.target.elements.location.value);
+    formData.append("location", JSON.stringify(locations));
     formData.append("status", "active");
   
     // Thêm các dữ liệu timeline vào FormData (chuyển đổi thành chuỗi JSON)
@@ -425,16 +548,40 @@ function UpdateCampaign() {
 
           <div className={cx("col-6")}>
             <label htmlFor="location" className={cx("location")}>
-              Thông tin chi tiết về địa điểm:{" "}
+              Thông tin chi tiết về địa điểm{" "}
             </label>
-            <textarea
-              type="text"
-              id="location"
-              name="location"
-              className={cx("input-location")}
-              defaultValue={campaign.location}
-              required
-            />
+            <button type="button" onClick={showModal}>
+              Thêm địa điểm <i class="fa-solid fa-circle-plus"></i>
+            </button>
+            {locations.map((location, index) => (
+              <div key={index} className={cx("form", "form-contact")}>
+                <input
+                  type="text"
+                  id={`locationName-${index}`}
+                  value={location.name}
+                  onChange={(e) => handleLocationNameChange(index, e)}
+                  className={cx("form-control")}
+                  placeholder="Địa điểm"
+                  required
+                />
+               <button type="button" className={cx("location")} onClick={() => handleDeleteLocation(index)}><i class="fa-solid fa-circle-xmark"></i></button>
+              </div>
+            ))}
+            <Modal
+              width={1000}
+              // height={600}
+              open={open}
+              title="Địa điểm chi tiết"
+              onOk={handleOk}
+              onCancel={handleCancel}
+              footer={null}
+              // bodyStyle={{ padding: 0, height: "600px", width: "100%" }}
+            >
+              <div
+                ref={mapContainerRef}
+                style={{ height: "600px", width: "100%" }}
+              />
+            </Modal>
           </div>
         </div>
 

@@ -39,7 +39,7 @@
 .left .desc {
   font-size: 24px;
   font-weight: 600;
-  color: #737373;
+  color: #4F4F4F;
   margin-bottom: 30px;  
 }
 
@@ -66,6 +66,10 @@
   font-weight: 600;
   color: white;
   background-color: #1A931F;
+}
+
+.right {
+  padding-right: 50px;
 }
 
 .right .desc {
@@ -357,6 +361,35 @@ opacity: 0.8;
 #signUpForm .form-footer #prevBtn {
   background-color: #fff;
   color: #02a308;
+}
+
+
+.location {
+  margin-bottom: 15px;
+}
+
+.location button {
+  border: none;
+  background-color: transparent;
+  line-height: 100%;
+  font-size: 28px;
+  color: #35973F;
+
+  &:hover {
+    cursor: pointer;
+    color: #00ca07;
+    transition: 0.3s;
+    scale: 1.1;
+  }
+}
+
+.location-desc {
+  font-size: 24px;
+  font-family: 'montserrat';
+  font-weight: 600;
+  color: #4F4F4F;
+  line-height: 100%;
+  margin-left: 10px;
 }
 
 

@@ -7,9 +7,9 @@ import { Button, message,Spin } from 'antd';
 
 
 
-function MeetingNow({ onMeetingCreated }) { // Nhận callback
+function MeetingNow({ onMeetingCreated }) {
     const [meetingData, setMeetingData] = useState(null);
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false); // Không còn mặc định là true
     const [error, setError] = useState(null);
 
     const location = useLocation();
@@ -17,34 +17,31 @@ function MeetingNow({ onMeetingCreated }) { // Nhận callback
     const group_id = params.get('group_id');
     const navigate = useNavigate();
 
-    useEffect(() => {
-        const createMeeting = async () => {
-            try {
-                const response = await fetch(`${API_BASE_URL}api/CreateMeeting`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify({ campaign_id: group_id })
-                });
+    const createMeeting = async () => {
+        setLoading(true);
+        try {
+            const response = await fetch(`${API_BASE_URL}api/CreateMeeting`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ campaign_id: group_id })
+            });
 
-                const data = await response.json();
-                if (response.ok) {
-                    setMeetingData(data);
-                    onMeetingCreated(`Nhóm đang có 1 cuộc họp diễn ra ngay bây giờ.
-                    Link tham gia : http://localhost:3000/VIETNAMJOURNEY-FE#/VideoChat?group_id=${group_id}&thread=${data.id}`);
-                } else {
-                    setError(data.error || 'Failed to create meeting');
-                }
-            } catch (err) {
-                setError('Error fetching data');
-            } finally {
-                setLoading(false);
+            const data = await response.json();
+            if (response.ok) {
+                setMeetingData(data);
+                onMeetingCreated(`Nhóm đang có 1 cuộc họp diễn ra ngay bây giờ.
+                Link tham gia : http://localhost:3000/VIETNAMJOURNEY-FE#/VideoChat?group_id=${group_id}&thread=${data.id}`);
+            } else {
+                setError(data.error || 'Failed to create meeting');
             }
-        };
-
-        createMeeting();
-    }, []);
+        } catch (err) {
+            setError('Error fetching data');
+        } finally {
+            setLoading(false);
+        }
+    };
 
     const handleNavigate = () => {
         if (meetingData) {
@@ -65,15 +62,21 @@ function MeetingNow({ onMeetingCreated }) { // Nhận callback
                 <p style={{ color: 'red' }}>{error}</p>
             ) : (
                 <>
-                    <h3>Bạn đang tạo cuộc họp ngay bây giờ.</h3>
-                    <p>Thời gian bắt đầu: {meetingData.date}</p>
-                            <p>Link tham gia : <a href={`http://localhost:3000/VIETNAMJOURNEY-FE#/VideoChat?group_id=${group_id}&thread=${meetingData.id}`}>{ `http://localhost:3000/VIETNAMJOURNEY-FE#/VideoChat?group_id=${group_id}&thread=${meetingData.id}`}</a></p>
-                    <Button type="primary" onClick={handleNavigate}>Vào cuộc họp</Button>
+                    <h3>Cuộc họp sẽ được tạo ngay bây giờ, tiếp tục?</h3>
+                    {!meetingData ? (
+                        <Button type="primary" onClick={createMeeting}>Tạo cuộc họp</Button>
+                    ) : (
+                        <>
+                            <p>Thời gian bắt đầu: {meetingData.date}</p>
+                            <Button type="primary" onClick={handleNavigate}>Vào cuộc họp</Button>
+                        </>
+                    )}
                 </>
             )}
         </div>
     );
 }
+
 
 function ScheduleMeeting({ onMeetingCreated }) { // Nhận callback
     const [selectedDateTime, setSelectedDateTime] = useState('');
@@ -175,10 +178,10 @@ function Meeting({ onMeetingCreated }) { // Nhận callback
                 <>
                     <h2>Bạn muốn tạo cuộc họp vào khi nào?</h2>
                     <button className={styles.meetingButton} onClick={handleMeetingNow}>
-                        Tôi cần tạo cuộc họp ngay bây giờ
+                    <i class="fa-solid fa-plus fa-beat-fade"></i> Bắt đầu cuộc họp tức thì
                     </button>
                     <button className={styles.meetingButton} onClick={handleScheduleMeeting}>
-                        Tôi cần lên lịch trước một cuộc họp trong tương lai
+                    <i class="fa-regular fa-calendar"></i> Tạo cuộc họp trong tương lai
                     </button>
                 </>
             ) : selectedOption === 'now' ? (

@@ -2,7 +2,7 @@
     text-align: center;
     color: #333;
     background-color: #f9f9f9;
-    padding: 40px;
+    padding: 30px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -14,13 +14,16 @@
 }
 
 .meetingContainer h2 {
-    font-size: 1.8rem;
+    font-size: 1.5rem;
     margin-bottom: 20px;
+    font-weight: 600;
     color: #222;
+}.meetingContainer i {
+    margin-right: 0.3rem;
 }
 
 .meetingButton {
-    background-color: #4CAF50;
+    background-color:#35973F;
     color: white;
     padding: 10px 20px;
     margin: 10px 0;
@@ -47,7 +50,22 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+}.subContainer h3{
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}.subContainer Button{
+    font-size: 1rem;
+    font-weight : 500;
+    padding : 20px;
+}.subContainer p{
+    font-weight: 600;
+    font-size: 1.1rem;
 }.subContainer input{
-    margin-bottom : 0.5rem;
+    margin-bottom : 1rem;
     border : 1px solid green;
+}.scheduleButton {
+    background-color:#35973F;
+    color : white;
+    padding : 20px;
 }

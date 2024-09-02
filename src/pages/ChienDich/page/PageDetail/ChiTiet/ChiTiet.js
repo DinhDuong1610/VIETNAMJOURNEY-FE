@@ -1,11 +1,19 @@
 import classNames from "classnames/bind";
 import style from "./ChiTiet.module.scss";
 import axios from "axios";
-import { useState, useEffect } from "react"; // Import useEffect
+import { useState, useEffect, useRef } from "react"; // Import useEffect
 import { getCookie } from "../../../../../Cookie/getCookie";
 import { useNavigate } from "react-router-dom";
 import Modal from "react-modal";
 import API_BASE_URL from "../../../../../config/configapi";
+import Table from "react-bootstrap/Table";
+import Cycle from "./Cycle";
+import { Timeline, ConfigProvider } from "antd";
+import { Modal as AntdModal } from "antd";
+import mapboxgl from "mapbox-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
+import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
+import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css"; // Import CSS cho Geocoder
 
 const cx = classNames.bind(style);
 
@@ -96,12 +104,10 @@ function ChiTiet({ campaign }) {
     setIsVisible(!isVisible);
   };
 
-  // Hàm xử lý khi gửi form
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log("Form submitted:", formData);
 
-    // Cập nhật state để hiển thị QR code
     setShowQR(true);
   };
 
@@ -199,11 +205,9 @@ function ChiTiet({ campaign }) {
       document.getElementById(cx("prevBtn")).style.display = "inline";
     }
     if (n === x.length - 1) {
-      // document.getElementById(cx("nextBtn")).type = "submit";
       document.getElementById(cx("nextBtn")).innerHTML = "Đăng ký";
     } else {
       document.getElementById(cx("nextBtn")).innerHTML = "Tiếp theo";
-      // document.getElementById(cx("nextBtn")).type = "button";
     }
 
     fixStepIndicator(n);
@@ -317,6 +321,82 @@ function ChiTiet({ campaign }) {
     }
   };
 
+  const formatCurrency = (value) => {
+    return new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    }).format(value);
+  };
+
+  const [funData, setFunData] = useState([]);
+
+  useEffect(() => {
+    // Hàm gọi API để lấy dữ liệu
+    const fetchFunData = async () => {
+      try {
+        const response = await axios.get(
+          `${API_BASE_URL}api/getFunByCampaign/${campaign.id}`
+        );
+        setFunData(response.data.funs);
+      } catch (error) {
+        console.error("Lỗi khi lấy dữ liệu:", error);
+      }
+    };
+
+    fetchFunData();
+  }, []);
+
+
+  const mapContainerRef = useRef(null);
+  const [xLo, setXLo] = useState(108.2506521);
+  const [yDo, setYDo] = useState(15.9752654);
+  const [nameLo, setNameLo] = useState("Việt Hàn");
+
+  const [open, setOpen] = useState(false);
+  const showModal = (x, y, name) => {
+    setXLo(x);
+    setYDo(y);
+    setNameLo(name);
+    setOpen(true);
+    console.log(xLo, yDo, nameLo);
+  };
+  const handleOk = () => {
+    setOpen(false);
+  };
+  const handleCancel = () => {
+    setOpen(false);
+  };
+
+  useEffect(() => {
+    if (open && mapContainerRef.current) {
+      const map = new mapboxgl.Map({
+        container: mapContainerRef.current,
+        style: "mapbox://styles/dinh1610/cm0jeiqxm005b01qydqacanqd",
+        center: [xLo, yDo],
+        zoom: 18,
+      });
+
+      map.addControl(new mapboxgl.NavigationControl(), "top-right");
+      map.addControl(new mapboxgl.FullscreenControl(), "top-right");
+
+      const Draw = require("@mapbox/mapbox-gl-draw");
+      const draw = new Draw();
+      map.addControl(draw);
+
+      const popup = new mapboxgl.Popup({ closeOnClick: false })
+      .setLngLat([xLo, yDo])
+      .setHTML(`<p>${nameLo}</p>`)
+      .addTo(map);
+
+      map.on("load", () => {
+        map.resize();
+      });
+
+      return () => map.remove();
+    }
+  }, [open]);
+
+
   return (
     console.log("joined ", campaign.joined),
     (
@@ -333,8 +413,8 @@ function ChiTiet({ campaign }) {
             )}
           >
             <hr />
-            <div className={cx("title")}>Thời gian dự án</div>
-            <div className={cx("time")}>
+            <div className={cx("title")}>Mốc thời gian của dự án</div>
+            {/* <div className={cx("time")}>
               <div className={cx("inner-title")}>Giai đoạn ban đầu</div>
               <div className={cx("desc")}>{campaign.timeline[0].value}</div>
               <div className={cx("inner-title")}>Bắt đầu dự án</div>
@@ -343,7 +423,83 @@ function ChiTiet({ campaign }) {
               <div className={cx("desc")}>{campaign.timeline[2].value}</div>
               <div className={cx("inner-title")}>Tổng kết dự án</div>
               <div className={cx("desc")}>{campaign.timeline[3].value}</div>
-            </div>
+            </div> */}
+
+            <ConfigProvider
+              theme={{
+                // token: {
+                //   dotBg: "#001273",
+                //   dotBorderWidth: 2,
+                //   itemPaddingBottom: 20,
+                //   tailWidth: 2,
+                //   lineWidth: 3,
+                //   lineColor: "blue",
+                // },
+                components: {
+                  Timeline: {
+                    lineWidth : 2.5,
+                    lineColor : "#001273",
+                    tailWidth : 5,
+                    itemPaddingBottom : 0,
+                    // dotBorderWidth : 2,
+                  },
+                },
+              }}
+            >
+              <Timeline
+                tailWidth={2}
+                lineWidth={4}
+                lineColor="blue"
+                items={[
+                  {
+                    color: "#001273",
+                    children: (
+                      <>
+                        <div className={cx("inner-title")}>
+                          Giai đoạn ban đầu
+                        </div>
+                        <div className={cx("desc")}>
+                          {campaign.timeline[0].value}
+                        </div>
+                      </>
+                    ),
+                  },
+                  {
+                    color: "#001273",
+                    children: (
+                      <>
+                        <div className={cx("inner-title")}>Bắt đầu dự án</div>
+                        <div className={cx("desc")}>
+                          {campaign.timeline[1].value}
+                        </div>
+                      </>
+                    ),
+                  },
+                  {
+                    color: "#001273",
+                    children: (
+                      <>
+                        <div className={cx("inner-title")}>Kết thúc dự án</div>
+                        <div className={cx("desc")}>
+                          {campaign.timeline[2].value}
+                        </div>
+                      </>
+                    ),
+                  },
+                  {
+                    color: "gray",
+                    children: (
+                      <>
+                        <div className={cx("inner-title")}>Tổng kết dự án</div>
+                        <div className={cx("desc")}>
+                          {campaign.timeline[3].value}
+                        </div>
+                      </>
+                    ),
+                  },
+                ]}
+              />
+            </ConfigProvider>
           </div>
           <div
             className={cx(
@@ -384,7 +540,28 @@ function ChiTiet({ campaign }) {
             </div>
             <hr />
             <div className={cx("title")}>Địa điểm cụ thể</div>
-            <pre className={cx("desc")}>{campaign.location}</pre>
+            {/* <pre className={cx("desc")}>{campaign.location}</pre> */}
+            {campaign.location.map((location, index) => (
+              <div key={index} className={cx("form", "form-contact", "location")}>
+               <button type="button" className={cx("location-button")} onClick={() => showModal(location.x, location.y, location.name)}><i class="fa-solid fa-location-dot"></i></button>
+                <span className={cx("location-desc")}>{location.name}</span>
+              </div>
+            ))}
+            <AntdModal
+              width={1000}
+              // height={600}
+              open={open}
+              title="Bản đồ chiến dịch"
+              onOk={handleOk}
+              onCancel={handleCancel}
+              footer={null}
+              // bodyStyle={{ padding: 0, height: "600px", width: "100%" }}
+            >
+              <div
+                ref={mapContainerRef}
+                style={{ height: "600px", width: "100%" }}
+              />
+            </AntdModal>
           </div>
         </div>
 
@@ -394,6 +571,7 @@ function ChiTiet({ campaign }) {
           <pre className={cx("desc")}>
             <div dangerouslySetInnerHTML={{ __html: campaign.plan }} />
           </pre>
+          {/* <Cycle /> */}
         </div>
 
         <div className={cx("quy-row")}>
@@ -413,9 +591,9 @@ function ChiTiet({ campaign }) {
 
           {isVisible && (
             <div>
-              <button className={cx("button-history")} onClick={viewHistory}>
+              {/* <button className={cx("button-history")} onClick={viewHistory}>
                 <i class="fa-solid fa-eye"></i> Lịch sử quyên góp
-              </button>
+              </button> */}
               <div className={cx("row", "quy")}>
                 <form onSubmit={handleSubmit} className={cx("transfer-form")}>
                   <div className={cx("title")}>
@@ -505,6 +683,38 @@ function ChiTiet({ campaign }) {
                       />
                     )}
                   </div>
+                </div>
+              </div>
+
+              <div className={cx("fun-history")}>
+                <div className={cx("title")}>Lịch sử quyên góp</div>
+                <div className={cx("table-container")}>
+                  <Table striped hover className={cx("table-fun-history")}>
+                    <thead>
+                      <tr>
+                        <th></th>
+                        <th>Nhà hảo tâm</th>
+                        <th>Số điện thoại</th>
+                        <th>Số tiền</th>
+                        <th className={cx("time")}>Thời gian</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      {funData.map((fun, index) => (
+                        <tr key={fun.id}>
+                          <td className={cx("text-center")}>{index + 1}</td>
+                          <td>{fun.name}</td>
+                          <td>{fun.phone}</td>
+                          <td className={cx("money")}>
+                            {formatCurrency(fun.amount)}
+                          </td>
+                          <td className={cx("time")}>
+                            {new Date(fun.time).toLocaleString()}
+                          </td>
+                        </tr>
+                      ))}
+                    </tbody>
+                  </Table>
                 </div>
               </div>
             </div>

@@ -36,12 +36,12 @@ body {
 
 .sticky-search-bar input:focus {
     outline: none;
-    border-color: #37be54;
+    border-color: #35973F;
 }
 
 .sticky-search-bar i {
     font-size: larger;
-    color: rgb(34, 105, 29);
+    color: #35973F;
 }
 
 .container2 {
@@ -175,12 +175,12 @@ body {
 
     .sticky-search-bar input:focus {
         outline: none;
-        border-color: #37be54;
+        border-color: #35973F;
     }
 
     .sticky-search-bar i {
         font-size: larger;
-        color: rgb(34, 105, 29);
+        color: #35973F;
     }
 
     .container2 {

@@ -134,7 +134,7 @@
 
 .footerinput button {
     padding: 0.5rem 1rem;
-    background-color: #36a03f;
+    background-color: #35973F;
     color: white;
     border: none;
     border-radius: 10px;
@@ -194,19 +194,27 @@
 .contentRight {
     background-color: #399435;
     margin-left: auto;
-    border-radius: 18px 4px 18px 18px;
-    padding: 8px;
+    border-radius: 25px 4px 25px 25px;
+    padding: 10px 15px;
     padding-bottom: 2px;
     color: #ffffff;
     max-width: 70%;
+}.contentRight h5 {
+    max-width: 100%;
+    word-wrap: break-word; /* Breaks long words */
+    overflow-wrap: break-word; /* Ensures long words break appropriately */
 }.contentLeft {
     background-color: #d2d2d2;
-    border-radius: 4px 18px 18px 18px;
-    padding: 8px;
+    border-radius: 4px 25px 25px 25px;
+    padding: 10px 15px;
     margin-right: auto;
     padding-top: 3px;
     padding-bottom: 2px;
     max-width: 70%;
+}.contentLeft h5 {
+    max-width: 100%;
+    word-wrap: break-word; /* Breaks long words */
+    overflow-wrap: break-word; /* Ensures long words break appropriately */
 }
 
 .messageTime {

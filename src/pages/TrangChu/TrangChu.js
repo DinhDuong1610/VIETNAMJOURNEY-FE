@@ -10,6 +10,7 @@ import { useNavigate } from "react-router-dom";
 import CoSuMenh1 from "./SuMenh1/SuMenh1.jsx";
 import CoSuMenh2 from "./SuMenh2/SuMenh2.jsx";
 import CoSuMenh3 from "./SuMenh3/SuMenh3.jsx";
+import TongQuan from "./TongQuan/TongQuan.js";
 import CoThongTinMoi from "./ThongTinMoi/ThongTinMoi.jsx";
 import Footer from "../../component/Footer/Footer.js";
 import { getCookie } from "../../Cookie/getCookie.js";
@@ -18,6 +19,7 @@ import { CustomerServiceOutlined, CommentOutlined } from "@ant-design/icons";
 import { useState, useEffect } from "react";
 import { FloatButton, Switch } from "antd";
 import "antd/dist/reset.css";
+import Draggable from 'react-draggable';
 
 const cx = classNames.bind(style);
 
@@ -149,7 +151,10 @@ function TrangChu() {
     <div className="Trangchu">
       <CoGioiThieu />
 
-      <CoVeChungToi />
+      <TongQuan />
+
+      {/* <CoVeChungToi /> */}
+      
       <CoThucTrang />
 
       <ThucTrang2 />
@@ -163,8 +168,8 @@ function TrangChu() {
       <CoThongTinMoi />
 
       <Footer />
-
-      <FloatButton.Group
+      <Draggable >
+        <FloatButton.Group
         open={open}
         trigger="click"
         onClick={handleClick}
@@ -218,6 +223,9 @@ function TrangChu() {
           onClick={toggleChatbot}
         />
       </FloatButton.Group>
+      </Draggable>
+
+      
 
       {/* {showChatbot && <Chatbot />} Hiển thị Chatbot nếu showChatbot là true */}
     </div>

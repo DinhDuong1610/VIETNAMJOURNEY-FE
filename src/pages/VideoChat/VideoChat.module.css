@@ -20,22 +20,16 @@
     margin-right: 0rem;
     flex: 1.5;
     margin-right: 1rem;
+    transition: flex 0.3s ease-in-out; /* Thêm transition */
 }
 
 .videoElement {
     width: 100%;
     margin-left: auto;
     margin-right: auto;
-    height: 42rem;
+    height: 47rem;
     margin-top: 0;
     background-color: black;
-}
-
-.videoContainer {
-    margin-bottom: 0;
-    margin-right: 1rem;
-    flex: 1.5;
-    transition: flex 0.3s ease-in-out; /* Thêm transition */
 }
 
 .videoContainer.shrinked {
@@ -45,7 +39,7 @@
 .chatBox {
     background-color: white;
     width: 0;
-    height: 42rem;
+    height: 47rem;
     margin-top: 0;
     border-radius: 10px;
     margin-right: 2rem;
@@ -53,14 +47,17 @@
     position: relative;
     transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out; /* Thêm transition cho opacity */
     opacity: 0; /* Ẩn ban đầu */
-    visibility: hidden; /* Ẩn khi không hiển thị */
+    visibility: hidden; 
+    z-index: 500;
 }
 
 .chatBox.visible {
-    width: 30%;
-    opacity: 1; /* Hiển thị */
-    visibility: visible; /* Hiển thị khi visible */
-}.component {
+    width: 25%;
+    opacity: 1; 
+    visibility: visible;
+}
+
+.component {
     background-color: white;
     width: 100%;
     height: 88%;
@@ -74,7 +71,9 @@
     justify-content: center;
     gap: 15px;
     margin-top: 1rem;
-}.buttonContainer button{
+}
+
+.buttonContainer button {
     width: 3rem;
     height: 3rem;
     border-radius: 50%;
@@ -98,7 +97,7 @@
     position: relative;
     display: inline-block;
     width: 33%; 
-    font-weight : 500
+    font-weight : 500;
 }
 
 .activeTab {
@@ -112,10 +111,58 @@
     background-color: rgb(3, 116, 3);
     transition: left 0.3s ease-in-out;
 }
-.footer {
-    height:  9rem;
-}@media (max-width : 1700px) {
-    .footer {
-    height:  2rem;
+
+.options {
+    margin-bottom: 0.3rem;
+    text-align: center;
 }
+
+.footer {
+    height:  3rem;
+}
+
+@media (max-width: 1700px) {
+    .footer {
+        height: 2rem;
+    }
+}
+
+@media (max-width: 1250px) {
+    .flexContainer {
+        flex-direction: column;
+    }
+    
+    .videoContainer {
+        flex: 1;
+        position: relative;
+        height: 38rem;
+    }
+
+    .chatBox {
+        width: 100%; /* Chiều rộng của chatBox chiếm 100% */
+        height: 38rem;
+        margin-top: 0;
+        margin-right: 0;
+        padding-top: 0.5rem;
+        position: absolute; /* Đặt chatBox vào vị trí tuyệt đối */
+        top: 0;
+        left: 0;
+        z-index: 500; 
+        border-radius: 0; 
+        opacity: 0;
+        visibility: hidden;
+        transition: width 0.3s ease-in-out, opacity 0.3s ease-in-out;
+    }
+
+    .chatBox.visible {
+        margin-top : 1rem;
+        width : 100%;
+        opacity: 1;
+        visibility: visible;
+        height: 40rem;
+    }.buttonContainer {
+    margin-top: 0;
+}.footer {
+        height: 4rem;
+    }
 }

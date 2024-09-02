@@ -71,6 +71,66 @@
   border-top-color: #333; // Màu của mũi tên tooltip
 }
 
+.title-progress {
+  font-size: 32px;
+  font-weight: 600;
+  color: #6A6A6A;
+  margin-bottom: 0px;
+  padding-top: 20px;
+  border-top: 4px solid #35973F;
+}
+.progress-number .number-separate{
+    font-size: 50px;
+    font-weight: 700;
+    color: #6A6A6A;
+}
+
+.progress-number .number-current {
+  font-size: 60px;
+  font-weight: 600;
+  color: #35973F;
+  line-height: 100%;
+}
+
+.progress-number .number-total {
+  font-size: 40px;
+  font-weight: 600;
+  color: #6A6A6A;
+  line-height: 100%;
+}
+
+.sub-progress-number {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.sub-progress-number .sub {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.sub-progress-number .sub .sub-title {
+  font-size: 24px;
+  font-weight: 600;
+  color: #6A6A6A;
+  line-height: 100%;
+  margin-top: 10px;
+}
+
+.sub-progress-number .sub .sub-number {
+  font-size: 30px;
+  font-weight: 600;
+  color: #35973F;
+  line-height: 100%;
+  margin-top: 10px;
+  margin-bottom: 20px;
+}
+
+
+
+
 @media screen and (max-width: 1600px) {
 .TacDong {
   padding-top: 60px;

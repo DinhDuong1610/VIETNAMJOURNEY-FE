@@ -125,13 +125,13 @@
     cursor: pointer;
     color : white;
 }.yes {
-    background-color:rgb(3, 156, 3) ;
+    background-color:#35973F ;
 }.no {
     background-color: rgb(204, 0, 0);
 }.yes:hover {
     background-color:  rgb(255, 255, 255);
     border: 1px solid black;
-    color : rgb(3, 156, 3);
+    color : #35973F;
 }.no:hover {
     background-color: #fffefe;
     background-color:  rgb(255, 255, 255);

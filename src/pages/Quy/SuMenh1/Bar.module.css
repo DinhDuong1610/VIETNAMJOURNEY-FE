@@ -20,7 +20,7 @@ div.main {
 
 
 div.main p {
-    padding-top: 14px;
+    padding-top: 12px;
 
     color: #FFF;
     font-feature-settings: 'clig' off, 'liga' off;
@@ -28,7 +28,7 @@ div.main p {
     font-family: Raleway;
     font-size: 28px;
     font-style: normal;
-    font-weight: 700;
+    font-weight: 600;
     line-height: 100%; /* 36.4px */
     margin-bottom: 0;
 }
@@ -40,7 +40,7 @@ div.main img {
 }
 
 
-@media screen and (max-width: 1500px) {
+@media screen and (max-width: 1600px) {
     div.main {
         width: 100%;
     }
@@ -78,11 +78,11 @@ div.main img {
     
     div.main p {
         padding-top: 14px;
-        font-size: 24px;
+        font-size: 20px;
     }
 
     div.main img {
-        height: 50px;
+        height: 40px;
         width: auto;
         aspect-ratio: 1/1;
     }
@@ -99,12 +99,12 @@ div.main img {
     
     
     div.main p {
-        padding-top: 16px;
-        font-size: 18px;
+        padding-top: 8px;
+        font-size: 16px;
     }
 
     div.main img {
-        height: 50px;
+        height: 30px;
         width: auto;
         aspect-ratio: 1/1;
     }

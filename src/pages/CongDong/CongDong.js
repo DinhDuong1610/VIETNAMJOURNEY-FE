@@ -100,6 +100,7 @@ function CongDong() {
         <div className={styles.container}>
             <div className="row">
                 <div className="col-lg-3">
+                    <div className={styles.sticky}>
                     <div className={styles.container3} style={{ marginBottom: '0', marginTop: '2.2rem' }}>
                         <h6 style={{ marginLeft: '0.3rem', fontWeight: '', fontSize: '1.5rem' }}>Nhóm tiên phong</h6>
                         {topGroups.length === 0 ? (
@@ -117,7 +118,6 @@ function CongDong() {
                         )}
                     </div>
                     {user_ID !== null && campaignuser.length > 0 && (
-                        <div className={styles.sticky}>
                             <div className={styles.container3} style={{ marginTop: '0.5rem' }}>
                                 <h6 style={{ marginLeft: '0.3rem', fontWeight: '', fontSize: '1.5rem' }}>Nhóm của bạn</h6>
                                 {campaignuser.length === 0 ? (
@@ -134,9 +134,8 @@ function CongDong() {
                                     ))
                                 )}
                             </div>
-                        </div>
                     )}
-
+                </div>
                 </div>
                 <div className="col-md-6">
                     <div className={`${styles.container1} ${styles['sticky-search-bar']}`}>
@@ -177,6 +176,7 @@ function CongDong() {
                     </div>
                 </div>
                 <div className="col-md-3">
+                     <div className={styles.sticky}>
                     <div className={styles.container3}>
                         <h6 style={{ marginLeft: '0.3rem', fontWeight: '', fontSize: '1.5rem' }}>Top người nổi bật</h6>
                         {topUsers.length === 0 ? (
@@ -202,6 +202,7 @@ function CongDong() {
                             </div>
                         }
                     </div>
+                </div>
                 </div>
             </div>
         </div>
