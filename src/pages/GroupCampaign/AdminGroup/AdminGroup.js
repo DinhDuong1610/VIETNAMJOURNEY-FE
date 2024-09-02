@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { Skeleton } from 'antd';
-import styles from './GroupCampaign.module.css';
-import Post from '../User/Post/PostGroup.js';
-import NewPostGroup from './NewPostGroup/NewPostGroup.js';
-import API_BASE_URL from '../../config/configapi.js';
+import styles from './AdminGroup.module.css';
+import Post from './Post/Post.js';
+import NewPostGroup from '../NewPostGroup/NewPostGroup.js';
+import API_BASE_URL from '../../../config/configapi.js';
 
-function GroupCampaign() {
+function AdminGroup() {
     const cookies = document.cookie;
     const cookiesArray = cookies.split('; ');
     const userIdCookie = cookiesArray.find(cookie => cookie.startsWith('User_ID='));
@@ -134,10 +134,7 @@ function GroupCampaign() {
                 <div className={`col-md-3 ${styles.mobile}`}>
                     <div className={styles.sticky}>
                         <div className={styles.containergroupuser}>
-                            <p style={{ fontWeight: 'bold', fontSize: '1.6rem', marginBottom: '0.4rem',marginTop: '0.8rem' }}>Nhóm</p>
-                            <input type='text' placeholder='Tìm kiếm nhóm' />
-                            <hr className={styles['black-line']} style={{ width: '90%' }} />
-                            <p style={{ fontWeight: 'bold', fontSize: '1.2rem', marginBottom: '0.4rem' }}>Nhóm bạn đã tham gia</p>
+                            <p style={{ fontWeight: 'bold', fontSize: '1.6rem', marginBottom: '0.4rem',marginTop: '0.8rem' }}>Nhóm bạn quản lý</p>
                             <div className={styles.group}>
     {campaignuser.length === 0 ? (
         <>
@@ -192,7 +189,6 @@ function GroupCampaign() {
                             </div>
                             {isMember && (
                                 <div className={styles.containerheadinfo2}>
-                                    <button onClick={() => handleShare()}><i className="fa-solid fa-share"></i> Chia sẻ</button>
                                     <button onClick={() => handleChat()}>Nhóm chat</button>
                                     <button onClick={() => handleVolunteer()}>Chiến dịch</button>
                                 </div>
@@ -201,16 +197,10 @@ function GroupCampaign() {
                     </div>
                     <div className="row">
                         <div className="col-md-8">
-                            <div className={`${styles.container1} ${!isMember ? styles.hidden : ''}`}>
-                                {loadingCampaignInfo ? (
-                                    <Skeleton.Image style={{ width: 50, height: 50 }} />
-                                ) : (
-                                    <img alt="name" src={campaignInfo.image}></img>
-                                )}
-                                <button onClick={handlePost}>Bạn có thông tin gì mới cho nhóm không...</button>
-                                {isPostOpen && <NewPostGroup onClose={handlePost} campaign_id={group_id} />}
-                            </div>
                             <div className={styles.container2}>
+                                <div style={{ textAlign: 'left', marginTop: '1rem',marginBottom: '1rem', backgroundColor: 'white', borderRadius: '10px', padding: '1rem', fontWeight: 600 }}>
+                                        Bài viết đang chờ duyệt
+                                    </div>
                                 {loadingPosts ? (
                                     <Skeleton active paragraph={{ rows: 4 }} />
                                 ) : posts.length === 0 ? (
@@ -241,7 +231,7 @@ function GroupCampaign() {
                         <div className={`col-md-4 ${styles.mobile}`}>
                             <div className={styles.container3}>
                                 <div className={styles.sticky}>
-                                    <h6 style={{ marginLeft: '0.3rem', fontWeight: '', fontSize: '1.5rem' }}>Thành viên của nhóm</h6>
+                                    <h6 style={{ marginLeft: '0.3rem', fontWeight: '', fontSize: '1.5rem' }}>Thành viên(68)</h6>
                                     {loadingCampaignInfo ? (
                                         <Skeleton active paragraph={{ rows: 4 }} />
                                     ) : campaignInfo.volunteers && campaignInfo.volunteers.length > 0 ? (
@@ -267,4 +257,4 @@ function GroupCampaign() {
     );
 }
 
-export default GroupCampaign;
+export default AdminGroup;

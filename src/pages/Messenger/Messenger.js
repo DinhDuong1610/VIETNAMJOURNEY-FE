@@ -7,6 +7,7 @@ import ChatBoxUser from './ChatBox/ChatBoxUser';
 import ChatBoxGroup from './ChatBox/ChatBoxGroup';
 import { useCheckCookie } from '../../Cookie/getCookie.js';
 import API_BASE_URL from '../../config/configapi.js';
+import URL_SOCKET from './Config/ConfigURL.js'
 
 function Messenger() {
     const location = useLocation();
@@ -43,7 +44,7 @@ function Messenger() {
         };
 
         fetchOnlineUsers();
-        ws.current = new WebSocket('wss://bwdjourney.id.vn:8080');
+        ws.current = new WebSocket(`${URL_SOCKET}`);
         ws.current.onopen = () => {
             console.log('WebSocket connected');
             ws.current.send(JSON.stringify({ type: 'subscribe', user_online: user_ID }));

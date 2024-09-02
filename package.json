@@ -25,9 +25,13 @@
     "react-bootstrap": "^2.10.4",
     "react-countup": "^6.5.3",
     "react-dom": "^18.3.1",
+<<<<<<< HEAD
     "react-highlight-words": "^0.20.0",
     "react-leaflet": "^4.2.1",
     "react-map-gl": "^7.1.7",
+=======
+    "react-draggable": "^4.4.6",
+>>>>>>> 9856562fde4cc506ad52448dd9483e6e0fb2d2b5
     "react-modal": "^3.16.1",
     "react-router-dom": "^6.24.0",
     "react-scripts": "5.0.1",
