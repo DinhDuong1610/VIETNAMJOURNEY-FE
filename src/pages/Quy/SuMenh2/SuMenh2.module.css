@@ -160,7 +160,7 @@ div.main div.div2 div.bt1 img {
 }
 
 
-@media screen and (max-width: 1500px) {
+@media screen and (max-width: 1600px) {
     div.main div.div1 {
         height: 600px;
     }
@@ -296,7 +296,7 @@ div.main div.div2 div.bt1 img {
     
     div.main div.div2 p.p1 {
         width: 80%;
-        font-size: 28px;
+        font-size: 24px;
     }
     
     div.main div.div2 div.signs {

@@ -1,10 +1,16 @@
 import classNames from "classnames/bind";
 import style from "./ChiTiet.module.scss";
 import axios from "axios";
-import { useState, useEffect } from "react"; // Import useEffect
+import { useState, useEffect, useRef } from "react"; // Import useEffect
 import { getCookie } from "../../../../../Cookie/getCookie";
 import Modal from "react-modal";
 import API_BASE_URL from "../../../../../config/configapi";
+import { Timeline, ConfigProvider } from "antd";
+import { Modal as AntdModal } from "antd";
+import mapboxgl from "mapbox-gl";
+import "mapbox-gl/dist/mapbox-gl.css";
+import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
+import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css"; // Import CSS cho Geocoder
 
 const cx = classNames.bind(style);
 
@@ -188,8 +194,7 @@ function ChiTiet({ campaign }) {
     if (n === x.length - 1) {
       // document.getElementById(cx("nextBtn")).type = "submit";
       document.getElementById(cx("nextBtn")).innerHTML = "Đăng ký";
-    } 
-    else {
+    } else {
       document.getElementById(cx("nextBtn")).innerHTML = "Tiếp theo";
       // document.getElementById(cx("nextBtn")).type = "button";
     }
@@ -251,36 +256,40 @@ function ChiTiet({ campaign }) {
   const handleRegisterClick = () => {
     setShowRegisterModal(true);
   };
-  
+
   const closeRegisterModal = () => {
     setShowRegisterModal(false);
   };
 
   const handleRegisterSubmit = async () => {
     // e.preventDefault();
-    
+
     const formData = new FormData();
-    formData.append('fullname', formValues.fullname);
-    formData.append('birth', formValues.birth);
-    formData.append('phone', formValues.phone);
-    formData.append('email', formValues.email);
-    formData.append('address', formValues.address);
-    formData.append('reason', formValues.reason);
-    formData.append('userId', getCookie("User_ID")); // Bạn cần lấy userId từ đâu đó
-    formData.append('campaignId', campaign.id);
-    formData.append('status', 1); // Bạn cần lấy status từ đâu đó
+    formData.append("fullname", formValues.fullname);
+    formData.append("birth", formValues.birth);
+    formData.append("phone", formValues.phone);
+    formData.append("email", formValues.email);
+    formData.append("address", formValues.address);
+    formData.append("reason", formValues.reason);
+    formData.append("userId", getCookie("User_ID")); // Bạn cần lấy userId từ đâu đó
+    formData.append("campaignId", campaign.id);
+    formData.append("status", 1); // Bạn cần lấy status từ đâu đó
 
     // console.log formdata
     for (const pair of formData.entries()) {
-      console.log(pair[0] + ', ' + pair[1]);
+      console.log(pair[0] + ", " + pair[1]);
     }
 
     try {
-      const response = await axios.post(`${API_BASE_URL}api/registerVolunteer`, formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
-      });
+      const response = await axios.post(
+        `${API_BASE_URL}api/registerVolunteer`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
 
       console.log("okkk");
       if (response.status === 201) {
@@ -292,11 +301,58 @@ function ChiTiet({ campaign }) {
         // Xử lý lỗi
       }
     } catch (error) {
-      alert('Đã xảy ra lỗi. Vui lòng thử lại.');
+      alert("Đã xảy ra lỗi. Vui lòng thử lại.");
     }
   };
 
+  const mapContainerRef = useRef(null);
+  const [xLo, setXLo] = useState(108.2506521);
+  const [yDo, setYDo] = useState(15.9752654);
+  const [nameLo, setNameLo] = useState("Việt Hàn");
 
+  const [open, setOpen] = useState(false);
+  const showModal = (x, y, name) => {
+    setXLo(x);
+    setYDo(y);
+    setNameLo(name);
+    setOpen(true);
+    console.log(xLo, yDo, nameLo);
+  };
+  const handleOk = () => {
+    setOpen(false);
+  };
+  const handleCancel = () => {
+    setOpen(false);
+  };
+
+  useEffect(() => {
+    if (open && mapContainerRef.current) {
+      const map = new mapboxgl.Map({
+        container: mapContainerRef.current,
+        style: "mapbox://styles/dinh1610/cm0jeiqxm005b01qydqacanqd",
+        center: [xLo, yDo],
+        zoom: 18,
+      });
+
+      map.addControl(new mapboxgl.NavigationControl(), "top-right");
+      map.addControl(new mapboxgl.FullscreenControl(), "top-right");
+
+      const Draw = require("@mapbox/mapbox-gl-draw");
+      const draw = new Draw();
+      map.addControl(draw);
+
+      const popup = new mapboxgl.Popup({ closeOnClick: false })
+        .setLngLat([xLo, yDo])
+        .setHTML(`<p>${nameLo}</p>`)
+        .addTo(map);
+
+      map.on("load", () => {
+        map.resize();
+      });
+
+      return () => map.remove();
+    }
+  }, [open]);
 
   return (
     console.log("joined ", campaign.joined),
@@ -315,16 +371,81 @@ function ChiTiet({ campaign }) {
           >
             <hr />
             <div className={cx("title")}>Thời gian dự án</div>
-            <div className={cx("time")}>
-              <div className={cx("inner-title")}>Giai đoạn ban đầu</div>
-              <div className={cx("desc")}>{campaign.timeline[0].value}</div>
-              <div className={cx("inner-title")}>Bắt đầu dự án</div>
-              <div className={cx("desc")}>{campaign.timeline[1].value}</div>
-              <div className={cx("inner-title")}>Kết thúc dự án</div>
-              <div className={cx("desc")}>{campaign.timeline[2].value}</div>
-              <div className={cx("inner-title")}>Tổng kết dự án</div>
-              <div className={cx("desc")}>{campaign.timeline[3].value}</div>
-            </div>
+            <ConfigProvider
+              theme={{
+                // token: {
+                //   dotBg: "#001273",
+                //   dotBorderWidth: 2,
+                //   itemPaddingBottom: 20,
+                //   tailWidth: 2,
+                //   lineWidth: 3,
+                //   lineColor: "blue",
+                // },
+                components: {
+                  Timeline: {
+                    lineWidth : 2.5,
+                    lineColor : "#001273",
+                    tailWidth : 5,
+                    itemPaddingBottom : 0,
+                    // dotBorderWidth : 2,
+                  },
+                },
+              }}
+            >
+              <Timeline
+                tailWidth={2}
+                lineWidth={4}
+                lineColor="blue"
+                items={[
+                  {
+                    color: "#001273",
+                    children: (
+                      <>
+                        <div className={cx("inner-title")}>
+                          Giai đoạn ban đầu
+                        </div>
+                        <div className={cx("desc")}>
+                          {campaign.timeline[0].value}
+                        </div>
+                      </>
+                    ),
+                  },
+                  {
+                    color: "#001273",
+                    children: (
+                      <>
+                        <div className={cx("inner-title")}>Bắt đầu dự án</div>
+                        <div className={cx("desc")}>
+                          {campaign.timeline[1].value}
+                        </div>
+                      </>
+                    ),
+                  },
+                  {
+                    color: "#001273",
+                    children: (
+                      <>
+                        <div className={cx("inner-title")}>Kết thúc dự án</div>
+                        <div className={cx("desc")}>
+                          {campaign.timeline[2].value}
+                        </div>
+                      </>
+                    ),
+                  },
+                  {
+                    color: "gray",
+                    children: (
+                      <>
+                        <div className={cx("inner-title")}>Tổng kết dự án</div>
+                        <div className={cx("desc")}>
+                          {campaign.timeline[3].value}
+                        </div>
+                      </>
+                    ),
+                  },
+                ]}
+              />
+            </ConfigProvider>
           </div>
           <div
             className={cx(
@@ -365,7 +486,36 @@ function ChiTiet({ campaign }) {
             </div>
             <hr />
             <div className={cx("title")}>Địa điểm cụ thể</div>
-            <pre className={cx("desc")}>{campaign.location}</pre>
+            {/* <pre className={cx("desc")}>{campaign.location}</pre> */}
+            {campaign.location.map((location, index) => (
+              <div key={index} className={cx("form", "form-contact", "location")}>
+                <button
+                  type="button"
+                  className={cx("location-button")}
+                  onClick={() =>
+                    showModal(location.x, location.y, location.name)
+                  }
+                >
+                  <i class="fa-solid fa-location-dot"></i>
+                </button>
+                <span className={cx("location-desc")}>{location.name}</span>
+              </div>
+            ))}
+            <AntdModal
+              width={1000}
+              // height={600}
+              open={open}
+              title="Bản đồ chiến dịch"
+              onOk={handleOk}
+              onCancel={handleCancel}
+              footer={null}
+              // bodyStyle={{ padding: 0, height: "600px", width: "100%" }}
+            >
+              <div
+                ref={mapContainerRef}
+                style={{ height: "600px", width: "100%" }}
+              />
+            </AntdModal>
           </div>
         </div>
 
@@ -376,276 +526,6 @@ function ChiTiet({ campaign }) {
             <div dangerouslySetInnerHTML={{ __html: campaign.plan }} />
           </pre>
         </div>
-
-        {/* <div className={cx("quy-row")}>
-          <hr />
-          <div
-            className={cx("title")}
-            onClick={toggleVisibility}
-            style={{ cursor: "pointer" }}
-          >
-            Quyên góp{" "}
-            <i
-              className={`fa-solid ${
-                isVisible ? "fa-caret-down" : "fa-caret-right"
-              }`}
-            ></i>
-          </div>
-
-          {isVisible && (
-            <div>
-              <button className={cx("button-history")} onClick={viewHistory}>
-                <i class="fa-solid fa-eye"></i> Lịch sử quyên góp
-              </button>
-              <div className={cx("row", "quy")}>
-                <form onSubmit={handleSubmit} className={cx("transfer-form")}>
-                  <div className={cx("title")}>
-                    Quyên góp vào quỹ chiến dịch FP{campaign.id}
-                  </div>
-                  <div className={cx("form-group")}>
-                    <label htmlFor="senderName" className="form-label">
-                      Tên người quyên góp
-                    </label>
-                    <input
-                      type="text"
-                      id="senderName"
-                      name="senderName"
-                      className="form-control"
-                      value={formData.senderName}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-                  <div className={cx("form-group")}>
-                    <label htmlFor="amount" className="form-label">
-                      Số tiền quyên góp
-                    </label>
-                    <input
-                      type="number"
-                      id="amount"
-                      name="amount"
-                      className="form-control"
-                      value={formData.amount}
-                      onChange={handleInputChange}
-                      required
-                    />
-                  </div>
-                  <div className={cx("button")}>
-                    <button type="submit">Quyên góp</button>
-                  </div>
-                </form>
-
-                {showQR && (
-                  <div className={cx("img-qr")}>
-                    <img
-                      src={`https://img.vietqr.io/image/${MY_BANK.BANK_ID}-${MY_BANK.ACCOUNT_NO}-compact2.png?amount=${formData.amount}&addInfo=${formData.senderName} quyên góp vao quỹ FP${campaign.id}&accountName=QUY VIETNAM JOURNEY`}
-                      alt="QR Code"
-                    />
-                  </div>
-                )}
-              </div>
-            </div>
-          )}
-        </div> */}
-
-        <Modal
-          isOpen={showSuccessModal}
-          onRequestClose={closeModal}
-          contentLabel="Donation Successful"
-          className={cx("modal")}
-          overlayClassName={cx("overlay")}
-        >
-          <h2>Quyên góp thành công!</h2>
-          <p>Cảm ơn bạn đã quyên góp vào quỹ chiến dịch FP{campaign.id}.</p>
-          <button onClick={closeModal}>Đóng</button>
-        </Modal>
-
-        <Modal
-          isOpen={showSuccessModalHistory}
-          onRequestClose={closeModalHistory}
-          contentLabel="Donation Successful"
-          className={cx("modal-history")}
-          overlayClassName={cx("overlay-history")}
-        >
-          <div className={cx("transaction-history")}>
-            <h3>Lịch sử giao dịch</h3>
-            <ul>
-              {transactionHistory
-                .slice()
-                .reverse()
-                .map((transaction, index) => {
-                  // Kiểm tra xem transaction['Mô tả'] có chứa FP${campaign.id} hay không
-                  if (transaction["Mô tả"].includes(`FP${campaign.id}`)) {
-                    return (
-                      <li key={index}>
-                        <div className={cx("name")}>
-                          {transaction["Mô tả"]
-                            .split(" ")
-                            .slice(
-                              2,
-                              transaction["Mô tả"].split(" ").indexOf("quyen")
-                            )
-                            .join(" ")}
-                        </div>
-                        <div>
-                          Số tiền quyên góp: {transaction["Giá trị"]} VND
-                        </div>
-                        <div>Mã giao dịch: {transaction["Mã GD"]}</div>
-                        <div>
-                          Thời gian giao dịch: {transaction["Ngày diễn ra"]}
-                        </div>
-                      </li>
-                    );
-                  } else {
-                    return null; // Không hiển thị nếu không có chuỗi FP${campaign.id}
-                  }
-                })}
-            </ul>
-          </div>
-        </Modal>
-
-        <Modal
-          isOpen={showRegisterModal}
-          onRequestClose={closeRegisterModal}
-          contentLabel="Register"
-          className={cx("modal-register")}
-          overlayClassName={cx("overlay-history")}
-        >
-          <form id={cx("signUpForm")} > {/* onSubmit={handleSubmit} */}
-            <div className={cx("form-header", "d-flex", "mb-4")}>
-              <span className={cx("stepIndicator")}>Thông tin cá nhân</span>
-              <span className={cx("stepIndicator")}>Lý do tham gia</span>
-              <span className={cx("stepIndicator")}>Quy tắc chiến dịch</span>
-            </div>
-
-            <div
-              className={cx("step")}
-              style={{ display: currentTab === 0 ? "block" : "none" }}
-            >
-              <p className="text-center mb-4">Điền thông tin cá nhân của bạn</p>
-              <div className="mb-3">
-                <input
-                  type="text"
-                  placeholder="Họ và tên"
-                  onInput={(e) => {
-                    e.target.className = "";
-                    handleChange(e);
-                  }}
-                  name="fullname"
-                  value={formValues.fullname}
-                />
-              </div>
-              <div className="mb-3">
-                <input
-                  type="date"
-                  placeholder="Ngày sinh"
-                  onInput={(e) => {
-                    e.target.className = "";
-                    handleChange(e);
-                  }}
-                  name="birth"
-                  value={formValues.birth}
-                />
-              </div>
-              <div className="mb-3">
-                <input
-                  type="tel"
-                  placeholder="Số điện thoại"
-                  onInput={(e) => {
-                    e.target.className = "";
-                    handleChange(e);
-                  }}
-                  name="phone"
-                  value={formValues.phone}
-                />
-              </div>
-              <div className="mb-3">
-                <input
-                  type="email"
-                  placeholder="Email"
-                  onInput={(e) => {
-                    e.target.className = "";
-                    handleChange(e);
-                  }}
-                  name="email"
-                  value={formValues.email}
-                />
-              </div>
-              <div className="mb-3">
-                <input
-                  type="text"
-                  placeholder="Địa chỉ"
-                  onInput={(e) => {
-                    e.target.className = "";
-                    handleChange(e);
-                  }}
-                  name="address"
-                  value={formValues.address}
-                />
-              </div>
-
-            </div>
-
-            <div
-              className={cx("step")}
-              style={{ display: currentTab === 1 ? "block" : "none" }}
-            >
-              <p className="text-center mb-4">
-                Tại sao bạn muốn tham gia chiến dịch <b>FP{campaign.id}</b> ?
-              </p>
-              <div className="mb-3">
-                <textarea
-                  type="text"
-                  onInput={(e) => {
-                    e.target.className = "";
-                    handleChange(e);
-                  }}
-                  name="reason"
-                  value={formValues.reason}
-                />
-              </div>
-              
-            </div>
-
-            <div
-              className={cx("step")}
-              style={{ display: currentTab === 2 ? "block" : "none" }}
-            >
-              <p className="text-center mb-4"><b>Quy tắc của chiến dịch</b></p>
-              <div className="mb-3">
-                <div className={cx("content")}>
-                  <p>1. Đảm bảo thông tin cá nhân của bạn cung cấp là chính xác</p>
-                  <p>2. Đảm bảo về vấn đề sức khỏe khi tham gia chiến dịch</p>
-                  <p>3. Tuân thủ các hướng dẫn của người đứng đầu chiến dịch</p>
-                  <p>4. Có mặt đúng giờ và tham gia đầy đủ. Bận việc đột xuất phải thông báo trước cho BTC chiến dịch</p>
-                  <p>5. Tích cực tham gia các hoạt động của chiến dịch</p>
-                  <p>6. Giữ thái độ lịch sự, tôn trọng các thành viên khác</p>
-                  <p>7. Cung cấp phản hồi và báo cáo về hoạt động của mình sau khi chiến dịch kết thúc.</p>
-                  <p><b>Hãy cùng nhau hết mình với chiến dịch nhé!</b></p>
-                </div>
-              </div>
-              
-            </div>
-
-            <div className={cx("form-footer", "d-flex")}>
-              <button
-                type="button"
-                id={cx("prevBtn")}
-                onClick={() => nextPrev(-1)}
-                style={{ display: currentTab === 0 ? "none" : "inline" }}
-              >
-                Quay lại
-              </button>
-              <button
-                type="button"
-                id={cx("nextBtn")}
-                onClick={() => nextPrev(1)}
-              >
-                Tiếp theo
-              </button>
-            </div>
-          </form>
-        </Modal>
 
         <div className={cx("line")}></div>
       </div>

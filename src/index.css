@@ -18,7 +18,7 @@ code {
 
 html {
   scrollbar-width: thin; /* Kích thước thanh cuộn cho Firefox */
-  scrollbar-color: #888 transparent; /* Màu thanh cuộn và nền cho Firefox */
+  scrollbar-color: #26944F transparent; /* Màu thanh cuộn và nền cho Firefox */
 }
 
 html::-webkit-scrollbar {

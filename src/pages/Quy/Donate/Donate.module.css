@@ -80,7 +80,6 @@ div.main div.bot {
 .donate {
   width: 100%;
   padding: 0 300px;
-  margin-bottom: 50px;
 }
 
 
@@ -406,7 +405,60 @@ opacity: 0.8;
 #signUpForm .form-footer #prevBtn {
   background-color: #fff;
   color: #1B9F56;
+}
 
+.fun-history {
+  width: 100%;
+  padding: 0 300px;
+  margin-bottom: 80px;
+}
+
+.fun-history .title {
+  font-size: 28px;
+  font-weight: bold;
+  color: #FFF;
+  margin-bottom: 15px;
+}
+
+
+.fun-history .table-container {
+  max-height: 600px; 
+  overflow-y: auto; 
+  overflow-x: hidden;
+  border-radius: 12px;
+  overflow: scroll;
+  width: 100%;
+  scrollbar-width: thin; 
+  scrollbar-color: rgb(27, 101, 43) transparent;
+}
+
+
+.table-fun-history {
+  font-size: 20px;
+  font-family: 'montserrat';
+  font-weight: 600;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.table-fun-history tr td{
+  padding: 15px;
+}
+
+.table-fun-history th{
+  padding: 15px;
+}
+
+.table-fun-history .time {
+  text-align: right;
+  max-width: 150px;
+  padding-right: 50px;
+  color: #333;
+}
+
+.table-fun-history .money {
+  font-weight: bold;
+  color: #02a308;
 }
 
 

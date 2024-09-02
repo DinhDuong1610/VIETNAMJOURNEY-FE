@@ -16,7 +16,7 @@ function Quy() {
       <CoSoLuoc />
       <CoSuMenh1 />
       <CoSuMenh2 />
-      <CoCauChuyen />
+      {/* <CoCauChuyen /> */}
       <CoDonate />
 
       <Footer />

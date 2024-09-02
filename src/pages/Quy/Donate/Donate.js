@@ -1,9 +1,17 @@
 import classNames from "classnames/bind";
 import style from "./Donate.module.css";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import Modal from "react-modal";
 import axios from "axios";
+
+import { useNavigate } from "react-router-dom";
+import API_BASE_URL from "../../../config/configapi";
+
+// import {  Button, Input, Space, Table  } from "antd";
+// import Highlighter from 'react-highlight-words';
+// import {  SearchOutlined  } from "@ant-design/icons";
+import Table from "react-bootstrap/Table";
 
 import support1 from "../../../Images/Quy/Donate/support1.png";
 import support2 from "../../../Images/Quy/Donate/support2.png";
@@ -91,7 +99,7 @@ function CoDonate() {
     const x = document.getElementsByClassName(cx("step"));
     const y = x[currentTab].getElementsByTagName("input");
     const z = x[currentTab].getElementsByTagName("textarea");
-  
+
     // Xóa class invalid từ tất cả các input và textarea
     for (let i = 0; i < y.length; i++) {
       y[i].classList.remove(cx("invalid"));
@@ -99,7 +107,7 @@ function CoDonate() {
     for (let i = 0; i < z.length; i++) {
       z[i].classList.remove(cx("invalid"));
     }
-  
+
     // Kiểm tra các trường input
     for (let i = 0; i < y.length; i++) {
       if (y[i].className.includes(cx("input-donate"))) {
@@ -110,7 +118,7 @@ function CoDonate() {
         valid = false;
       }
     }
-  
+
     // Kiểm tra các trường textarea
     for (let i = 0; i < z.length; i++) {
       if (z[i].value === "") {
@@ -118,7 +126,7 @@ function CoDonate() {
         valid = false;
       }
     }
-  
+
     if (valid) {
       document.getElementsByClassName(cx("stepIndicator"))[
         currentTab
@@ -233,12 +241,35 @@ function CoDonate() {
   fetchTransactionHistory();
 
   const formatCurrency = (value) => {
-    return new Intl.NumberFormat('vi-VN', {
-      style: 'currency',
-      currency: 'VND',
+    return new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
     }).format(value);
   };
-  
+
+
+
+
+
+
+  const [funData, setFunData] = useState([]);
+
+  useEffect(() => {
+    // Hàm gọi API để lấy dữ liệu
+    const fetchFunData = async () => {
+      try {
+        const response = await axios.get(`${API_BASE_URL}api/getFun`);
+        setFunData(response.data.funs);
+      } catch (error) {
+        console.error('Lỗi khi lấy dữ liệu:', error);
+      }
+    };
+
+    fetchFunData();
+  }, []);
+
+
+
 
   return (
     <div className={cx("main")}>
@@ -254,9 +285,9 @@ function CoDonate() {
       </div>
 
       <div className={cx("donate")}>
-        <button className={cx("button-history")} onClick={viewHistory}>
+        {/* <button className={cx("button-history")} onClick={viewHistory}>
           <i className="fa-solid fa-eye"></i> Lịch sử quyên góp
-        </button>
+        </button> */}
         <div className={cx("row", "quy")}>
           <form id={cx("signUpForm")} className={cx("transfer-form")}>
             <div className={cx("form-header", "d-flex", "mb-4")}>
@@ -280,7 +311,9 @@ function CoDonate() {
               className={cx("step")}
               style={{ display: currentTab === 0 ? "block" : "none" }}
             >
-              <p className={cx("text-center",  "mb-4", "title")}>Nhập số tiền quyên góp</p>
+              <p className={cx("text-center", "mb-4", "title")}>
+                Nhập số tiền quyên góp
+              </p>
               <div className={cx("row")}>
                 <div className={cx("col-4")}>
                   <button
@@ -344,7 +377,7 @@ function CoDonate() {
                     className={cx("money-donate")}
                     onChange={handleDonateInputChange}
                     //format money
-                    value={`${formatCurrency(formData.amount)}`} 
+                    value={`${formatCurrency(formData.amount)}`}
                     readOnly
                   />
                 </div>
@@ -354,7 +387,9 @@ function CoDonate() {
               className={cx("step")}
               style={{ display: currentTab === 1 ? "block" : "none" }}
             >
-              <p className={cx("text-center",  "mb-4", "title")}>Nhập thông tin cá nhân của bạn</p>
+              <p className={cx("text-center", "mb-4", "title")}>
+                Nhập thông tin cá nhân của bạn
+              </p>
               <div className="mb-3">
                 <input
                   type="text"
@@ -400,7 +435,7 @@ function CoDonate() {
               className={cx("step")}
               style={{ display: currentTab === 2 ? "block" : "none" }}
             >
-              <p className={cx("text-center",  "mb-4", "title")}>
+              <p className={cx("text-center", "mb-4", "title")}>
                 <b>QŨY VIỆT NAM JOURNEY</b>
               </p>
               <div className="mb-3">
@@ -450,6 +485,34 @@ function CoDonate() {
             )}
           </div>
         </div>
+      </div>
+
+      <div className={cx("fun-history")}>
+          <div className={cx("title")}>Lịch sử quyên góp</div>
+          <div className={cx("table-container")}>
+            <Table striped hover className={cx("table-fun-history")}>
+              <thead>
+                <tr>
+                  <th></th>
+                  <th>Nhà hảo tâm</th>
+                  <th>Số điện thoại</th>
+                  <th>Số tiền</th>
+                  <th className={cx("time")}>Thời gian</th>
+                </tr>
+              </thead>
+              <tbody>
+                {funData.map((fun, index) => (
+                  <tr key={fun.id}>
+                    <td className={cx("text-center")}>{index + 1}</td>
+                    <td>{fun.name}</td>
+                    <td>{fun.phone}</td>
+                    <td className={cx("money")}>{formatCurrency(fun.amount)}</td>
+                    <td className={cx("time")}>{new Date(fun.time).toLocaleString()}</td>
+                  </tr>
+                ))}
+              </tbody>
+            </Table>
+          </div>
       </div>
 
       <Modal

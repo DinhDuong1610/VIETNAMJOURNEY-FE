@@ -44,7 +44,9 @@
   width: 100%;
   border-collapse: collapse;
   box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-  margin-bottom: 100px;
+  margin-bottom: 20px;
+  border-radius: 10px;
+  overflow: hidden;
 }
 
 .table th,
@@ -160,5 +162,34 @@ button.edit {
     .ant-spin-dot-item {
       background-color: #1cef09; // Đổi màu cho Spin
     }
+  }
+}
+
+.custom-pagination {
+  .ant-pagination-item {
+    border-color: #28a745; // Đổi màu viền các nút
+  }
+
+  .ant-pagination-item a {
+    color: #28a745; // Đổi màu chữ của các số trang
+  }
+
+  .ant-pagination-item-active {
+    border-color: #28a745; // Đổi màu viền của trang hiện tại
+    background-color: #28a745; // Đổi màu nền của trang hiện tại
+
+    a {
+      color: #fff; // Đổi màu chữ của trang hiện tại
+    }
+  }
+
+  .ant-pagination-item-link {
+    color: #28a745; // Đổi màu các nút điều hướng (prev, next)
+    border-color: #28a745;
+  }
+
+  .ant-pagination-item-link:hover {
+    border-color: #28a745; // Màu viền khi hover vào các nút điều hướng
+    color: #28a745; // Màu chữ khi hover vào các nút điều hướng
   }
 }
