@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './Information.module.css'; // Import the CSS module
-import { Skeleton, message } from 'antd'; // Import message from antd
+import { Skeleton, message } from 'antd';
+import API_BASE_URL from '../../../config/configapi.js'; // Import message from antd
 
 function Information() {
     const location = useLocation();
@@ -15,7 +16,7 @@ function Information() {
 
     useEffect(() => {
         if (thread) {
-            fetch(`http://localhost:8000/api/getInformationMeeting`, {
+            fetch(`${API_BASE_URL}api/getInformationMeeting`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'

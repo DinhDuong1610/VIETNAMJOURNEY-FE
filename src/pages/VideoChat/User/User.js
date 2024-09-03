@@ -2,8 +2,9 @@ import React, { useEffect, useState, useRef } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import anh from '../../../Images/User/anhchiendich.png';
 import styles from './User.module.css';
-import { Skeleton } from 'antd';
+import { Skeleton , message } from 'antd';
 import { useCheckCookie } from '../../../Cookie/getCookie.js';
+import API_BASE_URL from '../../../config/configapi.js';
 
 function User() {
     const location = useLocation();
@@ -22,7 +23,7 @@ function User() {
 
     useEffect(() => {
         if (group_id && user_id) {
-            fetch(`http://localhost:8000/api/checkMemberMeeting`, {
+            fetch(`${API_BASE_URL}api/checkMemberMeeting`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
@@ -100,32 +101,36 @@ function User() {
 
     useEffect(() => {
         if (thread) {
-            fetch(`http://localhost:8000/api/getInformationMeeting`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ thread })
-            })
-            .then(response => response.json())
-            .then(data => {
-                setLoading(false);
-                if (data.status === 'success') {
-                    setAdminInfo(data.data.admin);
-                } else {
-                    setError(data.message || 'Failed to retrieve information.');
-                }
-            })
-            .catch(error => {
-                setLoading(false);
-                setError('An error occurred while fetching data.');
-                console.error('Error:', error);
-            });
-        } else {
+        fetch(`${API_BASE_URL}api/getInformationMeeting`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ thread })
+        })
+        .then(response => response.json())
+        .then(data => {
             setLoading(false);
-            setError('Thread parameter is missing.');
-        }
-    }, [thread]);
+            if (data.status === 'success') {
+                setAdminInfo(data.data.admin);
+            } else if (data.status === 'soon') {
+                message.warning(data.message, 3, () => navigate('/Messenger?type=user&user_id=0')); 
+            } else if (data.status === 'late') {
+                message.error(data.message, 3, () => navigate('/Messenger?type=user&user_id=0')); 
+            } else {
+                setError(data.message || 'Failed to retrieve information.');
+            }
+        })
+        .catch(error => {
+            setLoading(false);
+            setError('An error occurred while fetching data.');
+            console.error('Error:', error);
+        });
+    } else {
+        setLoading(false);
+        setError('Thread parameter is missing.');
+    }
+}, [exitingUsers]);
 
     return (
         <div className={styles.container}>

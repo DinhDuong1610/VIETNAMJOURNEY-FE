@@ -186,6 +186,10 @@ body {
     z-index: 1; /* Đảm bảo nó nằm trên các phần tử khác */
 }.hidden {
     display: none;
+}.sk {
+    width: 20rem !important;
+    height: auto !important;
+    margin-left: 1rem !important;
 }
 @media (max-width : 1100px) {
 .containerheadinfo {
