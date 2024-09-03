@@ -6,6 +6,8 @@ import header1 from "../../Images/Logos/header1.png";
 import header2 from "../../Images/Logos/header2.png";
 import { getCookie } from "../../Cookie/getCookie";
 import API_BASE_URL from "../../config/configapi.js";
+import Cookies from 'js-cookie';
+import useCookie from "../useCookie/useCookie"; 
 
 const cx = classNames.bind(styles);
 
@@ -14,25 +16,36 @@ function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
+  const [token , setToken] = useState(null);
 
   const navigate = useNavigate();
+  const userID = useCookie("User_ID");
+  const tokenFromCookie = useCookie("Token");
 
   useEffect(() => {
-    const userId = getCookie("User_ID");
-    if (userId) {
-      setLink("/User?user_id=" + userId);
+    if (userID) {
+      setLink("/User?user_id=" + userID);
 
       fetch(`${API_BASE_URL}api/getInformationNavBar`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ User_ID: userId }),
+        body: JSON.stringify({ User_ID: userID }),
       })
         .then((response) => response.json())
         .then((data) => {
           if (data.success) {
             setUserInfo(data.user);
+            setToken(data.user.token);
+
+            if (tokenFromCookie && tokenFromCookie !== data.user.token) {
+              alert("Phiên đăng nhập không hợp lệ, vui lòng đăng nhập lại");
+              navigate("/TaiKhoan");
+              deleteCookie("User_ID");
+              deleteCookie("UserName");
+              deleteCookie("Token");
+            }
           } else {
             console.error("Failed to fetch user information");
           }
@@ -41,7 +54,13 @@ function Navbar() {
     } else {
       setLink("/TaiKhoan");
     }
-  }, []);
+  }, [userID, tokenFromCookie, navigate]);
+
+  
+
+
+  
+  
 
   const toggleSidebar = () => {
     if(!userInfo) {
@@ -68,6 +87,7 @@ function Navbar() {
   const handleDeleteCookie = () => {
     deleteCookie("User_ID");
     deleteCookie("UserName");
+    deleteCookie("Token");
     setIsDropdownOpen(false);
     setUserInfo(null);
   };

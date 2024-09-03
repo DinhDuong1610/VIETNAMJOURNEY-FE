@@ -77,9 +77,11 @@ const TaiKhoanTest = () => {
             setErrorMessage('');
             console.log("Đăng nhập thành công", data.user);
             const userID = data.user.UserLogin_ID;
-            const userName = data.user.Username;
+          const userName = data.user.Username;
+          const Token = data.user.Token;
             Cookies.set('User_ID', userID, { expires: 30 });
-            Cookies.set('UserName', userName, { expires: 30 });
+          Cookies.set('UserName', userName, { expires: 30 });
+          Cookies.set('Token', Token, { expires: 30 });
             navigate('/TrangChu'); // Navigate tới /TrangChu sau khi đăng nhập thành công
             window.location.reload(); // Reload trang sau khi đăng nhập thành công
         }
@@ -145,9 +147,11 @@ const TaiKhoanTest = () => {
             setErrorMessage('');
             console.log("Đăng ký thành công", data.user);
             const userID = data.user.UserLogin_ID;
-            const userName = data.user.Username;
+          const userName = data.user.Username;
+          const Token = data.user.Token;
             Cookies.set('User_ID', userID, { expires: 30 });
             Cookies.set('UserName', userName, { expires: 30 });
+            Cookies.set('Token', Token, { expires: 30 });
             navigate('/TrangChu'); // Navigate tới /TrangChu sau khi đăng ký thành công
             window.location.reload(); // Reload trang sau khi đăng ký thành công
         }
