@@ -10,6 +10,7 @@ import VideoScreen from './Client/VideoScreen.js';
 import VideoCall from './Client/VideoCall.js';
 import Audio from './Client/Audio.js';
 import { Skeleton, message } from 'antd';
+import API_BASE_URL from '../../config/configapi.js';
 
 const VideoChat = () => {
     const [isDivVisible, setIsDivVisible] = useState(true);
@@ -59,7 +60,7 @@ const VideoChat = () => {
     }, [thread]);
 
     useEffect(() => {
-        fetch(`http://localhost:8000/api/getInformationMeeting`, {
+        fetch(`${API_BASE_URL}api/getInformationMeeting`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -126,7 +127,7 @@ const VideoChat = () => {
     };
 
 
-    const shareScreen = async () => {
+const shareScreen = async () => {
     if (!isScreenSharing) {
         try {
             console.log('Bắt đầu chia sẻ màn hình...');
@@ -159,22 +160,26 @@ const VideoChat = () => {
             mediaRecorder.ondataavailable = (event) => {
                 if (event.data.size > 0) {
                     if (ws.current.readyState === WebSocket.OPEN) {
-                        ws.current.send(event.data);
+                        const threadBuffer = new Uint32Array([thread]); // thread là số nguyên
+
+                        event.data.arrayBuffer().then((videoBuffer) => {
+                            const combinedBuffer = new Uint8Array(threadBuffer.byteLength + videoBuffer.byteLength);
+
+                            // Ghi dữ liệu thread vào buffer
+                            combinedBuffer.set(new Uint8Array(threadBuffer.buffer), 0);
+                            // Ghi dữ liệu video vào buffer
+                            combinedBuffer.set(new Uint8Array(videoBuffer), threadBuffer.byteLength);
+
+                            // Gửi dữ liệu qua WebSocket
+                            ws.current.send(combinedBuffer.buffer);
+                        });
                     } else {
                         console.error('WebSocket không mở khi gửi dữ liệu.');
                     }
                 }
             };
-            mediaRecorder.start(10000);
-
-            if (ws.current.readyState === WebSocket.OPEN) {
-                ws.current.send(
-                    JSON.stringify({ type: 'screenShareStart', thread })
-                );
-            } else {
-                console.error('WebSocket không mở khi gửi thông báo chia sẻ màn hình bắt đầu.');
-            }
-
+            mediaRecorder.start(5000);
+            
             screenStream.getVideoTracks()[0].onended = () => {
                 console.log('Chia sẻ màn hình đã dừng.');
                 setIsScreenSharing(false);
@@ -197,15 +202,10 @@ const VideoChat = () => {
             tracks.forEach((track) => track.stop());
             screenShareRef.current.srcObject = null;
             setIsScreenSharing(false);
-
-            if (ws.current.readyState === WebSocket.OPEN) {
-                ws.current.send(
-                    JSON.stringify({ type: 'screenShareStop', thread })
-                );
-            }
         }
     }
 };
+
     const toggleDivVisibility = () => {
         setIsDivVisible(!isDivVisible);
     };
@@ -231,7 +231,6 @@ const VideoChat = () => {
 
     const endMeeting = async () => {
     if (isAdmin) {
-        // Close the peer connection if it exists
         if (peerConnectionRef.current) {
             peerConnectionRef.current.close();
         }
@@ -254,12 +253,12 @@ const VideoChat = () => {
 
         // Make API call to closeMeeting
         try {
-            await fetch('/api/closeMeeting', {
+            await fetch(`${API_BASE_URL}api/closeMeeting`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify({ thread }),
+                body: JSON.stringify({ thread : thread }),
             });
         } catch (error) {
             console.error('Failed to close the meeting:', error);
@@ -274,7 +273,6 @@ const VideoChat = () => {
             ws.current.close();
         }
 
-        // Navigate back to the home page
         navigate('/Messenger?type=user&user_id=0');
     }
 };
@@ -282,6 +280,16 @@ const VideoChat = () => {
     return (
         <div className={styles.container}>
             <div className={styles.flexContainer}>
+                {isVideoOn && isAdmin && (
+                <Draggable>
+                    <video
+                        className={styles.draggableVideo}
+                        ref={localVideoRef}
+                        autoPlay
+                        playsInline
+                    />
+                </Draggable>
+            )}
                 <div className={`${styles.videoContainer} ${isDivVisible ? styles.shrinked : ''}`}>
     {isAdmin ? (
         <video 
@@ -359,16 +367,6 @@ const VideoChat = () => {
                 <button onClick={toggleDivVisibility}><i className="fa-solid fa-user-group"></i></button>
                 <button onClick={endMeeting}><i className="fa-solid fa-phone" style={{ color: 'red' }}></i></button>
             </div>
-            {isVideoOn && isAdmin && (
-                <Draggable>
-                    <video
-                        className={styles.draggableVideo}
-                        ref={localVideoRef}
-                        autoPlay
-                        playsInline
-                    />
-                </Draggable>
-            )}
             <div className={styles.footer}>
             </div>
 

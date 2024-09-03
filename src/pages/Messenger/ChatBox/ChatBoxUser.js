@@ -77,7 +77,6 @@ function ChatBoxUser({ closeChatBox }) {
             setLoading(false); // Khi dữ liệu đã tải xong
         })
         .catch(error => {
-            console.error('Error fetching messages:', error);
             setLoading(false); // Ngừng hiển thị skeleton khi có lỗi
         });
     };

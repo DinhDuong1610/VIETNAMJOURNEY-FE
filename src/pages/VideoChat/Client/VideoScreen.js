@@ -12,7 +12,7 @@ function VideoScreen() {
         ws.current = new WebSocket(`ws://localhost:8080`);
 
         ws.current.onopen = () => {
-            ws.current.send(JSON.stringify({ type: 'subscribe', thread: 5 }));
+            ws.current.send(JSON.stringify({ type: 'subscribe', thread_screen: thread }));
         };
 
         ws.current.onmessage = (event) => {

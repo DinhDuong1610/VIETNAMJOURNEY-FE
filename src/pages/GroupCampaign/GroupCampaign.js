@@ -172,7 +172,7 @@ function GroupCampaign() {
                 <div className="col-md-9">
                     <div className={styles.containerhead}>
                         {loadingCampaignInfo ? (
-                            <Skeleton.Image style={{ width: 200, height: 200 }} />
+                            <Skeleton.Image style={{ width: 1000, height: 500,marginLeft : '1rem' }} />
                         ) : (
                             <img alt="logo" src={campaignInfo.image}></img>
                         )}
@@ -181,7 +181,6 @@ function GroupCampaign() {
                                 {loadingCampaignInfo ? (
                                     <>
                                         <Skeleton.Input style={{ width: 300 }} active />
-                                        <Skeleton.Input style={{ width: 200 }} active />
                                     </>
                                 ) : (
                                     <>
