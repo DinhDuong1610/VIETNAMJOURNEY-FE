@@ -464,32 +464,20 @@
         document.addEventListener('scroll', function () {
             const div = document.querySelector('.fs-globe-container');
             const scrollDistance = window.scrollY;
-            const fadeOutStart = 20 * 16; // 50rem in pixels
-            const maxMarginTop = 5 * 16; // 3rem in pixels
-
-            if (scrollDistance >= fadeOutStart) {
-                div.style.marginTop = `${maxMarginTop}px`;
-            } else {
-                const marginTop = Math.min(maxMarginTop, (scrollDistance / fadeOutStart) * maxMarginTop);
-                div.style.marginTop = `${marginTop}px`;
-            }
-        });
-
-        document.addEventListener('scroll', function () {
-            const div = document.querySelector('.fs-globe-container');
-            const scrollDistance = window.scrollY;
             const documentHeight = document.documentElement.scrollHeight;
             const windowHeight = window.innerHeight;
-            const fadeOutStart = (documentHeight - windowHeight) * 0.8; // 85% of the scrollable height
-            const fadeOutEnd = documentHeight - windowHeight; // End at the bottom of the page
 
-            if (scrollDistance >= fadeOutStart && scrollDistance <= fadeOutEnd) {
-                const opacity = 1 - ((scrollDistance - fadeOutStart) / (fadeOutEnd - fadeOutStart));
-                div.style.opacity = opacity;
-            } else if (scrollDistance > fadeOutEnd) {
-                div.style.opacity = 0;
-            } else {
+            // Tính toán điểm bắt đầu mờ đi là 0.1% chiều cao trang
+            const fadeOutPoint = documentHeight * 0.1; // 0.1% của chiều cao trang
+
+            // Tính toán khoảng cách mà phần tử sẽ bắt đầu mờ đi
+            const fadeOutDistance = fadeOutPoint; // Điểm mờ đi
+
+            if (scrollDistance < fadeOutPoint) {
                 div.style.opacity = 1;
+            } else if (scrollDistance >= fadeOutPoint) {
+                const opacity = 1 - ((scrollDistance - fadeOutPoint) / fadeOutDistance);
+                div.style.opacity = Math.max(opacity, 0); // Đảm bảo opacity không âm
             }
         });
     </script>
@@ -831,7 +819,7 @@
             <div class="gallery-item-sticky">
                 <div class="gallery-item-inner">
                     <div class="gallery-item-media-gradient"></div>
-                    <div style="margin-left: auto;" class="gallery-item-content-wrapper">
+                    <div class="gallery-item-content-wrapper">
                         <div class="gallery-item-content-inner">
                             <div style="color: rgb(255, 255, 255);" class="gutter-outside">
                                 <div class="gallery-item-copy">
@@ -892,11 +880,11 @@
             </div>
             <div class="gallery-scroll-distance"></div>
         </div>
-        <div class="hero-gallery-item">
+        <div class="hero-gallery-item-last">
             <div class="gallery-item-sticky">
                 <div class="gallery-item-inner">
                     <div class="gallery-item-media-gradient"></div>
-                    <div style="margin-left: auto;" class="gallery-item-content-wrapper">
+                    <div class="gallery-item-content-wrapper">
                         <div class="gallery-item-content-inner">
                             <div class="gutter-outside">
                                 <div class="gallery-item-title-wrapper">

@@ -19,6 +19,7 @@ import { CustomerServiceOutlined, CommentOutlined } from "@ant-design/icons";
 import { useState, useEffect } from "react";
 import { FloatButton, Switch } from "antd";
 import "antd/dist/reset.css";
+import Draggable from 'react-draggable';
 
 const cx = classNames.bind(style);
 
@@ -167,8 +168,8 @@ function TrangChu() {
       <CoThongTinMoi />
 
       <Footer />
-
-      <FloatButton.Group
+      <Draggable >
+        <FloatButton.Group
         open={open}
         trigger="click"
         onClick={handleClick}
@@ -222,6 +223,9 @@ function TrangChu() {
           onClick={toggleChatbot}
         />
       </FloatButton.Group>
+      </Draggable>
+
+      
 
       {/* {showChatbot && <Chatbot />} Hiển thị Chatbot nếu showChatbot là true */}
     </div>

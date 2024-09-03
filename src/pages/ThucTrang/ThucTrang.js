@@ -53,10 +53,9 @@ function ThucTrang() {
           onLoad={() => console.log('Iframe loaded successfully.')}
         />
       ) : (
-        <p>Loading iframe...</p>
+        <p>Loading</p>
       )}
     </div>
   );
 }
-
 export default ThucTrang;

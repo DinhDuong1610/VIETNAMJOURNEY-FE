@@ -1,0 +1,71 @@
+.meetingContainer {
+    text-align: center;
+    color: #333;
+    background-color: #f9f9f9;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    max-width: 400px;
+    margin: 0 auto;
+}
+
+.meetingContainer h2 {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+    font-weight: 600;
+    color: #222;
+}.meetingContainer i {
+    margin-right: 0.3rem;
+}
+
+.meetingButton {
+    background-color:#35973F;
+    color: white;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1rem;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    max-width: 300px;
+}
+
+.meetingButton:hover {
+    background-color: #45a049;
+}
+
+.meetingButton + .meetingButton {
+    background-color: #008CBA;
+}
+
+.meetingButton + .meetingButton:hover {
+    background-color: #007bb5;
+}.subContainer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}.subContainer h3{
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}.subContainer Button{
+    font-size: 1rem;
+    font-weight : 500;
+    padding : 20px;
+}.subContainer p{
+    font-weight: 600;
+    font-size: 1.1rem;
+}.subContainer input{
+    margin-bottom : 1rem;
+    border : 1px solid green;
+}.scheduleButton {
+    background-color:#35973F;
+    color : white;
+    padding : 20px;
+}

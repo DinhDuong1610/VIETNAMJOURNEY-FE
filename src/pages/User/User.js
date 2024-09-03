@@ -18,14 +18,14 @@ function User() {
   const [posts, setPosts] = useState([]);
   const [user, setUser] = useState(null); 
   const [isPostOpen, setIsPostOpen] = useState(false);
-  const [loading, setLoading] = useState(true); // State để quản lý trạng thái loading
+  const [loading, setLoading] = useState(true); 
 
   const handlePost = () => {
     setIsPostOpen(!isPostOpen);
   }
 
   useEffect(() => {
-    setLoading(true); // Bắt đầu fetch dữ liệu, set loading là true
+    setLoading(true); 
     if (user_id) {
       fetch(`${API_BASE_URL}api/getPosts`, {
         method: 'POST',
@@ -36,20 +36,20 @@ function User() {
       })
       .then(response => response.json())
       .then(data => {
-        setLoading(false); // Kết thúc fetch dữ liệu, set loading là false
+        setLoading(false); 
         if (data.posts) {
           setPosts(data.posts);
-          setUser(data.user); // Cập nhật thông tin người dùng
+          setUser(data.user); 
         } else {
-          setPosts([]); // Đảm bảo rằng posts luôn là mảng
-          setUser(null); // Đảm bảo rằng user là null khi không có dữ liệu
+          setPosts([]);
+          setUser(null); 
         }
       })
       .catch(error => {
         console.error('Error:', error);
-        setLoading(false); // Kết thúc fetch dữ liệu, set loading là false
-        setPosts([]); // Đảm bảo rằng posts luôn là mảng khi có lỗi
-        setUser(null); // Đảm bảo rằng user là null khi có lỗi
+        setLoading(false); 
+        setPosts([]); 
+        setUser(null); 
       });
     }
   }, [user_id]);
@@ -84,7 +84,7 @@ function User() {
             </>
           )}
           <div className={styles.container4}>
-            {loading ? ( // Nếu đang fetch dữ liệu thì hiển thị Skeleton
+            {loading ? (
               <div style={{ textAlign: 'center', marginTop: '2rem', backgroundColor: 'white', borderRadius: '10px', padding: '2rem', fontWeight: 'revert' }}>
                 <Skeleton active />
               </div>

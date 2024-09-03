@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react';
-import { useLocation } from 'react-router-dom'; // Giả sử bạn đang dùng react-router để điều hướng
+import { useLocation, useNavigate } from 'react-router-dom';
+import styles from './Information.module.css'; // Import the CSS module
+import { Skeleton, message } from 'antd'; // Import message from antd
 
 function Information() {
     const location = useLocation();
+    const navigate = useNavigate();
     const params = new URLSearchParams(location.search);
-    const thread = params.get('thread'); // Lấy thread từ params
+    const thread = params.get('thread');
     const [info, setInfo] = useState(null);
     const [adminInfo, setAdminInfo] = useState(null);
     const [loading, setLoading] = useState(true);
@@ -24,7 +27,11 @@ function Information() {
                 setLoading(false);
                 if (data.status === 'success') {
                     setInfo(data.data);
-                    setAdminInfo(data.data.admin); // Cập nhật thông tin admin từ data.data.admin
+                    setAdminInfo(data.data.admin);
+                } else if (data.status === 'soon') {
+                    message.warning(data.message, 3, () => navigate('/TrangChu')); // Show warning and redirect to home
+                } else if (data.status === 'late') {
+                    message.error(data.message, 3, () => navigate('/TrangChu')); // Show error and redirect to home
                 } else {
                     setError(data.message || 'Failed to retrieve information.');
                 }
@@ -38,10 +45,12 @@ function Information() {
             setLoading(false);
             setError('Thread parameter is missing.');
         }
-    }, [thread]);
+    }, [thread, navigate]);
 
     if (loading) {
-        return <p>Loading...</p>; // Hoặc một spinner
+        return <div>
+            <Skeleton avatar paragraph={{ rows: 1 }} active />
+        </div>;
     }
 
     if (error) {
@@ -49,23 +58,20 @@ function Information() {
     }
 
     return (
-        <div>
-            <h2>Thông tin cuộc họp</h2>
+        <div className={styles.container}>
+            <h2 className={styles.heading}>Thông tin cuộc họp</h2>
             {info && (
-                <div>
-                    <p><strong>Campaign ID:</strong> {info.campaign_id}</p>
-                    <p><strong>Date:</strong> {info.date}</p>
-                    <p><strong>Is Active:</strong> {info.isactive ? 'Yes' : 'No'}</p>
-                    <h3>Campaign Details</h3>
-                    <p><strong>Name:</strong> {info.campaign.name}</p>
-                    <p><strong>Province:</strong> {info.campaign.province}</p>
+                <div className={styles['info-container']}>
+                     <p className={styles['info-item']}><strong>Tên :</strong> {info.campaign.name}</p>
+                    <p className={styles['info-item']}><strong>Ngày bắt đầu : </strong> {info.date}</p>
+                    <p className={styles['info-item']}><strong>Tỉnh/Thành phố :</strong> {info.campaign.province}</p>
                 </div>
             )}
             {adminInfo && (
-                <div>
-                    <h3>Admin Details</h3>
-                    <p><strong>Name:</strong> {adminInfo.name}</p>
-                    <p><strong>Image:</strong> <img src={`http://localhost:8000/${adminInfo.image}`} alt={adminInfo.name} /></p>
+                <div className={styles['info-container']}>
+                    <h3 className={styles.subheading}>Quản trị viên</h3>
+                    <p className={styles['info-item']}><strong>Tên :</strong> {adminInfo.name}</p>
+                    <p className={styles['info-item']}><img src={`http://localhost:8000/${adminInfo.image}`} alt={adminInfo.name} className={styles['admin-image']} /></p>
                 </div>
             )}
         </div>

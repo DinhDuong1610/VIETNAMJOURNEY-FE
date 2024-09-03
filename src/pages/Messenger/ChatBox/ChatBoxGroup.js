@@ -6,6 +6,7 @@ import dots from '../../../Images/User/dots.png';
 import logo from '../../../Images/Message/formessage.png';
 import API_BASE_URL from '../../../config/configapi.js';
 import URL_SOCKET from '../Config/ConfigURL.js'
+import Meeting from '../Meeting/Meeting.js';
 
 function ChatBoxGroup({ closeChatBox }) {
     const cookies = document.cookie;
@@ -22,15 +23,21 @@ function ChatBoxGroup({ closeChatBox }) {
     const [selectedImage, setSelectedImage] = useState(null);
     const [isMember, setIsMember] = useState(true);
     const [groupInfo, setGroupInfo] = useState({});
-    const [loading, setLoading] = useState(true); // Thêm trạng thái loading
+    const [loading, setLoading] = useState(true);
+    const [showMeeting, setShowMeeting] = useState(false);// Thêm trạng thái loading
     const contentRef = useRef(null);
+    const meetingRef = useRef(null);
     const ws = useRef(null);
 
+    const handleMeetingCreated = (meetingLink) => {
+        sendLink(meetingLink);
+    };
+
     useEffect(() => {
-        setIsMember(true);  // Reset isMember when group_id changes
-        setMessages([]);  // Clear previous messages when group_id changes
-        setGroupInfo({});  // Clear previous group info when group_id changes
-        setLoading(true); // Set loading to true when group_id changes
+        setIsMember(true); 
+        setMessages([]);  
+        setGroupInfo({});  
+        setLoading(true); 
 
         const fetchGroupChats = async () => {
             try {
@@ -49,10 +56,10 @@ function ChatBoxGroup({ closeChatBox }) {
                     setMessages(data.chats);
                     setGroupInfo(data.groupInfo);
                 }
-                setLoading(false); // Set loading to false after data is fetched
+                setLoading(false); 
             } catch (error) {
                 console.error('Error fetching group chats:', error);
-                setLoading(false); // Set loading to false if there's an error
+                setLoading(false); 
             }
         };
 
@@ -82,8 +89,44 @@ function ChatBoxGroup({ closeChatBox }) {
     useEffect(() => {
         scrollToBottom();
     }, [messages]);
+    
 
-    const handleSendMessage = async () => {
+    const sendLink = async (meetingLink) => {
+
+    const formData = new FormData();
+    formData.append('user_id', user_from);
+    formData.append('group_id', group_id);
+    formData.append('message', meetingLink);
+    if (selectedImage) {
+        formData.append('image', selectedImage);
+    }
+
+    try {
+        const response = await fetch(`${API_BASE_URL}api/sendMessageGroup`, {
+            method: 'POST',
+            body: formData
+        });
+
+        const data = await response.json();
+        setMessage('');
+        setSelectedImage(null);
+
+        ws.current.send(JSON.stringify({
+            type: 'chatgroup',
+            chat: data.chat,
+            userIds: data.userIds,
+            group_id: data.group_id
+        }));
+    } catch (error) {
+        console.error('Error sending message:', error);
+    }
+};
+
+
+
+
+
+    const handleSendMessage = async (meetingLink) => {
         if (!message && !selectedImage) return;
 
         const formData = new FormData();
@@ -131,7 +174,15 @@ function ChatBoxGroup({ closeChatBox }) {
         closeChatBox();
         console.log("back")
     };
-
+    const toggleMeeting = () => {
+        setShowMeeting(!showMeeting); // Toggle the visibility of the Meeting component
+    };
+    const handleOverlayClick = (e) => {
+        // If the click is outside the Meeting component, close the Meeting
+        if (meetingRef.current && !meetingRef.current.contains(e.target)) {
+            setShowMeeting(false);
+        }
+    };
     return (
         <div className={styles.container}>
             {loading ? (
@@ -150,7 +201,8 @@ function ChatBoxGroup({ closeChatBox }) {
                             <h5>{groupInfo.name}</h5>
                             <p>{groupInfo.province}</p>
                         </div>
-                        <div className={styles.containerHeaderSettings}>
+                                <div className={styles.containerHeaderSettings}>
+                                    {groupInfo.userId == user_from &&  <i style={{ display: 'block' }} className="fa-solid fa-video fa-beat-fade" onClick={toggleMeeting}></i> }
                             <img src={dots} alt="Settings"></img>
                         </div>
                     </div> }
@@ -209,7 +261,15 @@ function ChatBoxGroup({ closeChatBox }) {
                         <img src={URL.createObjectURL(selectedImage)} alt="Selected" />
                     </div>
                 )}
-            </div>}
+                </div>}
+            
+            {showMeeting &&
+                <div className={styles.meetingOverlay} onClick={handleOverlayClick}>
+                    <div ref={meetingRef} className={styles.meetingContainer}>
+                        <Meeting onMeetingCreated={handleMeetingCreated} />
+                    </div>
+                </div>
+            }
         </div>
     );
 }
