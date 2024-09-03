@@ -45,6 +45,12 @@ function Navbar() {
               deleteCookie("User_ID");
               deleteCookie("UserName");
               deleteCookie("Token");
+            } else if (userID && !tokenFromCookie) {
+              alert("Phiên đăng nhập không hợp lệ, vui lòng đăng nhập lại");
+              navigate("/TaiKhoan");
+              deleteCookie("User_ID");
+              deleteCookie("UserName");
+              deleteCookie("Token");
             }
           } else {
             console.error("Failed to fetch user information");
