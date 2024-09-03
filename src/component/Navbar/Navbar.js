@@ -113,7 +113,7 @@ function Navbar() {
                   src={userInfo.Image}
                   alt="Avatar"
                 />
-                {userInfo.Name}
+                {isDropdownOpen ?  <i class="fa-solid fa-caret-down"></i> : <i class="fa-solid fa-caret-right"></i> }
               </span>
               <div className={cx("dropdown-menu")}>
                 <Link
@@ -176,7 +176,16 @@ function Navbar() {
                 to={"/User?user_id=" + getCookie("User_ID")}
                 onClick={toggleSidebar}
               >
-                {userInfo.Name} <i className="fa-solid fa-circle-user"></i>
+                {userInfo.Name} <img
+                  style={{
+                    width: "28px",
+                    height: "28px",
+                    borderRadius: "50%",
+                    marginRight: "5px",
+                  }}
+                  src={userInfo.Image}
+                  alt="Avatar"
+                />
               </Link>
             )}
             <Link to="/TrangChu" onClick={toggleSidebar}>
@@ -263,7 +272,16 @@ function Navbar() {
                     to={"/User?user_id=" + getCookie("User_ID")}
                     onClick={toggleSidebar}
                   >
-                    {userInfo.Name} <i className="fa-solid fa-circle-user"></i>
+                    {userInfo.Name} <img
+                  style={{
+                    width: "28px",
+                    height: "28px",
+                    borderRadius: "50%",
+                    marginRight: "5px",
+                  }}
+                  src={userInfo.Image}
+                  alt="Avatar"
+                />
                   </Link>
                 )}
                 {userInfo ? (
