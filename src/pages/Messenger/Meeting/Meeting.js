@@ -152,7 +152,7 @@ function ScheduleMeeting({ onMeetingCreated }) { // Nhận callback
             ) : (
                 <div className={styles.meetingInfo}>
                     <h4>Cuộc họp đã được lên lịch</h4>
-                    <p>Link cuộc họp: <a href={`https://dinhduong1610.github.io/VIETNAMJOURNEY-FE/#/VideoChat?group_id=${group_id}&thread=${meetingData.id}`}>{`http://localhost:3000/VIETNAMJOURNEY-FE#/VideoChat?group_id=${group_id}&thread=${meetingData.id}`}</a></p>
+                    <p>Link cuộc họp: <a href={`https://dinhduong1610.github.io/VIETNAMJOURNEY-FE/#/VideoChat?group_id=${group_id}&thread=${meetingData.id}`}>{`https://dinhduong1610.github.io/VIETNAMJOURNEY-FE/#/VideoChat?group_id=${group_id}&thread=${meetingData.id}`}</a></p>
                     <p><strong>Thời gian:</strong> {new Date(meetingData.date).toLocaleString()}</p>
                 </div>
             )}
