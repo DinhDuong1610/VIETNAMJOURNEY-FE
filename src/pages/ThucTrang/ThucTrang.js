@@ -18,7 +18,6 @@ function ThucTrang() {
     };
 
     window.addEventListener('navigate', handleButtonClick);
-
     return () => {
       window.removeEventListener('navigate', handleButtonClick);
     };
@@ -40,7 +39,6 @@ function ThucTrang() {
 
     checkIframeSrc();
   }, []);
-
   return (
     <div style={{ height: 'calc(100vh - 60px)', overflow: 'hidden' }}>
       {iframeSrc ? (
