@@ -139,7 +139,7 @@ function Navbar() {
                   src={userInfo.Image}
                   alt="Avatar"
                 />
-                {isDropdownOpen ?  <i class="fa-solid fa-caret-down"></i> : <i class="fa-solid fa-caret-right"></i> }
+                <i class="fa-solid fa-caret-down"></i>
               </span>
               <div className={cx("dropdown-menu")}>
                 <Link

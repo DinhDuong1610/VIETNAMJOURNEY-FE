@@ -50,7 +50,7 @@ const Friends = ({ User_ID }) => {
 
     const updateFollowerStatus = async (userId, action) => {
         try {
-            const response = await fetch(`${API_BASE_URL}api/updateFollower`, {
+            const response = await fetch(`${API_BASE_URL}api/updateFollowStatus`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

@@ -195,6 +195,8 @@ function GroupCampaign() {
                                     <button onClick={() => handleShare()}><i className="fa-solid fa-share"></i> Chia sẻ</button>
                                     <button onClick={() => handleChat()}>Nhóm chat</button>
                                     <button onClick={() => handleVolunteer()}>Chiến dịch</button>
+                                    
+                                    <button onClick={() => navigate(`/AdminGroup?group_id=${group_id}`)}>Quản lý</button>
                                 </div>
                             )}
                         </div>
