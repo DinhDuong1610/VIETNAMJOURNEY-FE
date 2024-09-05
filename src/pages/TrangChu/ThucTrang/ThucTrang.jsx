@@ -38,12 +38,12 @@ function CoThucTrang() {
     if (chartRef.current.chart) return; // Kiểm tra nếu biểu đồ đã được tạo
 
     const colors = [
-      "#3AB137",
-      "#3AB137",
-      "#3AB137",
-      "#3AB137",
-      "#3AB137",
-      "#3AB137",
+      "#35973F",
+      "#35973F",
+      "#35973F",
+      "#35973F",
+      "#35973F",
+      "#35973F",
     ];
 
     const options = {

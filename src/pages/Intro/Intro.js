@@ -10,18 +10,19 @@ function Intro() {
   const [step, setStep] = useState(1);
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const hasVisited = localStorage.getItem("hasVisitedIntro");
+  // useEffect(() => {
+  //   const hasVisited = localStorage.getItem("hasVisitedIntro");
 
-    if (hasVisited) {
-      navigate("/TrangChu"); 
-    } else {
-      localStorage.setItem("hasVisitedIntro", "true");
-    }
-  }, [navigate]);
+  //   if (hasVisited) {
+  //     navigate("/TrangChu"); 
+  //   } else {
+  //     localStorage.setItem("hasVisitedIntro", "true");
+  //   }
+  // }, [navigate]);
 
   const handleSkip = () => {
-    setStep(step + 1);
+    // setStep(step + 1);
+    navigate("/ThucTrang");
   };
 
   useEffect(() => {

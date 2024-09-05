@@ -95,7 +95,6 @@ div.main div.top div.txt h2 {
     color: #FFF;
     font-feature-settings: 'clig' off, 'liga' off;
     text-shadow: 0px 4px 60.2px rgba(0, 0, 0, 0.25);
-    font-family: Raleway;
     font-size: 50px;
     font-style: normal;
     font-weight: 800;
@@ -124,7 +123,6 @@ div.main div.top div.txt p {
     color: #FFF;
     font-feature-settings: 'clig' off, 'liga' off;
     text-shadow: 0px 4px 75px #000;
-    font-family: Raleway;
     font-size: 20px;
     font-style: normal;
     font-weight: 800;
@@ -189,7 +187,6 @@ div.main div.bot div.tabs div.tab p.p1 {
     color: #130985;
     text-align: center;
     font-feature-settings: 'clig' off, 'liga' off;
-    font-family: Raleway;
     font-size: 29px;
     font-style: normal;
     font-weight: 800;
@@ -201,7 +198,6 @@ div.main div.bot div.tabs div.tab p.p2 {
     color: #908C8C;
     text-align: center;
     font-feature-settings: 'clig' off, 'liga' off;
-    font-family: Raleway;
     font-size: 21px;
     font-style: normal;
     font-weight: 500;
@@ -210,10 +206,9 @@ div.main div.bot div.tabs div.tab p.p2 {
 
 
 div.main div.bot div.tabs div.tab p.p3 {
-    color: #1C8827;
+    color: #35973F;
     text-align: center;
     font-feature-settings: 'clig' off, 'liga' off;
-    font-family: Raleway;
     font-size: 23px;
     font-style: normal;
     font-weight: 800;
@@ -277,12 +272,12 @@ div.main div.bot div.eclipse {
 
 
     div.main div.top div.txt h2 {
-        font-size: 36px;
+        font-size: 28px;
         text-align: center;
     }
     
     div.main div.top div.txt h2 span {
-        font-size: 46px;
+        font-size: 36px;
     }
 
 
@@ -299,24 +294,24 @@ div.main div.bot div.eclipse {
 
     
     div.main div.bot div.tabs {
-        width: 100%;
+        width: 90%;
         height: auto;
-
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
-
         gap: 2rem;
     }
 
-
     div.main div.bot div.tabs div.tab {
         width: 90%;
-        height: 250px;
-
+        height: 200px;
         box-shadow: 0px 4px 30px 0px rgba(0, 0, 0, 0.2);
+        padding-top: 10px;
     }
 
+    div.main div.bot div.tabs div.tab .p1 {
+        /* margin-top: 0; */
+    }
 
     div.main div.bot div.eclipse {
         align-self: flex-start;

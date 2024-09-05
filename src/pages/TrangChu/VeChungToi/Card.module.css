@@ -65,7 +65,6 @@ div.main div.block1 div.txtBlock {
 div.main div.block1 div.txtBlock p.txt1 {
     color: #000;
     font-feature-settings: 'clig' off, 'liga' off;
-    font-family: Raleway;
     font-size: 30px;
     font-style: normal;
     font-weight: 800;
@@ -78,7 +77,6 @@ div.main div.block1 div.txtBlock p.txt2 {
 
     color: #474747;
     font-feature-settings: 'clig' off, 'liga' off;
-    font-family: Raleway;
     font-size: 24px;
     font-style: normal;
     font-weight: 400;
@@ -98,7 +96,6 @@ div.main div.block2 {
 div.main div.block2 p {
     color: #000;
     font-feature-settings: 'clig' off, 'liga' off;
-    font-family: Raleway;
     font-size: 20px;
     font-style: normal;
     font-weight: 600;

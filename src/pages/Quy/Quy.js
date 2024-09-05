@@ -5,7 +5,7 @@ import CoSuMenh2 from "./SuMenh2/SuMenh2";
 import CoCauChuyen from "./CauChuyen/CauChuyen";
 import CoDonate from "./Donate/Donate";
 import Footer from "../../component/Footer/Footer";
-
+import ButtonMini from "../../component/ButtonMini/ButtonMini";
 import { useEffect } from "react";
 
 function Quy() {
@@ -19,6 +19,7 @@ function Quy() {
       {/* <CoCauChuyen /> */}
       <CoDonate />
 
+      <ButtonMini />
       <Footer />
     </div>
   );

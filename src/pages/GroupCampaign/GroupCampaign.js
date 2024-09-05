@@ -5,6 +5,7 @@ import styles from './GroupCampaign.module.css';
 import Post from '../User/Post/PostGroup.js';
 import NewPostGroup from './NewPostGroup/NewPostGroup.js';
 import API_BASE_URL from '../../config/configapi.js';
+import ButtonMini from '../../component/ButtonMini/ButtonMini.js';
 
 function GroupCampaign() {
     const cookies = document.cookie;
@@ -262,6 +263,7 @@ function GroupCampaign() {
                     </div>
                 </div>
             </div>
+            <ButtonMini />        
         </div>
     );
 }

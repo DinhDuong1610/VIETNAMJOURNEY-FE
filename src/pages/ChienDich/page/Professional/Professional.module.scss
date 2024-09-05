@@ -34,7 +34,7 @@
 }
 #signUpForm .form-header .stepIndicator.finish {
   font-weight: 600;
-  color: #02a308;
+  color: #35973F;
 }
 #signUpForm .form-header .stepIndicator::before {
   content: "";
@@ -54,7 +54,7 @@
   border: 3px solid #d5f9f6;
 }
 #signUpForm .form-header .stepIndicator.finish::before {
-  background-color: #02a308;
+  background-color: #35973F;
   border: 3px solid #aeffb0;
 }
 #signUpForm .form-header .stepIndicator::after {
@@ -70,7 +70,7 @@
   background-color: #8ffc91;
 }
 #signUpForm .form-header .stepIndicator.finish::after {
-  background-color: #02a308;
+  background-color: #35973F;
 }
 #signUpForm .form-header .stepIndicator:last-child:after {
   display: none;
@@ -92,7 +92,7 @@
 }
 #signUpForm input,
 #signUpForm textarea:focus {
-  border: 1px solid #02a308;
+  border: 1px solid #35973F;
   outline: 0;
 }
 #signUpForm input.invalid,
@@ -107,8 +107,8 @@
   gap: 20px;
 }
 #signUpForm .form-footer button {
-  background-color: #02a308;
-  border: 1px solid #02a308 !important;
+  background-color: #35973F;
+  border: 1px solid #35973F !important;
   color: #ffffff;
   border: none;
   padding: 13px 30px;
@@ -125,7 +125,7 @@
 
 #signUpForm .form-footer #prevBtn {
   background-color: #fff;
-  color: #02a308;
+  color: #35973F;
 }
 
 #signUpForm .buttons {
@@ -136,7 +136,7 @@
   display: inline-block;
   padding: 6px 12px;
   cursor: pointer;
-  border: 1px solid #02a308 !important;
+  border: 1px solid #35973F !important;
   border-radius: 4px;
   background-color: #f8f9fa;
   color: #495057;

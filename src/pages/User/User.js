@@ -8,6 +8,7 @@ import { useCheckCookie } from '../../Cookie/getCookie';
 import NewPost from './NewPost/NewPost.js';
 import { Skeleton } from 'antd';
 import API_BASE_URL from '../../config/configapi.js';
+import ButtonMini from "../../component/ButtonMini/ButtonMini.js";
 
 function User() {
   const location = useLocation();
@@ -114,6 +115,8 @@ function User() {
           </div>
         </div>
       </div>
+
+      <ButtonMini />
     </div>
   );
 }

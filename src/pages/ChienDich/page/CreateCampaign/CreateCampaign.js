@@ -227,7 +227,8 @@ function CreateCampaign() {
     formData.append("dateStart", event.target.elements.dateStart.value);
     formData.append("dateEnd", event.target.elements.dateEnd.value);
     formData.append("totalMoney", event.target.elements.totalMoney.value);
-    formData.append("moneyByVNJN", event.target.elements.moneyByVNJN.value);
+    // formData.append("moneyByVNJN", event.target.elements.moneyByVNJN.value);
+    formData.append("moneyByVNJN", 10000000);
     formData.append("province", selectedProvince ? selectedProvince.label : "");
     formData.append("district", selectedDistrict ? selectedDistrict.label : "");
     // formData.append("location", event.target.elements.location.value);

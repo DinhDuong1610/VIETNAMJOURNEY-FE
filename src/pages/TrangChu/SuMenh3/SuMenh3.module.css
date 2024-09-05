@@ -38,7 +38,6 @@ div.main div.div1 p {
     color: #FFF;
     text-align: center;
     font-feature-settings: 'clig' off, 'liga' off;
-    font-family: Raleway;
     font-size: 32px;
     font-style: normal;
     font-weight: 700;
@@ -82,10 +81,9 @@ div.main div.div2 div.txt p {
     text-align: center;
     font-feature-settings: 'clig' off, 'liga' off;
     text-shadow: 0px 4px 22px rgba(255, 255, 255, 0.25);
-    font-family: Raleway;
     font-size: 34px;
     font-style: normal;
-    font-weight: 800;
+    font-weight: 700;
     line-height: 130%; /* 44.2px */
 }
 
@@ -109,7 +107,6 @@ div.main div.div2 div.bt button {
     color: #FFF;
     text-align: center;
     font-feature-settings: 'clig' off, 'liga' off;
-    font-family: Raleway;
     font-size: 27px;
     font-style: normal;
     font-weight: 700;
@@ -125,10 +122,6 @@ div.main div.div2 div.bt img {
     margin-top: -9px;
     border-radius: 10px;
 }
-
-
-
-
 
 /* Scrolling animation */
 .hidden {
@@ -171,7 +164,7 @@ div.main div.div2 div.bt img {
 
 
 
-@media screen and (max-width: 1500px) {
+@media screen and (max-width: 1600px) {
     div.main {
         height: 962px;
     }
@@ -194,7 +187,7 @@ div.main div.div2 div.bt img {
     }
     
     div.main div.div2 div.txt p {
-        font-size: 28px;
+        font-size: 30px;
     }  
     
     div.main div.div2 div.bt {

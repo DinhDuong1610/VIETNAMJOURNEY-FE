@@ -360,11 +360,12 @@ function CoDonate() {
                     2M
                   </button>
                 </div>
-                <div className={cx("col-4")}>
+                <div className={cx("col-4", "mb-0")}>
                   <input
                     type="number"
-                    className={cx("input-donate")}
+                    className={cx("input-donate", "mb-0")}
                     placeholder="Khác"
+                    min={0}
                     onChange={handleDonateInputChange}
                   />
                 </div>
@@ -455,7 +456,7 @@ function CoDonate() {
                 </div>
               </div>
             </div>
-            <div className={cx("form-footer", "d-flex")}>
+            <div className={cx("form-footer", "d-flex", "justify-content-between", "button-form")}>
               <button
                 type="button"
                 id={cx("prevBtn")}

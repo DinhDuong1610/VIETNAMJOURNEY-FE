@@ -2,10 +2,33 @@ import classNames from "classnames/bind";
 import style from "./TongQuan.module.scss";
 import CountUp from "react-countup";
 import { ColorFactory } from "antd/es/color-picker/color";
+import { useState, useEffect } from "react";
+import API_BASE_URL from "../../../config/configapi";
+import axios from "axios";
+import img_la from '../../../Images/TrangChu/TongQuan/img_la.png';
 
 const cx = classNames.bind(style);
 
 function TongQuan() {
+  const [users, setUsers] = useState(0);
+  const [campaigns, setCampaigns] = useState(0);
+  const [fun, setFun] = useState(0);
+
+  useEffect(() => {
+    const fetchFunData = async () => {
+      try {
+        const response = await axios.get(`${API_BASE_URL}api/home`);
+        setUsers(response.data.users);
+        setCampaigns(response.data.campaigns);
+        setFun(response.data.fun);
+      } catch (error) {
+        console.error("Lỗi khi lấy dữ liệu:", error);
+      }
+    };
+
+    fetchFunData();
+  }, []);
+
   return (
     <div className={cx("TongQuan")}>
       <div className={cx("title")}>
@@ -15,12 +38,13 @@ function TongQuan() {
       <div className={cx("row")}>
         <div className={cx("left")}>
           <div className={cx("image")}>
-            <img src="https://s3-alpha-sig.figma.com/img/be11/6881/5ac44640651f24b18bd98c4323cb8bed?Expires=1725840000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=JcD4DsCcQVBXmfjc0EhzkrLcVV8LiOgt65wF749UXfK4U0SCjkVk7HuaII7fZ3ceLjNwM~s39l2AidSNBHtaJyJ5eGqE48aSrovwQzOWRRlyW2L9n4dfKd1HG3pOSVdwetTKMCCtTtg5x0SS32BKQRZZLHEJPPjLIbOyP8SFsGU0vf~okgX~nouZRdZDe0krbEf6egi-P~pw8ljbHwpXReOXHQ9hGNGd~MNbo5XZ1nzjID80BNIFNxP8fNoWvO3tIrOYA6298Rfzi00lqJ8po1Sz1WBioW-ZtGBgKyxMI1lYZd8U3Awu6roKCSswIwKDrGKhtk4FLy4Vu61bC79EEA__"></img>
+            {/* <img src="https://s3-alpha-sig.figma.com/img/be11/6881/5ac44640651f24b18bd98c4323cb8bed?Expires=1725840000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=JcD4DsCcQVBXmfjc0EhzkrLcVV8LiOgt65wF749UXfK4U0SCjkVk7HuaII7fZ3ceLjNwM~s39l2AidSNBHtaJyJ5eGqE48aSrovwQzOWRRlyW2L9n4dfKd1HG3pOSVdwetTKMCCtTtg5x0SS32BKQRZZLHEJPPjLIbOyP8SFsGU0vf~okgX~nouZRdZDe0krbEf6egi-P~pw8ljbHwpXReOXHQ9hGNGd~MNbo5XZ1nzjID80BNIFNxP8fNoWvO3tIrOYA6298Rfzi00lqJ8po1Sz1WBioW-ZtGBgKyxMI1lYZd8U3Awu6roKCSswIwKDrGKhtk4FLy4Vu61bC79EEA__"></img> */}
+            <img src="https://bcp.cdnchinhphu.vn/Uploaded/hoangtrongdien/2019_07_18/IMG-6376-copy-1427769072_660x0.jpg"></img>
           </div>
         </div>
 
         <div className={cx("right")}>
-          <img src="https://s3-alpha-sig.figma.com/img/7819/ec70/50db990100c8c9a0c5fa85e96ee0b755?Expires=1725840000&Key-Pair-Id=APKAQ4GOSFWCVNEHN3O4&Signature=PGJhhfbMf0kVDadguJNhk-HQGjdbcWlFF6WMTJLFxgC0s3NihF-904FpUPKSYoP-0sOn7jId-0shIWVgVl38NmPnJds4D4~Lzl83D4hofWoyZDJgFR6YAlDrAJHFeu7wZgYFRjiqZf9jabEZUNQrRN20MYb~lvI7XeSDK6HDrOOOgpJSdSYuw5NWsu81hjZf7YKCxTe1GhJksz~0m6yTEqTG17QzLvH3KH5847BW4YJa-nmbqQS6al8NSMU~CoEuIGecu~WSd9FtXCmz3VXYboaqxruIkaEzvCilaPCxi0XP3T1k1mq1WFl3ep5WIsQJWzf5ry4NqSJKctEniII4fw__"></img>
+          <img src={img_la}></img>
           <p>
             <span>Việt Nam Journey</span> là dự án tình nguyện và gây quỹ đặc
             biệt, tập trung vào việc bảo vệ môi trường và phát triển bền vững
@@ -56,7 +80,7 @@ function TongQuan() {
             </div>
             <div classNames={cx("number")}>
               <CountUp
-                end={1000000000}
+                end={fun}
                 duration={1}
                 formattingFn={(value) =>
                   value.toLocaleString("vi-VN", {
@@ -89,15 +113,15 @@ function TongQuan() {
 
           <div className={cx("number-bottom")}>
             <div className={cx("item")}>
-              <div className={cx("item-number")}>6146</div>
+              <div className={cx("item-number")}>{users}</div>
               <div className={cx("item-title")}>Tài khoản thành viên</div>
             </div>
             <div className={cx("item")}>
               <div className={cx("item-number")}>43</div>
-              <div className={cx("item-title")}>Tỉnh (thành phố)</div>
+              <div className={cx("item-title")}>Tỉnh / thành phố</div>
             </div>
             <div className={cx("item")}>
-              <div className={cx("item-number")}>2194</div>
+              <div className={cx("item-number")}>{campaigns}</div>
               <div className={cx("item-title")}>Chiến dịch hành động</div>
             </div>
           </div>

@@ -148,9 +148,9 @@ function Manager() {
           theme={{
             components: {
               Pagination: {
-                colorPrimary: "#28a745",
+                colorPrimary: "#35973F",
                 colorPrimaryBorder: "#9dedb0",
-                colorPrimaryHover: "#28a745",
+                colorPrimaryHover: "#35973F",
               },
             },
           }}
