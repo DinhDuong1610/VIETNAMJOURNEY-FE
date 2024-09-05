@@ -11,6 +11,7 @@ import VideoCall from './Client/VideoCall.js';
 import Audio from './Client/Audio.js';
 import { Skeleton, message } from 'antd';
 import API_BASE_URL from '../../config/configapi.js';
+import SOCKET_URL from './config/config';
 
 const VideoChat = () => {
     const [isDivVisible, setIsDivVisible] = useState(true);
@@ -37,7 +38,7 @@ const VideoChat = () => {
     const ws = useRef(null);
 
     useEffect(() => {
-        ws.current = new WebSocket(`wss://socket.bwdjourney.id.vn:8080`);
+        ws.current = new WebSocket(SOCKET_URL);
         ws.current.onopen = () => {
             ws.current.send(JSON.stringify({ type: 'subscribe', thread: thread }));
         };
@@ -132,7 +133,7 @@ const shareScreen = async () => {
         try {
             console.log('Bắt đầu chia sẻ màn hình...');
 
-            // Kiểm tra và khởi tạo peerConnection nếu cần thiết
+            // Khởi tạo peerConnection nếu cần thiết
             if (!peerConnectionRef.current || peerConnectionRef.current.signalingState === 'closed') {
                 peerConnectionRef.current = createPeerConnection();
             }
@@ -156,13 +157,15 @@ const shareScreen = async () => {
             });
 
             // Sử dụng MediaRecorder để ghi dữ liệu video
-            const mediaRecorder = new MediaRecorder(screenStream, { mimeType: 'video/webm' });
+            const mediaRecorder = new MediaRecorder(screenStream, { mimeType: 'video/webm;codecs=vp9' });
             mediaRecorder.ondataavailable = (event) => {
                 if (event.data.size > 0) {
-                    if (ws.current.readyState === WebSocket.OPEN) {
-                        const threadBuffer = new Uint32Array([thread]); // thread là số nguyên
+                    console.log('Kích thước dữ liệu video: ', event.data.size);  // Ghi log kích thước dữ liệu video
 
-                        event.data.arrayBuffer().then((videoBuffer) => {
+                    // Chuyển đổi dữ liệu sang ArrayBuffer để gửi
+                    event.data.arrayBuffer().then((videoBuffer) => {
+                        if (ws.current.readyState === WebSocket.OPEN) {
+                            const threadBuffer = new Uint32Array([thread]); // thread là số nguyên
                             const combinedBuffer = new Uint8Array(threadBuffer.byteLength + videoBuffer.byteLength);
 
                             // Ghi dữ liệu thread vào buffer
@@ -170,16 +173,20 @@ const shareScreen = async () => {
                             // Ghi dữ liệu video vào buffer
                             combinedBuffer.set(new Uint8Array(videoBuffer), threadBuffer.byteLength);
 
+                            // Log thêm kích thước và nội dung buffer trước khi gửi
+                            console.log('Kích thước threadBuffer: ', threadBuffer.byteLength);
+                            console.log('Kích thước videoBuffer: ', videoBuffer.byteLength);
+                            console.log('Kích thước combinedBuffer: ', combinedBuffer.byteLength);
+                            console.log('MIME type video: ', event.data.type); // Ghi log MIME type của dữ liệu
                             // Gửi dữ liệu qua WebSocket
                             ws.current.send(combinedBuffer.buffer);
-                        });
-                    } else {
-                        console.error('WebSocket không mở khi gửi dữ liệu.');
-                    }
+                        } else {
+                            console.error('WebSocket không mở khi gửi dữ liệu.');
+                        }
+                    });
                 }
             };
-            mediaRecorder.start(5000);
-            
+            mediaRecorder.start(3500);  
             screenStream.getVideoTracks()[0].onended = () => {
                 console.log('Chia sẻ màn hình đã dừng.');
                 setIsScreenSharing(false);
@@ -190,7 +197,6 @@ const shareScreen = async () => {
                 }
                 mediaRecorder.stop();
             };
-
         } catch (error) {
             console.log('Lỗi khi chia sẻ màn hình:', error);
         }
@@ -205,7 +211,6 @@ const shareScreen = async () => {
         }
     }
 };
-
     const toggleDivVisibility = () => {
         setIsDivVisible(!isDivVisible);
     };
