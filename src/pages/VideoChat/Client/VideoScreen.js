@@ -9,7 +9,7 @@ function VideoScreen() {
     const thread = params.get('thread');
 
     useEffect(() => {
-        ws.current = new WebSocket(`ws://localhost:8080`);
+        ws.current = new WebSocket(`wss://socket.bwdjourney.id.vn:8080`);
 
         ws.current.onopen = () => {
             ws.current.send(JSON.stringify({ type: 'subscribe', thread_screen: thread }));

@@ -32,7 +32,7 @@ function MeetingNow({ onMeetingCreated }) {
             if (response.ok) {
                 setMeetingData(data);
                 onMeetingCreated(`Nhóm đang có 1 cuộc họp diễn ra ngay bây giờ.
-                Link tham gia : http://localhost:3000/VIETNAMJOURNEY-FE#/VideoChat?group_id=${group_id}&thread=${data.id}`);
+                Link tham gia : https://dinhduong1610.github.io/VIETNAMJOURNEY-FE/#/VideoChat?group_id=${group_id}&thread=${data.id}`);
             } else {
                 setError(data.error || 'Failed to create meeting');
             }
@@ -117,7 +117,7 @@ function ScheduleMeeting({ onMeetingCreated }) { // Nhận callback
                 setMeetingData(data);
                 setScheduleSuccessful(true);
                 onMeetingCreated(`Nhóm sẽ có 1 cuộc họp diễn ra vào lúc : ${data.date}.
-                Link tham gia : http://localhost:3000/VIETNAMJOURNEY-FE#/VideoChat?group_id=${group_id}&thread=${data.id}`);
+                Link tham gia : https://dinhduong1610.github.io/VIETNAMJOURNEY-FE/#/VideoChat?group_id=${group_id}&thread=${data.id}`);
                 message.success('Meeting scheduled successfully');
             } else {
                 message.error(data.error || 'Failed to schedule meeting');
@@ -152,7 +152,7 @@ function ScheduleMeeting({ onMeetingCreated }) { // Nhận callback
             ) : (
                 <div className={styles.meetingInfo}>
                     <h4>Cuộc họp đã được lên lịch</h4>
-                    <p>Link cuộc họp: <a href={`http://localhost:3000/VIETNAMJOURNEY-FE#/VideoChat?group_id=${group_id}&thread=${meetingData.id}`}>{`http://localhost:3000/VIETNAMJOURNEY-FE#/VideoChat?group_id=${group_id}&thread=${meetingData.id}`}</a></p>
+                    <p>Link cuộc họp: <a href={`https://dinhduong1610.github.io/VIETNAMJOURNEY-FE/#/VideoChat?group_id=${group_id}&thread=${meetingData.id}`}>{`http://localhost:3000/VIETNAMJOURNEY-FE#/VideoChat?group_id=${group_id}&thread=${meetingData.id}`}</a></p>
                     <p><strong>Thời gian:</strong> {new Date(meetingData.date).toLocaleString()}</p>
                 </div>
             )}

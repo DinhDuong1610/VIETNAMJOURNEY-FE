@@ -36,7 +36,7 @@ function User() {
                     setUserInfo([{ userId: user_id, name: data.name, image: data.image }]);
 
                     // Kết nối đến WebSocket
-                    ws.current = new WebSocket(`ws://localhost:8080`);
+                    ws.current = new WebSocket(`wss://socket.bwdjourney.id.vn:8080`);
                     ws.current.onopen = () => {
                         ws.current.send(JSON.stringify({
                             type: 'subscribe',
