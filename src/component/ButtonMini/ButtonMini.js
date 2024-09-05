@@ -1,18 +1,6 @@
-import CoGioiThieu from "./GioiThieu/GioiThieu.jsx";
-import CoVeChungToi from "./VeChungToi/VeChungToi.jsx";
-import CoThucTrang from "./ThucTrang/ThucTrang.jsx";
-import ThucTrang2 from "./ThucTrang2/ThucTrang2.js";
 import Chatbot from "../../component/Chatbot/Chatbot";
 import classNames from "classnames/bind";
-import style from "./TrangChu.module.scss";
 import { useNavigate } from "react-router-dom";
-
-import CoSuMenh1 from "./SuMenh1/SuMenh1.jsx";
-import CoSuMenh2 from "./SuMenh2/SuMenh2.jsx";
-import CoSuMenh3 from "./SuMenh3/SuMenh3.jsx";
-import TongQuan from "./TongQuan/TongQuan.js";
-import CoThongTinMoi from "./ThongTinMoi/ThongTinMoi.jsx";
-import Footer from "../../component/Footer/Footer.js";
 import { getCookie } from "../../Cookie/getCookie.js";
 
 import { CustomerServiceOutlined, CommentOutlined } from "@ant-design/icons";
@@ -20,11 +8,8 @@ import { useState, useEffect } from "react";
 import { FloatButton, Switch } from "antd";
 import "antd/dist/reset.css";
 import Draggable from 'react-draggable';
-import ButtonMini from "../../component/ButtonMini/ButtonMini.js";
 
-const cx = classNames.bind(style);
-
-function TrangChu() {
+function ButtonMini() {
   const navigate = useNavigate();
 
   const [open, setOpen] = useState(false);
@@ -149,27 +134,8 @@ function TrangChu() {
   }, []);
 
   return (
-    <div className="Trangchu">
-      <CoGioiThieu />
-
-      <TongQuan />
-
-      {/* <CoVeChungToi /> */}
-      
-      <CoThucTrang />
-
-      <ThucTrang2 />
-
-      {/* <CoThucTrangVideo /> */}
-
-      <CoSuMenh1 />
-      <CoSuMenh2 />
-      <CoSuMenh3 />
-
-      <CoThongTinMoi />
-
-      <Footer />
-      {/* <Draggable >
+    <div className="ButtonMini">
+      <Draggable >
         <FloatButton.Group
         open={open}
         trigger="click"
@@ -183,19 +149,19 @@ function TrangChu() {
             style={{ color: "#00ae2e" }}
           ></i>
         }
-        badge={{
-          count: 17,
-          color: "red",
-        }}
+        // badge={{
+        //   count: 17,
+        //   color: "red",
+        // }}
       >
         <FloatButton
           icon={
             <i class="fa-solid fa-envelope" style={{ color: "#48d4ff" }}></i>
           }
-          badge={{
-            count: 12,
-            color: "red",
-          }}
+        //   badge={{
+        //     count: 12,
+        //     color: "red",
+        //   }}
           onClick={() => navigate("/Email")}
         />
         <FloatButton
@@ -205,23 +171,26 @@ function TrangChu() {
               style={{ color: "#8591ff" }}
             ></i>
           }
-          badge={{
-            count: 5,
-            color: "red",
-          }}
+        //   badge={{
+        //     count: 5,
+        //     color: "red",
+        //   }}
           onClick={() => navigate("/Messenger?type=user&user_id=0")}
         />
+        {/* <FloatButton
+          icon={
+            <i class="fa-brands fa-twitch" style={{ color: "#00ae2e" }}></i>
+          }
+        /> */}
 
-        <FloatButton
+        {/* <FloatButton
           icon={
             <i className="fa-brands fa-twitch" style={{ color: "#00ae2e" }}></i>
           }
           onClick={toggleChatbot}
-        />
+        /> */}
       </FloatButton.Group>
-      </Draggable> */}
-
-      <ButtonMini />
+      </Draggable>
 
       
 
@@ -230,4 +199,4 @@ function TrangChu() {
   );
 }
 
-export default TrangChu;
+export default ButtonMini;

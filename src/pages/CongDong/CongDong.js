@@ -5,6 +5,7 @@ import Friends from '../User/Friend/Friends';
 import Post from '../User/Post/Post.js';
 import { Skeleton } from 'antd';
 import API_BASE_URL from '../../config/configapi.js';
+import ButtonMini from "../../component/ButtonMini/ButtonMini.js";
 
 function CongDong() {
     const cookies = document.cookie;
@@ -205,7 +206,9 @@ function CongDong() {
                 </div>
                 </div>
             </div>
+            <ButtonMini />               
         </div>
+
     );
 }
 
