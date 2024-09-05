@@ -141,6 +141,7 @@ const handleClickOutside = (event) => {
       <div className={styles.links}>
         <nav>
           <Link to="/TrangChu">TRANG CHỦ</Link>
+          <Link to="/ThucTrang">THỰC TRẠNG</Link>
           <Link to="/CongDong">CỘNG ĐỒNG</Link>
           <Link to="/ChienDich">CHIẾN DỊCH</Link>
           <Link to="/Quy">QUỸ</Link>

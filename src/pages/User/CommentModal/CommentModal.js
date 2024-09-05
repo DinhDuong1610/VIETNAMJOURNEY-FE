@@ -44,7 +44,7 @@ const CommentModal = ({ onClose, postId }) => {
     }, [postId]);
 
     useEffect(() => {
-        const newSocket = new WebSocket('ws://localhost:8080');
+        const newSocket = new WebSocket('wss://socket.bwdjourney.id.vn:8080');
 
         newSocket.onopen = () => {
             console.log('WebSocket connection opened');
