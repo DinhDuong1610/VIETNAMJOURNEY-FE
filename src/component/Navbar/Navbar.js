@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import classNames from "classnames/bind";
 import styles from "./Navbar.module.css";
@@ -16,7 +16,8 @@ function Navbar() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [userInfo, setUserInfo] = useState(null);
-  const [token , setToken] = useState(null);
+  const [token, setToken] = useState(null);
+  const dropdownRef = useRef(null);
 
   const navigate = useNavigate();
   const userID = useCookie("User_ID");
@@ -63,11 +64,6 @@ function Navbar() {
   }, [userID, tokenFromCookie, navigate]);
 
   
-
-
-  
-  
-
   const toggleSidebar = () => {
     if(!userInfo) {
       navigate('/TaiKhoan');
@@ -83,6 +79,28 @@ function Navbar() {
   const closeDropdown = () => {
     setIsDropdownOpen(false);
   };
+
+const handleClickOutside = (event) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+      closeDropdown();
+    }
+  };
+
+  useEffect(() => {
+    if (isDropdownOpen) {
+      // Thêm sự kiện khi dropdown mở
+      document.addEventListener("mousedown", handleClickOutside);
+    } else {
+      // Loại bỏ sự kiện khi dropdown đóng
+      document.removeEventListener("mousedown", handleClickOutside);
+    }
+
+    // Cleanup sự kiện khi component unmount hoặc khi menu đóng
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [isDropdownOpen]);
+  
 
   const deleteCookie = (cookieName) => {
     const expireDate = new Date();
@@ -127,7 +145,7 @@ function Navbar() {
           <Link to="/ChienDich">CHIẾN DỊCH</Link>
           <Link to="/Quy">QUỸ</Link>
           {userInfo ? (
-            <div className={cx("nav-item", { open: isDropdownOpen })}>
+            <div className={cx("nav-item", { open: isDropdownOpen })} ref={dropdownRef}>
               <span className={cx("dropdown-toggle")} onClick={toggleDropdown}>
                 <img
                   style={{
