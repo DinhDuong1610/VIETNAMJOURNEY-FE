@@ -68,7 +68,7 @@ div.main div.divIn div.txt p {
     font-feature-settings: 'clig' off, 'liga' off;
     font-size: 24px;
     font-style: normal;
-    font-weight: 500;
+    font-weight: 600;
     line-height: 130%; /* 28.6px */
 }
 
@@ -110,7 +110,7 @@ div.main div.divIn div.posts .lnk {
 }
 
 
-@media screen and (max-width: 1500px) {
+@media screen and (max-width: 1600px) {
     div.main {
         margin: 80px 0;
     }

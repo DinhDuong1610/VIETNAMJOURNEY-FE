@@ -272,12 +272,12 @@ div.main div.bot div.eclipse {
 
 
     div.main div.top div.txt h2 {
-        font-size: 36px;
+        font-size: 28px;
         text-align: center;
     }
     
     div.main div.top div.txt h2 span {
-        font-size: 46px;
+        font-size: 36px;
     }
 
 
@@ -294,24 +294,24 @@ div.main div.bot div.eclipse {
 
     
     div.main div.bot div.tabs {
-        width: 100%;
+        width: 90%;
         height: auto;
-
         flex-direction: column;
         justify-content: flex-start;
         align-items: center;
-
         gap: 2rem;
     }
 
-
     div.main div.bot div.tabs div.tab {
         width: 90%;
-        height: 250px;
-
+        height: 200px;
         box-shadow: 0px 4px 30px 0px rgba(0, 0, 0, 0.2);
+        padding-top: 10px;
     }
 
+    div.main div.bot div.tabs div.tab .p1 {
+        /* margin-top: 0; */
+    }
 
     div.main div.bot div.eclipse {
         align-self: flex-start;

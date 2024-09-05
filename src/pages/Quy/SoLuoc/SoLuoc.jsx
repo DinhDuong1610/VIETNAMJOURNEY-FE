@@ -1,5 +1,7 @@
 import styles from './SoLuoc.module.css';
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import API_BASE_URL from "../../../config/configapi";
+import axios from 'axios';
 
 import anh1 from '../../../Images/Quy/SoLuoc/anh1.png';
 import anh2 from '../../../Images/Quy/SoLuoc/anh2.png';
@@ -11,6 +13,25 @@ function CoSoLuoc() {
     
     // Scrolling animation
     const hiddenElementsRef = useRef([]);
+
+    const [users, setUsers] = useState(0);
+    const [campaigns, setCampaigns] = useState(0);
+    const [fun, setFun] = useState(0);
+  
+    useEffect(() => {
+      const fetchFunData = async () => {
+        try {
+          const response = await axios.get(`${API_BASE_URL}api/home`);
+          setUsers(response.data.users);
+          setCampaigns(response.data.campaigns);
+          setFun(response.data.fun);
+        } catch (error) {
+          console.error("Lỗi khi lấy dữ liệu:", error);
+        }
+      };
+  
+      fetchFunData();
+    }, []);
 
     useEffect(() => {
         const observer = new IntersectionObserver((entries) => {
@@ -32,6 +53,14 @@ function CoSoLuoc() {
         //     hiddenElementsRef.current.forEach((el) => observer.unobserve(el));
         // };
     }, []);
+
+    function formatToMillion(amount) {
+        // Chia số cho 1 triệu để chuyển đổi sang triệu đồng
+        const billion = amount / 1000000000;
+        
+        // Giới hạn số thập phân và trả về chuỗi
+        return `${billion.toFixed(1)}`;
+    }
 
 
 
@@ -71,13 +100,13 @@ function CoSoLuoc() {
 
                 <div className={styles.stats2}>
                     <div className={`${styles.mini}`} ref={(el) => hiddenElementsRef.current.push(el)}>
-                        <h2>253</h2>
+                        <h2>{campaigns}</h2>
                         <p>Số dự án được hỗ trợ</p>
                     </div>
 
                     <div className={`${styles.mini}`} ref={(el) => hiddenElementsRef.current.push(el)}>
-                        <h2>13.9</h2>
-                        <p>Tổng số tiền (tỉ đồng)</p>
+                        <h2>{formatToMillion(fun)}</h2>
+                        <p>Tổng số tiền (tỷ đồng)</p>
                     </div>
 
                     <div className={`${styles.mini}`} ref={(el) => hiddenElementsRef.current.push(el)}>

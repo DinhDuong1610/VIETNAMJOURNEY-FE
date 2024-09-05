@@ -329,6 +329,7 @@ function ChiTiet({ campaign }) {
   };
 
   const [funData, setFunData] = useState([]);
+  const [totalAmount, setTotalAmount] = useState(0);
 
   useEffect(() => {
     // Hàm gọi API để lấy dữ liệu
@@ -338,6 +339,7 @@ function ChiTiet({ campaign }) {
           `${API_BASE_URL}api/getFunByCampaign/${campaign.id}`
         );
         setFunData(response.data.funs);
+        setTotalAmount(response.data.totalAmount);
       } catch (error) {
         console.error("Lỗi khi lấy dữ liệu:", error);
       }
@@ -515,7 +517,7 @@ function ChiTiet({ campaign }) {
             <div className={cx("title")}>Đăng ký tham gia</div>
             <div className={cx("register")}>
               <div className={cx("desc")}>
-                Số lượng TNV tham gia: {campaign.joined} 24 TNV
+                Số lượng TNV tham gia: {campaign.joined} TNV
               </div>
               {status === 0 && (
                 <button className={cx("button")} onClick={handleRegisterClick}>

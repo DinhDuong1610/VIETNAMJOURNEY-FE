@@ -461,7 +461,7 @@ function ChiTiet({ campaign }) {
             <div className={cx("title")}>Đăng ký tham gia</div>
             <div className={cx("register")}>
               <div className={cx("desc")}>
-                Số lượng TNV tham gia: {campaign.joined} 24 TNV
+                Số lượng TNV tham gia: {campaign.joined} TNV
               </div>
               {/* {status === null && (
                 <button className={cx("button")} onClick={handleRegisterClick}>

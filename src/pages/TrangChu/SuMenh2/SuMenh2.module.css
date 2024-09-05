@@ -52,9 +52,9 @@ div.main div.div2 p.p1 {
     text-align: center;
     font-feature-settings: 'clig' off, 'liga' off;
     text-shadow: 0px 4px 22px rgba(255, 255, 255, 0.25);
-    font-size: 34px;
+    font-size: 30px;
     font-style: normal;
-    font-weight: 800;
+    font-weight: 700;
     line-height: 130%; /* 44.2px */
 
     /* border: 1px solid red; */
@@ -157,7 +157,7 @@ div.main div.div2 div.bt1 img {
 }
 
 
-@media screen and (max-width: 1500px) {
+@media screen and (max-width: 1600px) {
     div.main div.div1 {
         height: 600px;
     }

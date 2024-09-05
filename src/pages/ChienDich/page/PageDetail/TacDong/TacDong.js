@@ -5,6 +5,7 @@ import style from "./TacDong.module.scss";
 import CountUp from "react-countup";
 import API_BASE_URL from "../../../../../config/configapi";
 import { Flex, Progress } from "antd";
+import axios from "axios";
 
 const cx = classNames.bind(style);
 
@@ -31,6 +32,28 @@ function TacDong({ campaign }) {
 
   const totalMoney = campaign.totalMoney;
   const moneyByVNJN = campaign.moneyByVNJN;
+
+  
+  const [funData, setFunData] = useState([]);
+  const [totalAmount, setTotalAmount] = useState(0);
+  const [countAmount, setCountAmount] = useState(0);
+
+  useEffect(() => {
+    const fetchFunData = async () => {
+      try {
+        const response = await axios.get(
+          `${API_BASE_URL}api/getFunByCampaign/${campaign.id}`
+        );
+        setFunData(response.data.funs);
+        setTotalAmount(response.data.totalAmount);
+        setCountAmount(response.data.countAmount);
+      } catch (error) {
+        console.error("Lỗi khi lấy dữ liệu:", error);
+      }
+    };
+
+    fetchFunData();
+  }, []);
 
   return (
     <div className={cx("TacDong")} ref={componentRef}>
@@ -87,7 +110,7 @@ function TacDong({ campaign }) {
           <div className={cx("progress-number")}>
             <span className={cx("number-current")}>
               <CountUp
-                end={18345000}
+                end={totalAmount}
                 duration={1}
                 formattingFn={(value) =>
                   value.toLocaleString("vi-VN", {
@@ -113,7 +136,7 @@ function TacDong({ campaign }) {
           </div>
 
           <Progress
-            percent={Math.floor((18345000 / totalMoney) * 100)}
+            percent={Math.floor((totalAmount / totalMoney) * 100)}
             percentPosition={{
               align: "end",
               type: "inner",
@@ -126,12 +149,12 @@ function TacDong({ campaign }) {
           <div className={cx("sub-progress-number")}>
             <div className={cx("sub")}>
               <div className={cx("sub-title")}>Lượt quyên góp</div>
-              <div className={cx("sub-number")}>9876</div>
+              <div className={cx("sub-number")}>{countAmount}</div>
             </div>
             <div className={cx("sub")}>
               <div className={cx("sub-title")}>Đạt được</div>
               <div className={cx("sub-number")}>
-                {Math.floor((18345000 / totalMoney) * 100)}%
+                {Math.floor((totalAmount / totalMoney) * 100)}%
               </div>
             </div>
             <div className={cx("sub")}>
