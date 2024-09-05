@@ -301,7 +301,8 @@ function UpdateCampaign() {
     formData.append("dateStart", event.target.elements.dateStart.value);
     formData.append("dateEnd", event.target.elements.dateEnd.value);
     formData.append("totalMoney", event.target.elements.totalMoney.value);
-    formData.append("moneyByVNJN", event.target.elements.moneyByVNJN.value);
+    formData.append("moneyByVNJN", 10000000);
+    // formData.append("moneyByVNJN", event.target.elements.moneyByVNJN.value);
     formData.append("province", selectedProvince ? selectedProvince.label : "");
     formData.append("district", selectedDistrict ? selectedDistrict.label : "");
     // formData.append("location", event.target.elements.location.value);
@@ -496,7 +497,7 @@ function UpdateCampaign() {
             />
           </div>
 
-          <div className={cx("money")}>
+          {/* <div className={cx("money")}>
             <label htmlFor="money-by-VNJN" className={cx("money-by-VNJN")}>
               Quỹ VIETNAM JOURNEY tài trợ:{" "}
             </label>
@@ -508,16 +509,16 @@ function UpdateCampaign() {
               defaultValue={campaign.moneyByVNJN}
               required
             />
-          </div>
+          </div> */}
         </div>
 
         <hr />
         <div className={cx("title")}>Thông tin chi tiết </div>
         <div className={cx("row")}>
           <div className={cx("col-6", "timeline-row")}>
-            <label htmlFor="timeline" className={cx("timeline")}>
+            {/* <label htmlFor="timeline" className={cx("timeline")}>
               Thông tin các mốc thời gian:{" "}
-            </label>
+            </label> */}
             <div className={cx("time")}>
               <label className={cx("inner-title")}>Giai đoạn ban đầu</label>
               <input
@@ -550,11 +551,11 @@ function UpdateCampaign() {
             <label htmlFor="location" className={cx("location")}>
               Thông tin chi tiết về địa điểm{" "}
             </label>
-            <button type="button" onClick={showModal}>
+            <button type="button" onClick={showModal}  className={cx("location-button")}>
               Thêm địa điểm <i class="fa-solid fa-circle-plus"></i>
             </button>
             {locations.map((location, index) => (
-              <div key={index} className={cx("form", "form-contact")}>
+              <div key={index} className={cx("row-location")}>
                 <input
                   type="text"
                   id={`locationName-${index}`}
