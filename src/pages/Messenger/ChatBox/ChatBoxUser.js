@@ -160,7 +160,7 @@ function ChatBoxUser({ closeChatBox }) {
                             <i onClick={handleGoBack} class="fa-solid fa-arrow-left"></i>
                         <img src={userInfo.image} alt="Avatar" />
                         <div className={styles.containerHeaderInfo}>
-                            <h5 style={{ fontWeight: 'revert' }}>{userInfo.name || 'Người dùng'}</h5>
+                            <h5 style={{ fontWeight: 'revert',lineHeight: '1rem' }}>{userInfo.name || 'Người dùng'}</h5>
                                 <p>Người dùng VietNamJourney</p>
                             
                         </div>
