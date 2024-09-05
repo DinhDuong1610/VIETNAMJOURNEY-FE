@@ -14,73 +14,72 @@ function User() {
     const [userInfo, setUserInfo] = useState([]);
     const [adminInfo, setAdminInfo] = useState(null);
     const [error, setError] = useState(null);
-    const [exitingUsers, setExitingUsers] = useState([]); // Track users who are exiting
-
+    const [exitingUsers, setExitingUsers] = useState([]); 
     const group_id = params.get('group_id');
     const user_id = useCheckCookie('User_ID', '/TaiKhoan');
     const navigate = useNavigate();
     const ws = useRef(null);
 
     useEffect(() => {
-        if (group_id && user_id) {
-            fetch(`${API_BASE_URL}api/checkMemberMeeting`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ campaign_id: group_id, user_id: user_id })
-            })
-            .then(response => response.json())
-            .then(data => {
-                if (data.result === 'yes') {
-                    setUserInfo([{ userId: user_id, name: data.name, image: data.image }]);
+    if (group_id && user_id) {
+        fetch(`${API_BASE_URL}api/checkMemberMeeting`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ campaign_id: group_id, user_id: user_id })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.result === 'yes') {
+                setUserInfo([{ userId: user_id, name: data.name, image: data.image }]);
 
-                    // Kết nối đến WebSocket
-                    ws.current = new WebSocket(`wss://socket.bwdjourney.id.vn:8080`);
-                    ws.current.onopen = () => {
+                // Kết nối đến WebSocket
+                ws.current = new WebSocket(`wss://socket.bwdjourney.id.vn:8080`);
+
+                // Xử lý khi kết nối mở
+                ws.current.onopen = () => {
+                    if (ws.current.readyState === WebSocket.OPEN) {
                         ws.current.send(JSON.stringify({
                             type: 'subscribe',
                             thread_meeting: thread,
                             thread_user: user_id,
                             userInfo: { userId: user_id, name: data.name, image: data.image }
                         }));
-                    };
+                    }
+                };
 
-                    ws.current.onmessage = (event) => {
-                        const message = JSON.parse(event.data);
-                        if (message.type === 'userListUpdate' && Array.isArray(message.users)) {
-                            // Handle user list updates with slide animations
-                            setUserInfo(prevInfo => {
-                                const updatedInfo = [...message.users];
+                   ws.current.onmessage = (event) => {
+    const message = JSON.parse(event.data);
+    if (message.type === 'userListUpdate' && Array.isArray(message.users)) {
+        setUserInfo(prevInfo => {
+            const updatedInfo = [...prevInfo];
 
-                                // Handle exiting users
-                                const currentUserIds = prevInfo.map(user => user.userId);
-                                const newUserIds = updatedInfo.map(user => user.userId);
+            // Lọc bỏ userID đã tồn tại
+            message.users.forEach(newUser => {
+                const userExists = prevInfo.some(user => user.userId === newUser.userId);
+                if (!userExists) {
+                    updatedInfo.push(newUser);
+                }
+            });
 
-                                // Identify users who are no longer in the room
-                                const usersToExit = prevInfo.filter(user => !newUserIds.includes(user.userId));
+            // Xử lý user rời khỏi
+            const currentUserIds = prevInfo.map(user => user.userId);
+            const newUserIds = message.users.map(user => user.userId);
 
-                                // Add exit class to users who are leaving
-                                usersToExit.forEach(user => {
-                                    setExitingUsers(prevExiting => [...prevExiting, user.userId]);
-                                    setTimeout(() => {
-                                        setUserInfo(prevState => prevState.filter(u => u.userId !== user.userId));
-                                        setExitingUsers(prevExiting => prevExiting.filter(id => id !== user.userId));
-                                    }, 500); // Match the duration of the slideOut animation
-                                });
+            const usersToExit = prevInfo.filter(user => !newUserIds.includes(user.userId));
+            usersToExit.forEach(user => {
+                setExitingUsers(prevExiting => [...prevExiting, user.userId]);
+                setTimeout(() => {
+                    setUserInfo(prevState => prevState.filter(u => u.userId !== user.userId));
+                    setExitingUsers(prevExiting => prevExiting.filter(id => id !== user.userId));
+                }, 500);
+            });
 
-                                // Add new users who joined the room
-                                message.users.forEach(newUser => {
-                                    const userExists = prevInfo.some(user => user.userId === newUser.userId);
-                                    if (!userExists) {
-                                        updatedInfo.push(newUser);
-                                    }
-                                });
-
-                                return updatedInfo;
-                            });
-                        }
-                    };
+            return updatedInfo;
+        });
+    }
+};
 
                     ws.current.onerror = (error) => {
                         console.error('WebSocket error:', error);

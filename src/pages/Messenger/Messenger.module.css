@@ -79,7 +79,7 @@ body {
 }
 
 .chatname {
-    max-height: 30rem; /* Hoặc giá trị chiều cao bạn muốn */
+    max-height: 50rem; /* Hoặc giá trị chiều cao bạn muốn */
     height: 100%; /* Để nó chiếm toàn bộ chiều cao của cha */
     overflow-y: hidden; /* Ban đầu tắt cuộn */
     display: flex;
