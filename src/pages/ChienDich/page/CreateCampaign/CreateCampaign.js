@@ -518,7 +518,7 @@ function CreateCampaign() {
             <label htmlFor="location" className={cx("location")}>
               Thông tin chi tiết về địa điểm{" "}
             </label>
-            <button className={cx("location-button")} onClick={showModal}>
+            <button type="button" className={cx("location-button")} onClick={showModal}>
               Thêm địa điểm <i class="fa-solid fa-circle-plus"></i>
             </button>
             {locations.map((location, index) => (

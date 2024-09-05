@@ -53,10 +53,10 @@ function Manager() {
     );
   }
 
-  // Xử lý lỗi
-  if (error) {
-    return <div>Error: {error}</div>;
-  }
+  // // Xử lý lỗi
+  // if (error) {
+  //   return <div>Error: {error}</div>;
+  // }
 
   // Xác định dữ liệu cho trang hiện tại
   const indexOfLastItem = currentPage * itemsPerPage;
