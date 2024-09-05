@@ -268,6 +268,10 @@ function CoDonate() {
     fetchFunData();
   }, []);
 
+  function maskPhoneNumber(phone) {
+    return phone.slice(0, -4).replace(/\d/g, '* ') + phone.slice(-4);
+}
+
 
 
 
@@ -502,11 +506,11 @@ function CoDonate() {
                 </tr>
               </thead>
               <tbody>
-                {funData.map((fun, index) => (
+                {funData.slice().reverse().map((fun, index) => (
                   <tr key={fun.id}>
                     <td className={cx("text-center")}>{index + 1}</td>
                     <td>{fun.name}</td>
-                    <td>{fun.phone}</td>
+                    <td>{maskPhoneNumber(fun.phone)}</td>
                     <td className={cx("money")}>{formatCurrency(fun.amount)}</td>
                     <td className={cx("time")}>{new Date(fun.time).toLocaleString()}</td>
                   </tr>

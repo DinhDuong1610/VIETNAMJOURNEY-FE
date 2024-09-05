@@ -8,7 +8,7 @@ import Modal from "react-modal";
 import API_BASE_URL from "../../../../../config/configapi";
 import Table from "react-bootstrap/Table";
 import Cycle from "./Cycle";
-import { Timeline, ConfigProvider } from "antd";
+import { Timeline, ConfigProvider, Alert } from "antd";
 import { Modal as AntdModal } from "antd";
 import mapboxgl from "mapbox-gl";
 import "mapbox-gl/dist/mapbox-gl.css";
@@ -308,7 +308,13 @@ function ChiTiet({ campaign }) {
 
       console.log("okkk");
       if (response.status === 201) {
-        alert(response.data.message);
+        // alert(response.data.message);
+        <Alert
+        message="Thành công!"
+        description="Đăng ký tham gia chiến dịch thành công"
+        type="success"
+        showIcon
+      />
         closeRegisterModal();
         setStatus(1);
         // Xử lý thành công
@@ -397,6 +403,10 @@ function ChiTiet({ campaign }) {
       return () => map.remove();
     }
   }, [open]);
+
+  function maskPhoneNumber(phone) {
+    return phone.slice(0, -4).replace(/\d/g, '* ') + phone.slice(-4);
+}
 
 
   return (
@@ -702,11 +712,11 @@ function ChiTiet({ campaign }) {
                       </tr>
                     </thead>
                     <tbody>
-                      {funData.map((fun, index) => (
+                      {funData.slice().reverse().map((fun, index) => (
                         <tr key={fun.id}>
                           <td className={cx("text-center")}>{index + 1}</td>
                           <td>{fun.name}</td>
-                          <td>{fun.phone}</td>
+                          <td>{maskPhoneNumber(fun.phone)}</td>
                           <td className={cx("money")}>
                             {formatCurrency(fun.amount)}
                           </td>

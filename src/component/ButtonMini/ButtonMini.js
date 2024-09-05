@@ -135,7 +135,7 @@ function ButtonMini() {
 
   return (
     <div className="ButtonMini">
-      <Draggable >
+      {/* <Draggable > */}
         <FloatButton.Group
         open={open}
         trigger="click"
@@ -190,7 +190,7 @@ function ButtonMini() {
           onClick={toggleChatbot}
         /> */}
       </FloatButton.Group>
-      </Draggable>
+      {/* </Draggable> */}
 
       
 
