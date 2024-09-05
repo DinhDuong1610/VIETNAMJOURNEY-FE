@@ -59,7 +59,7 @@ function Compose() {
     e.preventDefault();
     try {
       // Ensure userId is included in formData
-      await axios.post("${API_BASE_URL}api/email/create", {
+      await axios.post(`${API_BASE_URL}api/email/create`, {
         ...formData,
         userId: userId, // Include userId here
       });
