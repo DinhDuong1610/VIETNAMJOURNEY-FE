@@ -63,7 +63,7 @@
 
 .userinfo h6 {
     font-weight: 600;
-    max-width: 100%;
+    max-width: 80%;
     white-space: nowrap;
     text-overflow: ellipsis;
     margin-bottom: 5px;
@@ -71,12 +71,11 @@
 }
 
 .userinfo p {
-    max-width: 70%;
-    white-space: nowrap;
+    margin: 0;
+    font-weight: revert;
+    max-width: 11rem; 
     overflow: hidden;
-    text-overflow: ellipsis;
-    margin-top: 0;
-    margin-bottom: 0;
-    font-size: 18px;
+    text-overflow: ellipsis; 
+    white-space: nowrap;
 }@media (max-width: 450px) {
 }
