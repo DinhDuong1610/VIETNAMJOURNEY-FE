@@ -390,6 +390,24 @@
         .collection-list-wrapper {
             display: none;
         }
+
+        .join {
+            width: 20rem;
+            height: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgb(182, 182, 182);
+            background-color: rgb(255, 255, 255);
+            color: green;
+            font-size: larger;
+            font-weight: 700;
+            margin-top: 1rem;
+        }
+
+        .join:hover {
+            border: 1px solid rgb(48, 47, 47);
+            background-color: rgb(19, 139, 19);
+            color: rgb(255, 255, 255);
+        }
     </style>
 
     <!-- Global site tag (gtag.js) - Google Analytics -->
@@ -928,9 +946,8 @@
                         <p class="copy-large text-medium">Giáo dục cộng đồng về tầm quan trọng của bảo vệ môi trường và
                             khuyến khích mọi người tham gia vào các hoạt động bảo vệ
                             môi trường cũng là một yếu tố quan trọng.</p>
-                        <div onclick="navigate('TrangChu')" class="p-sm-start"><a target="_blank"
-                                class="button is-secondary w-button">Tham
-                                gia ngay</a></div>
+                        <button onclick="navigate('TrangChu')" class="join">Tham
+                            gia ngay</button>
                     </div>
                 </div>
             </div>
