@@ -1,5 +1,5 @@
 import classNames from "classnames/bind";
-import style from "./Donate.module.css";
+import style from "./Donate.module.scss";
 
 import React, { useState, useEffect, useRef } from "react";
 import Modal from "react-modal";
