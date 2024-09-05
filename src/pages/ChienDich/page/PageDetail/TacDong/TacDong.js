@@ -159,7 +159,7 @@ function TacDong({ campaign }) {
             </div>
             <div className={cx("sub")}>
               <div className={cx("sub-title")}>Thời gian còn</div>
-              <div className={cx("sub-number")}>31 ngày</div>
+              <div className={cx("sub-number")}>{Math.max(0, Math.floor((new Date(campaign.dateStart) - Date.now()) / (1000 * 60 * 60 * 24)))} ngày</div>
             </div>
           </div>
         </div>

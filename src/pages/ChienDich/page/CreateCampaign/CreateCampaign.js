@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import Select from "react-select";
 import { getCookie } from "../../../../Cookie/getCookie";
-import { Alert, Button, Space } from "antd";
+import { Button, Space } from "antd";
 import API_BASE_URL from "../../../../config/configapi";
 import MapBoxComponent from "./MapComponent";
 import { Modal } from "antd";
@@ -14,6 +14,7 @@ import "mapbox-gl/dist/mapbox-gl.css";
 import MapboxGeocoder from "@mapbox/mapbox-gl-geocoder";
 import "@mapbox/mapbox-gl-geocoder/dist/mapbox-gl-geocoder.css"; // Import CSS cho Geocoder
 import { Timeline, ConfigProvider } from "antd";
+import Alert from 'react-bootstrap/Alert';
 
 const cx = classNames.bind(style);
 
@@ -278,6 +279,9 @@ function CreateCampaign() {
       console.log("Phản hồi từ API:", response.data);
       if (response.data.success) {
         alert("Thêm chiến dịch thành công!");
+        // <Alert key={'success'} variant={'success'}>
+        //   Tạo chiến dịch thành công!
+        // </Alert>
         navigate("/Manager");
       } else {
         alert("Lỗi: " + response.data.error);
