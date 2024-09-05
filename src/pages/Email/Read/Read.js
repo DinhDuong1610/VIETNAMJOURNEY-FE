@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import classNames from "classnames/bind";
 import style from "./Read.module.scss";
+import API_BASE_URL from "../../../config/configapi";
 
 const cx = classNames.bind(style);
 
@@ -31,7 +32,7 @@ const Read = () => {
   const fetchEmail = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/email/read/${userId}/${emailId}`
+        `${API_BASE_URL}api/email/read/${userId}/${emailId}`
       );
       setEmail(response.data.email);
       setTotalEmails(response.data.totalEmails);

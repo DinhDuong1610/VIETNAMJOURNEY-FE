@@ -4,6 +4,7 @@ import axios from "axios";
 import Pagination from "../Pagination";
 import classNames from "classnames/bind";
 import style from "./EmailSend.module.scss";
+import API_BASE_URL from "../../../config/configapi";
 
 const cx = classNames.bind(style);
 
@@ -37,7 +38,7 @@ const Email = () => {
   const fetchEmails = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/email/${userId}?page=${currentPage}`
+        `${API_BASE_URL}api/email/${userId}?page=${currentPage}`
       );
       setEmails(response.data.emails);
       setTotalPages(response.data.totalPages);
@@ -58,7 +59,7 @@ const Email = () => {
   const updateEmailStatus = async (emailId) => {
     try {
       const response = await axios.post(
-        `http://localhost:8000/api/email/readed/${emailId}`,
+        `${API_BASE_URL}api/email/readed/${emailId}`,
         { status: 1 },
         {
           headers: {

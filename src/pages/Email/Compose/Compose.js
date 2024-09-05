@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import classNames from "classnames/bind";
 import style from "./Compose.module.scss";
+import API_BASE_URL from "../../../config/configapi";
 
 const cx = classNames.bind(style);
 
@@ -36,7 +37,7 @@ function Compose() {
   const fetchEmails = async () => {
     try {
       const response = await axios.get(
-        `http://localhost:8000/api/email/${userId}`
+        `${API_BASE_URL}api/email/${userId}`
       );
       setTotalEmails(response.data.totalEmails);
       setTotalEmailsSend(response.data.totalEmailsSend);
@@ -58,7 +59,7 @@ function Compose() {
     e.preventDefault();
     try {
       // Ensure userId is included in formData
-      await axios.post("http://localhost:8000/api/email/create", {
+      await axios.post("${API_BASE_URL}api/email/create", {
         ...formData,
         userId: userId, // Include userId here
       });
