@@ -63,7 +63,7 @@ function Information() {
             <h2 className={styles.heading}>Thông tin cuộc họp</h2>
             {info && (
                 <div className={styles['info-container']}>
-                     <p className={styles['info-item']}><strong>Tên :</strong> {info.campaign.name}</p>
+                    <p className={styles['info-item']}><strong>Tên :</strong> {info.campaign.name}</p>
                     <p className={styles['info-item']}><strong>Ngày bắt đầu : </strong> {info.date}</p>
                     <p className={styles['info-item']}><strong>Tỉnh/Thành phố :</strong> {info.campaign.province}</p>
                 </div>
@@ -72,7 +72,7 @@ function Information() {
                 <div className={styles['info-container']}>
                     <h3 className={styles.subheading}>Quản trị viên</h3>
                     <p className={styles['info-item']}><strong>Tên :</strong> {adminInfo.name}</p>
-                    <p className={styles['info-item']}><img src={`http://localhost:8000/${adminInfo.image}`} alt={adminInfo.name} className={styles['admin-image']} /></p>
+                    <p className={styles['info-item']}><img src={`https://bwdjourney.id.vn/${adminInfo.image}`} alt={adminInfo.name} className={styles['admin-image']} /></p>
                 </div>
             )}
         </div>
