@@ -1,12 +1,12 @@
 .container {
     width: 100%;
-    max-height: 30rem; /* Adjust this as needed, can also use a percentage value */
+    max-height: 50rem; /* Adjust this as needed, can also use a percentage value */
     background-color: rgb(255, 255, 255);
     display: flex;
     padding: 0;
     flex-direction: column;
-    overflow-y: auto; /* Enable scrolling */
-    height: 100%;  
+    overflow-y: auto;
+    height: 100rem;  
 
     input:focus {
         outline: none;
