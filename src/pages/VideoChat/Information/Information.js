@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import styles from './Information.module.css'; // Import the CSS module
 import { Skeleton, message } from 'antd';
-import API_BASE_URL from '../../../config/configapi.js'; // Import message from antd
+import API_BASE_URL from '../../../config/configapi.js'; 
 
 function Information() {
     const location = useLocation();

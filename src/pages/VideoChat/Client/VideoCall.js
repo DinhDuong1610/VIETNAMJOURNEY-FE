@@ -8,7 +8,6 @@ function VideoCall() {
     const params = new URLSearchParams(location.search);
     const thread = params.get('thread');
 
-    // Thêm ref để tham chiếu đến video element
     const videoRef = useRef(null);
 
     useEffect(() => {
@@ -20,7 +19,6 @@ function VideoCall() {
         ws.current.onmessage = (event) => {
             const receivedMessage = JSON.parse(event.data);
             if (receivedMessage.type === 'sendMessage') {
-                // Xử lý thông báo từ WebSocket tại đây
             }
         };
 
@@ -37,7 +35,7 @@ function VideoCall() {
         <Draggable>
             <video
                 ref={videoRef} 
-                style={{ width: '10rem', height: '10rem', backgroundColor: 'black',position : 'absolute',zIndex : '1000',cursor : 'move',borderRadius :'15px' }} // Thêm thuộc tính `backgroundColor` nếu cần
+                style={{ width: '10rem', height: '10rem', backgroundColor: 'black',position : 'absolute',zIndex : '1000',cursor : 'move',borderRadius :'15px' }} 
                 autoPlay
                 playsInline
             >

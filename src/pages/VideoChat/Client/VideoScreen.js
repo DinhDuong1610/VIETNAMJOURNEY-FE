@@ -20,7 +20,7 @@ function VideoScreen() {
 
         ws.current.onmessage = (event) => {
             if (typeof event.data !== 'string') {
-                const mimeType = 'video/webm; codecs="vp9"'; // Hoặc tùy chỉnh nếu cần
+                const mimeType = 'video/webm; codecs="vp9"'; 
                 if (!MediaSource.isTypeSupported(mimeType)) {
                     console.error('MIME type không được hỗ trợ:', mimeType);
                     return;

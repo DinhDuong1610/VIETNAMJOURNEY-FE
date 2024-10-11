@@ -34,10 +34,8 @@ function User() {
             if (data.result === 'yes') {
                 setUserInfo([{ userId: user_id, name: data.name, image: data.image }]);
 
-                // Kết nối đến WebSocket
                 ws.current = new WebSocket(`wss://socket.bwdjourney.id.vn:8080`);
 
-                // Xử lý khi kết nối mở
                 ws.current.onopen = () => {
                     if (ws.current.readyState === WebSocket.OPEN) {
                         ws.current.send(JSON.stringify({
@@ -55,7 +53,6 @@ function User() {
         setUserInfo(prevInfo => {
             const updatedInfo = [...prevInfo];
 
-            // Lọc bỏ userID đã tồn tại
             message.users.forEach(newUser => {
                 const userExists = prevInfo.some(user => user.userId === newUser.userId);
                 if (!userExists) {
@@ -63,7 +60,6 @@ function User() {
                 }
             });
 
-            // Xử lý user rời khỏi
             const currentUserIds = prevInfo.map(user => user.userId);
             const newUserIds = message.users.map(user => user.userId);
 

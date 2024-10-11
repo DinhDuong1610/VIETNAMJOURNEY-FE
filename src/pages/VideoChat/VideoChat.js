@@ -47,7 +47,6 @@ const VideoChat = () => {
             const receivedMessage = JSON.parse(event.data);
             if (receivedMessage.type === 'screenShare') {
                 const videoBlob = receivedMessage.videoBlob;
-                // Xử lý videoBlob nhận được ở đây
             }
         };
 
@@ -74,9 +73,9 @@ const VideoChat = () => {
                 const adminId = data.data.admin.userId;
                 setIsAdmin(adminId === parseInt(user_id));
             } else if (data.status === 'soon') {
-                    message.warning("Opps, Cuộc họp chưa bắt đầu !", 3, () => navigate('/TrangChu')); // Show warning and redirect to home
+                    message.warning("Opps, Cuộc họp chưa bắt đầu !", 3, () => navigate('/TrangChu')); 
                 } else if (data.status === 'late') {
-                    message.error("Cuộc họp đã kết thúc !", 3, () => navigate('/TrangChu')); // Show error and redirect to home
+                    message.error("Cuộc họp đã kết thúc !", 3, () => navigate('/TrangChu')); 
                 }
             setLoading(false);
         })
@@ -133,7 +132,7 @@ const shareScreen = async () => {
         try {
             console.log('Bắt đầu chia sẻ màn hình...');
 
-            // Khởi tạo peerConnection nếu cần thiết
+            
             if (!peerConnectionRef.current || peerConnectionRef.current.signalingState === 'closed') {
                 peerConnectionRef.current = createPeerConnection();
             }
@@ -156,11 +155,11 @@ const shareScreen = async () => {
                 };
             });
 
-            // Sử dụng MediaRecorder để ghi dữ liệu video
+            
             const mediaRecorder = new MediaRecorder(screenStream, { mimeType: 'video/webm;codecs=vp9' });
             mediaRecorder.ondataavailable = (event) => {
                 if (event.data.size > 0) {
-                    console.log('Kích thước dữ liệu video: ', event.data.size);  // Ghi log kích thước dữ liệu video
+                    console.log('Kích thước dữ liệu video: ', event.data.size);  
 
                     // Chuyển đổi dữ liệu sang ArrayBuffer để gửi
                     event.data.arrayBuffer().then((videoBuffer) => {
@@ -173,12 +172,10 @@ const shareScreen = async () => {
                             // Ghi dữ liệu video vào buffer
                             combinedBuffer.set(new Uint8Array(videoBuffer), threadBuffer.byteLength);
 
-                            // Log thêm kích thước và nội dung buffer trước khi gửi
                             console.log('Kích thước threadBuffer: ', threadBuffer.byteLength);
                             console.log('Kích thước videoBuffer: ', videoBuffer.byteLength);
                             console.log('Kích thước combinedBuffer: ', combinedBuffer.byteLength);
-                            console.log('MIME type video: ', event.data.type); // Ghi log MIME type của dữ liệu
-                            // Gửi dữ liệu qua WebSocket
+                            console.log('MIME type video: ', event.data.type); 
                             ws.current.send(combinedBuffer.buffer);
                         } else {
                             console.error('WebSocket không mở khi gửi dữ liệu.');
@@ -240,23 +237,22 @@ const shareScreen = async () => {
             peerConnectionRef.current.close();
         }
 
-        // Stop local video tracks
+        
         if (localVideoRef.current && localVideoRef.current.srcObject) {
             localVideoRef.current.srcObject.getTracks().forEach(track => track.stop());
         }
 
-        // Stop screen sharing tracks
+        
         if (screenShareRef.current && screenShareRef.current.srcObject) {
             screenShareRef.current.srcObject.getTracks().forEach(track => track.stop());
         }
 
-        // Send 'endMeeting' message via WebSocket
+        
         if (ws.current && ws.current.readyState === WebSocket.OPEN) {
             ws.current.send(JSON.stringify({ type: 'endMeeting', thread }));
             ws.current.close();
         }
 
-        // Make API call to closeMeeting
         try {
             await fetch(`${API_BASE_URL}api/closeMeeting`, {
                 method: 'POST',
@@ -272,7 +268,6 @@ const shareScreen = async () => {
         // Navigate back to the home page
         navigate('/Messenger?type=user&user_id=0');
     } else {
-        // Send 'endMeeting' message via WebSocket for non-admins
         if (ws.current && ws.current.readyState === WebSocket.OPEN) {
             ws.current.send(JSON.stringify({ type: 'endMeeting', thread }));
             ws.current.close();

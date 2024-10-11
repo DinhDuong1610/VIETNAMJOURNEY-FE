@@ -48,8 +48,8 @@ const NewPost = ({ onClose }) => {
 
             if (result.success) {
                 console.log('Post added successfully');
-                onClose(); // Close the modal
-                navigate(0); // Refresh the page
+                onClose(); 
+                navigate(0); 
             } else {
                 console.error('Failed to add post:', result.error);
                 alert(`Failed to add post: ${result.error}`);
