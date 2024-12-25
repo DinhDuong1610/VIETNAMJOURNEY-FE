@@ -35,6 +35,7 @@ const CommentModal = ({ onClose, postId }) => {
 
         setLoading(false);
       } catch (error) {
+        console.error("Error fetching comments:", error);
         setError("Error fetching comments");
         setLoading(false);
       }
@@ -44,7 +45,7 @@ const CommentModal = ({ onClose, postId }) => {
   }, [postId]);
 
   useEffect(() => {
-    const newSocket = new WebSocket("wss://socket.bwdjourney.id.vn:8080");
+    const newSocket = new WebSocket("ws://localhost:8080");
 
     newSocket.onopen = () => {
       console.log("WebSocket connection opened");
@@ -60,6 +61,10 @@ const CommentModal = ({ onClose, postId }) => {
       } catch (e) {
         console.error("Error parsing WebSocket message:", e);
       }
+    };
+
+    newSocket.onerror = (error) => {
+      console.error("WebSocket error:", error);
     };
 
     newSocket.onclose = () => {
@@ -84,6 +89,7 @@ const CommentModal = ({ onClose, postId }) => {
 
   const sendComment = async () => {
     if (!commentContent.trim() && !commentImage) {
+      alert("Vui lòng nhập nội dung hoặc chọn hình ảnh.");
       return;
     }
 
@@ -102,10 +108,12 @@ const CommentModal = ({ onClose, postId }) => {
       });
       const data = await response.json();
 
+      console.log("Server response:", data);
+
       if (data.success) {
         const newComment = {
           ...data.comment,
-          avatar: data.comment.user_avatar, // Ensure the avatar is set correctly
+          avatar: data.comment.Image,
         };
 
         if (socket && socket.readyState === WebSocket.OPEN) {
@@ -117,14 +125,16 @@ const CommentModal = ({ onClose, postId }) => {
             })
           );
         }
-        setComments([newComment, ...comments]);
+
+        setComments((prevComments) => [newComment, ...prevComments]);
         setCommentContent("");
         setCommentImage(null);
       } else {
-        alert(`Failed to add comment: ${data.error}`);
+        alert(`Không thể thêm bình luận: ${data.error}`);
       }
     } catch (error) {
       console.error("Error adding comment:", error);
+      alert("Đã xảy ra lỗi khi thêm bình luận.");
     }
   };
 
@@ -144,7 +154,7 @@ const CommentModal = ({ onClose, postId }) => {
             comments.map((comment, index) => (
               <div key={index} className={styles.modalContent}>
                 <img
-                  src={comment.avatar}
+                  src={comment.Image}
                   alt="Avatar"
                   onClick={() => handleAvatarClick(comment.user_ID)}
                   style={{ cursor: "pointer" }}

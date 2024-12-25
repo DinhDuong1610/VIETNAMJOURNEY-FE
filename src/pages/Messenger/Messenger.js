@@ -57,7 +57,7 @@ function Messenger() {
             
             if (!handledOnce && receivedMessage.type === 'getUserOnlines') {
                 setArray(receivedMessage.onlineUsers);
-                handledOnce = true; // Đánh dấu đã xử lý dữ liệu
+                handledOnce = true; 
             }
         };
 
